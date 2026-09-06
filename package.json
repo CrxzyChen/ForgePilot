@@ -2,6 +2,7 @@
   "name": "ai-game-kernel-workspace",
   "version": "0.4.0-preview.1",
   "private": true,
+  "license": "Apache-2.0",
   "engines": {
     "node": ">=22.13.0"
   },
@@ -30,7 +31,7 @@
     "format:check": "oxfmt --check",
     "typecheck": "tsc --noEmit",
     "check:kernel": "node scripts/check-kernel.mjs",
-    "check:environment": "node scripts/check-environment.mjs",
+    "check:environment": "node scripts/check-environment.mjs && node scripts/check-license-files.mjs",
     "check:legacy:ir": "node scripts/generate-game-ir.mjs --check",
     "check:codex-protocol": "node scripts/check-codex-protocol.mjs",
     "check:studio-ui-contract": "node scripts/check-studio-ui-contract.ts && node scripts/check-copilot-activity.ts",

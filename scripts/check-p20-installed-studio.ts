@@ -13,6 +13,7 @@ import {
 } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, relative, resolve } from 'node:path';
+import { verifyStudioLicenses } from './studio-license-files.mjs';
 
 const repository = resolve(process.cwd());
 const version = JSON.parse(
@@ -220,6 +221,7 @@ try {
   });
   assert.equal(extracted.status, 0, extracted.stderr || extracted.stdout);
   const installA = join(temporary, releaseName);
+  verifyStudioLicenses(repository, join(installA, 'resources', 'app'));
   const installB = join(temporary, 'installed-b');
   const cleanInstall = await smoke(installA, userData);
   writeFileSync(

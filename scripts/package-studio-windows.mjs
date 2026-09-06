@@ -16,6 +16,7 @@ import { tmpdir } from 'node:os';
 import { basename, dirname, join, relative, resolve } from 'node:path';
 
 import { resolveBuildEnvironment } from './msvc-environment.mjs';
+import { copyStudioLicenses } from './studio-license-files.mjs';
 import {
   assertReleaseSourceUnchanged,
   captureReleaseSource,
@@ -175,6 +176,7 @@ try {
         productName: 'AI Game Studio',
         version: workspacePackage.version,
         private: true,
+        license: 'Apache-2.0',
         type: 'module',
         main: 'dist/electron/main/main.js',
       },
@@ -224,6 +226,8 @@ try {
     ),
     join(codexDestination, 'vendor', 'x86_64-pc-windows-msvc'),
   );
+
+  copyStudioLicenses(root, appRoot);
 
   const gateParent = join(temporary, 'projects');
   mkdirSync(gateParent, { recursive: true });

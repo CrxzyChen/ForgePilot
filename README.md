@@ -16,8 +16,10 @@ package IDs and protocol namespaces are retained for compatibility. This
 repository does not bundle local credentials, machine caches or binary releases.
 
 The project name is a working product name, not a trademark clearance claim.
-No new open-source license is granted by this naming or repository publication;
-third-party components remain subject to their respective licenses.
+ForgePilot's original code is licensed under [Apache-2.0](LICENSE), matching
+Codex's license. Commercial use, modification and redistribution are permitted
+under its terms. Third-party components retain their own licenses; see
+[third-party notices](THIRD-PARTY-NOTICES.md).
 
 ## Product shape
 
