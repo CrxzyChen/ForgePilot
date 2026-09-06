@@ -1,0 +1,7 @@
+{
+  "id": "core:topdown-action",
+  "version": "1.0.0",
+  "capabilities": ["topdown-action", "tilemap"],
+  "agentsFragment": "AGENTS.fragment.md",
+  "project": { "genre": "topdown-action" }
+}

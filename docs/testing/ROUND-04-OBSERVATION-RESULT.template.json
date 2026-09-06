@@ -1,0 +1,96 @@
+{
+  "kind": "ai-game-studio/round04-human-observation-result",
+  "schemaVersion": 1,
+  "observationId": "",
+  "decision": "RETEST_REQUIRED",
+  "candidate": {
+    "filename": "AI-Game-Studio-0.3.0-preview.1-scene-ux-fix-win-x64.zip",
+    "sha256": "94b9c8b89a685e071690bef6c9783fbae4de8775714e1a04040dae9da54490e9"
+  },
+  "environment": {
+    "windowsVersion": "",
+    "cleanProfileEvidence": "",
+    "displayResolution": "",
+    "displayScalePercent": 0
+  },
+  "participant": {
+    "identifier": "",
+    "experience": "",
+    "neverUsedBuild": false
+  },
+  "observer": {
+    "identifier": ""
+  },
+  "consent": {
+    "screenAndVoiceRecording": false
+  },
+  "timing": {
+    "startedAt": "",
+    "endedAt": "",
+    "activeMinutes": 0
+  },
+  "journeys": {
+    "A": {
+      "started": false,
+      "completedWithoutHelp": false,
+      "activeMinutes": 0,
+      "result": "NOT_RUN",
+      "recordingTimeRange": "",
+      "outputArtifactPaths": []
+    },
+    "B": {
+      "started": false,
+      "completedWithoutHelp": false,
+      "activeMinutes": 0,
+      "result": "NOT_RUN",
+      "recordingTimeRange": "",
+      "outputArtifactPaths": []
+    },
+    "C": {
+      "started": false,
+      "completedWithoutHelp": false,
+      "activeMinutes": 0,
+      "result": "NOT_RUN",
+      "recordingTimeRange": "",
+      "outputArtifactPaths": []
+    },
+    "D": {
+      "started": false,
+      "completedWithoutHelp": false,
+      "activeMinutes": 0,
+      "result": "NOT_RUN",
+      "recordingTimeRange": "",
+      "outputArtifactPaths": []
+    }
+  },
+  "checks": {
+    "cleanWindowsProfile": false,
+    "noExternalTools": false,
+    "noCoaching": false,
+    "studioStandaloneParity": false,
+    "noCredentialLeak": false,
+    "allArtifactsCollected": false,
+    "noOpenBlockersOrRetested": false
+  },
+  "codexTaskIds": [],
+  "planIds": [],
+  "changeSetIds": [],
+  "transactionIds": [],
+  "openBlockerIds": ["R4-OBS-001"],
+  "evidenceRefs": {
+    "runRecordPaths": [],
+    "recordingPaths": [],
+    "projectArchivePaths": [],
+    "developmentPackagePaths": [],
+    "releasePackagePaths": [],
+    "testResultPaths": [],
+    "replayPaths": [],
+    "credentialScanPaths": []
+  },
+  "signatures": {
+    "observer": "",
+    "participant": "",
+    "signedAt": ""
+  },
+  "notes": ""
+}

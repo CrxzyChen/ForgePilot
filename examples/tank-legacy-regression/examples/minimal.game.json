@@ -1,0 +1,43 @@
+{
+  "kind": "ai-game-kernel/project",
+  "schemaVersion": "1.0.0",
+  "id": "demo:frontier",
+  "name": "Frontier",
+  "entryWorld": "demo:frontier/map",
+  "worlds": [
+    {
+      "id": "demo:frontier/map",
+      "name": "Frontier Map",
+      "bounds": { "width": 32, "height": 18 },
+      "entities": [
+        {
+          "id": "demo:frontier/player",
+          "name": "Player Column",
+          "components": [
+            { "type": "core:transform", "position": { "x": 2, "y": 9 } },
+            { "type": "game:player-controlled" },
+            {
+              "type": "game:mergeable",
+              "faction": "demo:player",
+              "strength": 10
+            }
+          ]
+        },
+        {
+          "id": "demo:frontier/granary",
+          "name": "Granary",
+          "components": [
+            { "type": "core:transform", "position": { "x": 12, "y": 6 } },
+            { "type": "game:capture-site", "requiredStrength": 20 },
+            {
+              "type": "game:producer",
+              "resource": "grain",
+              "amountPerCycle": 2,
+              "cycleTicks": 30
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

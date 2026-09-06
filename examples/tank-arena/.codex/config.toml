@@ -1,0 +1,4 @@
+# Studio resolves this stable launcher to its installed Engine MCP implementation.
+[mcp_servers.ai-game-engine]
+command = "aigame-mcp"
+args = ["--project", "."]

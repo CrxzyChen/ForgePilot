@@ -1,0 +1,15 @@
+{
+  "kind": "ai-game-kernel/project",
+  "schemaVersion": "1.0.0",
+  "id": "demo:migration",
+  "name": "Migration fixture",
+  "entryWorld": "demo:migration/map",
+  "worlds": [
+    {
+      "id": "demo:migration/map",
+      "name": "Old Map",
+      "bounds": { "width": 8, "height": 8 },
+      "entities": []
+    }
+  ]
+}

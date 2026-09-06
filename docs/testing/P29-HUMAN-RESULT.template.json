@@ -1,0 +1,51 @@
+{
+  "schemaVersion": "1.0.0",
+  "candidate": {
+    "sourceCommit": "",
+    "studioVersion": "0.3.0-preview.1",
+    "projectPath": ""
+  },
+  "participant": {
+    "id": "",
+    "didNotImplementP29": true
+  },
+  "startedAt": "",
+  "endedAt": "",
+  "journeyB": {
+    "capabilityOnlyImageRequested": false,
+    "perCallApprovalObserved": false,
+    "imageCandidatesCompared": 0,
+    "candidateRejected": false,
+    "candidateSelected": false,
+    "importChangeSetReviewed": false,
+    "importApplied": false,
+    "provenanceInspected": false,
+    "importRolledBack": false,
+    "soundEffectPlayed": false,
+    "jobCancelled": false,
+    "transientFailureRetried": false,
+    "budgetPolicyObserved": false
+  },
+  "forbiddenWorkarounds": {
+    "coaching": false,
+    "terminal": false,
+    "externalIde": false,
+    "directFileEdit": false,
+    "devtools": false,
+    "screenAutomation": false
+  },
+  "secretObserved": false,
+  "blockers": [],
+  "evidence": {
+    "recordingPath": "",
+    "transcriptPath": "",
+    "assetJobIds": [],
+    "changeSetIds": [],
+    "artifactHashes": []
+  },
+  "outcome": "not-run",
+  "signoff": {
+    "name": "",
+    "at": ""
+  }
+}

@@ -1,0 +1,287 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-game-kernel.dev/schema/media-generation-job/1-0-0",
+  "title": "Provider-neutral Media Generation Job",
+  "description": "Durable paid-or-networked media work. The document contains credential references and effective routing metadata, never credential values or private provider payloads.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "jobId",
+    "idempotencyKey",
+    "toolCallId",
+    "completionRunId",
+    "capability",
+    "request",
+    "effectiveRoute",
+    "status",
+    "cost",
+    "attempts",
+    "retryPolicy",
+    "candidateIds",
+    "createdAt",
+    "updatedAt"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "jobId": { "$ref": "#/$defs/JobId" },
+    "idempotencyKey": {
+      "type": "string",
+      "pattern": "^idem:[a-z0-9][a-z0-9_-]*$"
+    },
+    "toolCallId": {
+      "type": "string",
+      "pattern": "^tool-call:[a-z0-9][a-z0-9_./-]*$"
+    },
+    "executionSource": {
+      "enum": ["broker-provider", "codex-media-tool"],
+      "description": "Whether Studio executed the provider request or registered an already-produced, hash-bound Codex media-tool artifact. Registration never implies provider authorization."
+    },
+    "completionRunId": {
+      "type": "string",
+      "pattern": "^completion-run:[a-z0-9][a-z0-9_-]*$"
+    },
+    "planStepId": {
+      "type": "string",
+      "pattern": "^plan-step:[a-z0-9][a-z0-9_-]*$"
+    },
+    "capability": { "$ref": "#/$defs/Capability" },
+    "legacyMigration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["requestedCapability", "resolvedCapability", "rule"],
+      "properties": {
+        "requestedCapability": { "const": "audio" },
+        "resolvedCapability": { "const": "speechGeneration" },
+        "rule": { "const": "audio-to-speech-generation-v1" }
+      }
+    },
+    "request": { "$ref": "#/$defs/Request" },
+    "effectiveRoute": { "$ref": "#/$defs/EffectiveRoute" },
+    "status": { "$ref": "#/$defs/Status" },
+    "waitReason": {
+      "enum": ["approval", "provider", "candidate-review", "none"]
+    },
+    "approval": {
+      "oneOf": [{ "$ref": "#/$defs/Approval" }, { "type": "null" }]
+    },
+    "providerOperationId": {
+      "type": ["string", "null"],
+      "maxLength": 256
+    },
+    "progress": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stage"],
+      "properties": {
+        "stage": {
+          "enum": [
+            "queued",
+            "submitted",
+            "processing",
+            "downloading",
+            "finalizing"
+          ]
+        },
+        "fraction": { "type": "number", "minimum": 0, "maximum": 1 },
+        "message": { "type": "string", "maxLength": 500 }
+      }
+    },
+    "cost": { "$ref": "#/$defs/Cost" },
+    "attempts": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/Attempt" }
+    },
+    "retryPolicy": { "$ref": "#/$defs/RetryPolicy" },
+    "candidateIds": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^candidate:[a-z0-9][a-z0-9_-]*$"
+      }
+    },
+    "failure": {
+      "oneOf": [{ "$ref": "#/$defs/Failure" }, { "type": "null" }]
+    },
+    "remoteCancellationGuaranteed": { "type": "boolean" },
+    "createdAt": { "$ref": "#/$defs/Timestamp" },
+    "updatedAt": { "$ref": "#/$defs/Timestamp" }
+  },
+  "$defs": {
+    "Timestamp": { "type": "string", "format": "date-time" },
+    "Hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "JobId": {
+      "type": "string",
+      "pattern": "^asset-job:[a-z0-9][a-z0-9_-]*$"
+    },
+    "Capability": {
+      "enum": ["image", "soundEffect", "music", "speechGeneration"]
+    },
+    "Status": {
+      "enum": [
+        "queued",
+        "awaitingApproval",
+        "running",
+        "awaitingReview",
+        "awaitingImportApproval",
+        "failed",
+        "cancelled",
+        "imported",
+        "rejected"
+      ]
+    },
+    "Request": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "prompt",
+        "parameters",
+        "requestedCandidates",
+        "requestHash"
+      ],
+      "properties": {
+        "prompt": { "type": "string", "minLength": 1, "maxLength": 20000 },
+        "negativePrompt": { "type": "string", "maxLength": 10000 },
+        "parameters": { "type": "object", "additionalProperties": true },
+        "requestedCandidates": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16
+        },
+        "requestHash": { "$ref": "#/$defs/Hash" },
+        "sourceAssetIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^asset:[a-z0-9][a-z0-9_./-]*$"
+          }
+        }
+      }
+    },
+    "EffectiveRoute": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "providerId",
+        "credentialRef",
+        "modelId",
+        "endpointClass",
+        "parameterSchemaId",
+        "routeSource"
+      ],
+      "properties": {
+        "providerId": { "type": "string", "minLength": 1, "maxLength": 96 },
+        "credentialRef": {
+          "type": ["string", "null"],
+          "pattern": "^credential:[a-z0-9][a-z0-9_-]*$"
+        },
+        "modelId": { "type": "string", "minLength": 1, "maxLength": 160 },
+        "endpointClass": {
+          "enum": ["synchronous", "asynchronous", "streaming", "local"]
+        },
+        "parameterSchemaId": { "type": "string", "minLength": 1 },
+        "routeSource": {
+          "enum": ["project", "studio-default", "request-override"]
+        }
+      }
+    },
+    "Approval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["approvalId", "mode", "decision", "policyHash", "decidedAt"],
+      "properties": {
+        "approvalId": {
+          "type": "string",
+          "pattern": "^approval:[a-z0-9][a-z0-9_-]*$"
+        },
+        "mode": { "enum": ["per-call", "known-budget", "pre-authorized"] },
+        "decision": { "enum": ["approved", "rejected", "policy-approved"] },
+        "policyHash": { "$ref": "#/$defs/Hash" },
+        "decidedAt": { "$ref": "#/$defs/Timestamp" }
+      }
+    },
+    "Cost": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["currency", "estimateState", "actualState"],
+      "properties": {
+        "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+        "estimateState": { "enum": ["known", "unknown"] },
+        "estimatedMaximum": { "type": "number", "minimum": 0 },
+        "actualState": { "enum": ["known", "unknown", "not-billed"] },
+        "actual": { "type": "number", "minimum": 0 }
+      }
+    },
+    "Attempt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["attemptId", "number", "status", "startedAt"],
+      "properties": {
+        "attemptId": {
+          "type": "string",
+          "pattern": "^asset-attempt:[a-z0-9][a-z0-9_-]*$"
+        },
+        "number": { "type": "integer", "minimum": 1 },
+        "status": {
+          "enum": ["running", "succeeded", "failed", "ambiguous", "cancelled"]
+        },
+        "startedAt": { "$ref": "#/$defs/Timestamp" },
+        "finishedAt": { "$ref": "#/$defs/Timestamp" },
+        "reconciliation": {
+          "enum": [
+            "not-required",
+            "pending",
+            "confirmed-not-run",
+            "confirmed-run"
+          ]
+        }
+      }
+    },
+    "Failure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "category", "message", "retryable"],
+      "properties": {
+        "code": { "type": "string", "minLength": 1 },
+        "category": {
+          "enum": [
+            "missing-credential",
+            "provider-unhealthy",
+            "unsupported-model",
+            "invalid-parameter",
+            "quota",
+            "rate-limit",
+            "safety-refusal",
+            "transient",
+            "timeout-ambiguous",
+            "cancelled",
+            "internal"
+          ]
+        },
+        "message": { "type": "string", "minLength": 1 },
+        "retryable": { "type": "boolean" },
+        "retryAfterMs": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "RetryPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "maxAttempts",
+        "backoffBaseMs",
+        "backoffCapMs",
+        "nextRetryAt"
+      ],
+      "properties": {
+        "maxAttempts": { "type": "integer", "minimum": 1, "maximum": 10 },
+        "backoffBaseMs": { "type": "integer", "minimum": 0 },
+        "backoffCapMs": { "type": "integer", "minimum": 0 },
+        "nextRetryAt": {
+          "oneOf": [{ "$ref": "#/$defs/Timestamp" }, { "type": "null" }]
+        }
+      }
+    }
+  }
+}

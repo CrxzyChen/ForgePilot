@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "2.0.0",
+  "routes": {
+    "image": {
+      "providerId": "openai",
+      "modelId": "gpt-image-2"
+    },
+    "soundEffect": {
+      "providerId": "elevenlabs",
+      "modelId": "eleven_text_to_sound_v2"
+    },
+    "music": {
+      "providerId": "elevenlabs",
+      "modelId": "music_v2"
+    },
+    "speechGeneration": {
+      "providerId": "aliyun-bailian",
+      "modelId": "qwen-audio-3.0-tts-flash"
+    }
+  }
+}

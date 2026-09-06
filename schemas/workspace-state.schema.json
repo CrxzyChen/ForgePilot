@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-game-kernel.dev/schema/workspace-state/2-0-0-alpha-1",
+  "title": "AI Game Studio local workspace state",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "activity",
+    "rightPanel",
+    "bottomPanel",
+    "openDocuments",
+    "activeDocument",
+    "selectedEntityId",
+    "collapsedFolders",
+    "layout"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "2.0.0-alpha.1" },
+    "activity": {
+      "enum": [
+        "explorer",
+        "search",
+        "source-control",
+        "assets",
+        "tests",
+        "build",
+        "extensions",
+        "settings"
+      ]
+    },
+    "rightPanel": { "enum": ["inspector", "copilot"] },
+    "bottomPanel": {
+      "enum": ["console", "problems", "tests", "profiler", "event-timeline"]
+    },
+    "openDocuments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "title", "kind", "pinned"],
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "title": { "type": "string", "minLength": 1 },
+          "kind": {
+            "enum": [
+              "overview",
+              "scene-2d",
+              "scene-3d",
+              "game",
+              "code",
+              "prefab",
+              "ui",
+              "material",
+              "animation",
+              "resource",
+              "diff",
+              "build-report"
+            ]
+          },
+          "pinned": { "type": "boolean" }
+        }
+      }
+    },
+    "activeDocument": { "type": ["string", "null"] },
+    "selectedEntityId": { "type": ["string", "null"] },
+    "collapsedFolders": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    },
+    "layout": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "leftWidth",
+        "rightWidth",
+        "bottomHeight",
+        "outlineCollapsed",
+        "filesCollapsed"
+      ],
+      "properties": {
+        "leftWidth": { "type": "number", "minimum": 180, "maximum": 440 },
+        "rightWidth": { "type": "number", "minimum": 250, "maximum": 520 },
+        "bottomHeight": { "type": "number", "minimum": 110, "maximum": 360 },
+        "outlineCollapsed": { "type": "boolean" },
+        "filesCollapsed": { "type": "boolean" }
+      }
+    }
+  }
+}

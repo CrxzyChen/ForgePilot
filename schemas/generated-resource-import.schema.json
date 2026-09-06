@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-game-kernel.dev/schema/generated-resource-import/1-0-0",
+  "title": "Transactional Generated Resource Import",
+  "description": "One reviewed candidate import represented by an approved semantic ChangeSet. Copy, manifest, provenance, import settings, and owned references apply or roll back as one transaction.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "importId",
+    "candidateId",
+    "reviewDecisionId",
+    "changeSetId",
+    "assetId",
+    "expectedCandidateHash",
+    "targetPath",
+    "operations",
+    "status",
+    "createdAt",
+    "updatedAt"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "importId": {
+      "type": "string",
+      "pattern": "^asset-import:[a-z0-9][a-z0-9_-]*$"
+    },
+    "candidateId": {
+      "type": "string",
+      "pattern": "^candidate:[a-z0-9][a-z0-9_-]*$"
+    },
+    "reviewDecisionId": {
+      "type": "string",
+      "pattern": "^review-decision:[a-z0-9][a-z0-9_-]*$"
+    },
+    "changeSetId": {
+      "type": "string",
+      "pattern": "^changeset:[a-z0-9][a-z0-9_-]*$"
+    },
+    "assetId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*:asset/[a-z0-9][a-z0-9_./-]*$"
+    },
+    "expectedCandidateHash": { "$ref": "#/$defs/Hash" },
+    "appliedAssetHash": {
+      "oneOf": [{ "$ref": "#/$defs/Hash" }, { "type": "null" }]
+    },
+    "targetPath": { "$ref": "#/$defs/ProjectPath" },
+    "operations": {
+      "type": "array",
+      "minItems": 3,
+      "items": { "$ref": "#/$defs/OwnedOperation" }
+    },
+    "status": {
+      "enum": [
+        "proposed",
+        "approved",
+        "applying",
+        "applied",
+        "rollingBack",
+        "rolledBack",
+        "recoveryRequired",
+        "failed"
+      ]
+    },
+    "recovery": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["checkpoint", "lastCompletedOperationId"],
+      "properties": {
+        "checkpoint": {
+          "enum": ["none", "staged", "mutating", "committed", "rolling-back"]
+        },
+        "lastCompletedOperationId": {
+          "type": ["string", "null"],
+          "pattern": "^operation:[a-z0-9][a-z0-9_-]*$"
+        }
+      }
+    },
+    "createdAt": { "$ref": "#/$defs/Timestamp" },
+    "updatedAt": { "$ref": "#/$defs/Timestamp" }
+  },
+  "$defs": {
+    "Timestamp": { "type": "string", "format": "date-time" },
+    "Hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "ProjectPath": {
+      "type": "string",
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\).+$"
+    },
+    "OwnedOperation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "operationId",
+        "kind",
+        "target",
+        "ownsRollback",
+        "beforeHash",
+        "afterHash"
+      ],
+      "properties": {
+        "operationId": {
+          "type": "string",
+          "pattern": "^operation:[a-z0-9][a-z0-9_-]*$"
+        },
+        "kind": {
+          "enum": [
+            "asset.copy",
+            "asset.manifest.upsert",
+            "asset.provenance.write",
+            "asset.import-settings.write",
+            "reference.set"
+          ]
+        },
+        "target": { "$ref": "#/$defs/ProjectPath" },
+        "semanticTargetId": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_./-]*$"
+        },
+        "ownsRollback": { "const": true },
+        "beforeHash": {
+          "oneOf": [{ "$ref": "#/$defs/Hash" }, { "type": "null" }]
+        },
+        "afterHash": { "$ref": "#/$defs/Hash" }
+      }
+    }
+  }
+}

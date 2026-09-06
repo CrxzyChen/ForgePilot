@@ -1,0 +1,7 @@
+{
+  "id": "core:pixel-art",
+  "version": "1.0.0",
+  "capabilities": ["pixel-art-workflow"],
+  "agentsFragment": "AGENTS.fragment.md",
+  "project": { "artWorkflow": "pixel-art" }
+}

@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-game-kernel.dev/schema/script-runtime/2-0-0-alpha-1",
+  "title": "AI Game project script runtime",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "sdkVersion",
+    "modules",
+    "systems",
+    "commands",
+    "events",
+    "schedule",
+    "budgets"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "2.0.0-alpha.1" },
+    "sdkVersion": { "type": "string", "minLength": 1 },
+    "modules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "kind", "source"],
+        "properties": {
+          "id": { "$ref": "#/$defs/semanticId" },
+          "kind": {
+            "enum": ["behavior", "system", "event-handler", "library"]
+          },
+          "source": { "$ref": "#/$defs/projectPath" }
+        }
+      }
+    },
+    "systems": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "module", "export", "phase", "order", "query"],
+        "properties": {
+          "id": { "$ref": "#/$defs/semanticId" },
+          "module": { "$ref": "#/$defs/semanticId" },
+          "export": { "type": "string", "minLength": 1 },
+          "phase": { "$ref": "#/$defs/semanticId" },
+          "order": { "type": "integer" },
+          "query": {
+            "type": "array",
+            "items": { "$ref": "#/$defs/semanticId" },
+            "uniqueItems": true
+          }
+        }
+      }
+    },
+    "commands": { "$ref": "#/$defs/messages" },
+    "events": { "$ref": "#/$defs/messages" },
+    "schedule": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/semanticId" }
+    },
+    "budgets": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "memoryBytes",
+        "stackBytes",
+        "instructionsPerTick",
+        "eventsPerTick"
+      ],
+      "properties": {
+        "memoryBytes": { "type": "integer", "minimum": 1048576 },
+        "stackBytes": { "type": "integer", "minimum": 65536 },
+        "instructionsPerTick": { "type": "integer", "minimum": 1 },
+        "eventsPerTick": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "hotReload": {
+      "enum": ["restart-authoritative", "preserve-presentation"]
+    }
+  },
+  "$defs": {
+    "semanticId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_./-]*$"
+    },
+    "projectPath": {
+      "type": "string",
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\).+$"
+    },
+    "messages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "payloadSchema"],
+        "properties": {
+          "id": { "$ref": "#/$defs/semanticId" },
+          "payloadSchema": { "$ref": "#/$defs/projectPath" },
+          "documentation": { "type": "string" }
+        }
+      }
+    }
+  }
+}

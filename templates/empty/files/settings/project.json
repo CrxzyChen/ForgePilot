@@ -1,0 +1,9 @@
+{
+  "schemaVersion": "2.0.0-alpha.1",
+  "startupScene": "scenes/main.game.json",
+  "tickRate": 60,
+  "capabilities": [],
+  "scriptRuntime": "scripts/runtime.json",
+  "buildTargets": ["windows-x86_64"],
+  "project": {}
+}

@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "1.0.0",
+  "seed": 20260902,
+  "ticks": 35,
+  "commands": [
+    {
+      "commandId": "demo:command/move-east-1",
+      "tick": 1,
+      "type": "game:move-unit",
+      "entityId": "demo:frontier/player",
+      "destination": { "x": 3, "y": 9 }
+    },
+    {
+      "commandId": "demo:command/move-east-2",
+      "tick": 2,
+      "type": "game:move-unit",
+      "entityId": "demo:frontier/player",
+      "destination": { "x": 4, "y": 9 }
+    }
+  ]
+}

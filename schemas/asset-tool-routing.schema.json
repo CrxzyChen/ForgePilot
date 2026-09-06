@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aigame.local/schemas/asset-tool-routing.schema.json",
+  "title": "AI Game asset tool routing",
+  "type": "object",
+  "required": ["schemaVersion", "routes"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": { "const": "2.0.0" },
+    "routes": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "image": { "$ref": "#/$defs/route" },
+        "video": { "$ref": "#/$defs/route" },
+        "soundEffect": { "$ref": "#/$defs/route" },
+        "music": { "$ref": "#/$defs/route" },
+        "speechRecognition": { "$ref": "#/$defs/route" },
+        "speechGeneration": { "$ref": "#/$defs/route" },
+        "audio": {
+          "$ref": "#/$defs/route",
+          "deprecated": true,
+          "description": "Legacy alias for speechGeneration."
+        }
+      }
+    }
+  },
+  "$defs": {
+    "route": {
+      "type": "object",
+      "required": ["providerId", "modelId"],
+      "additionalProperties": false,
+      "properties": {
+        "providerId": { "type": "string", "minLength": 1, "maxLength": 96 },
+        "credentialRef": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "modelId": { "type": "string", "minLength": 1, "maxLength": 128 }
+      }
+    }
+  }
+}

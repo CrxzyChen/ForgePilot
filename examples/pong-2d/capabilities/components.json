@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "2.0.0-alpha.1",
+  "components": [
+    {
+      "type": "pong:paddle",
+      "label": "Pong Paddle",
+      "fields": [
+        {
+          "name": "side",
+          "type": "string",
+          "default": "left"
+        }
+      ]
+    },
+    {
+      "type": "pong:velocity",
+      "label": "Pong Velocity",
+      "fields": [
+        {
+          "name": "x",
+          "type": "number",
+          "default": 0.1
+        },
+        {
+          "name": "y",
+          "type": "number",
+          "default": 0.08
+        }
+      ]
+    }
+  ]
+}

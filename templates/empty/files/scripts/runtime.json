@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "2.0.0-alpha.1",
+  "sdkVersion": "0.2.0-alpha.1",
+  "modules": [],
+  "systems": [],
+  "commands": [],
+  "events": [],
+  "schedule": [
+    "engine:input",
+    "engine:pre-update",
+    "engine:fixed-update",
+    "engine:physics",
+    "engine:collision-events",
+    "engine:gameplay-events",
+    "engine:post-update",
+    "engine:snapshot",
+    "engine:presentation"
+  ],
+  "budgets": {
+    "memoryBytes": 67108864,
+    "stackBytes": 524288,
+    "instructionsPerTick": 1000000,
+    "eventsPerTick": 4096
+  },
+  "hotReload": "restart-authoritative"
+}

@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "1.0.0",
+  "actions": [
+    {
+      "id": "move-forward",
+      "bindings": ["KeyW", "ArrowUp"]
+    },
+    {
+      "id": "move-back",
+      "bindings": ["KeyS", "ArrowDown"]
+    },
+    {
+      "id": "move-left",
+      "bindings": ["KeyA", "ArrowLeft"]
+    },
+    {
+      "id": "move-right",
+      "bindings": ["KeyD", "ArrowRight"]
+    },
+    {
+      "id": "restart",
+      "bindings": ["KeyR", "Enter"]
+    }
+  ]
+}

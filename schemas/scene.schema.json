@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-game-kernel.dev/schema/scene/2-0-0-alpha-1",
+  "title": "AI Game Scene",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "id", "name", "space", "objects"],
+  "properties": {
+    "schemaVersion": { "const": "2.0.0-alpha.1" },
+    "id": { "$ref": "#/$defs/semanticId" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "space": { "enum": ["2d", "3d", "ui", "mixed"] },
+    "objects": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/object" }
+    }
+  },
+  "$defs": {
+    "semanticId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_./-]*$"
+    },
+    "object": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "enabled", "parentId", "order", "components"],
+      "properties": {
+        "id": { "$ref": "#/$defs/semanticId" },
+        "name": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "enabled": { "type": "boolean" },
+        "visible": { "type": "boolean", "default": true },
+        "locked": { "type": "boolean", "default": false },
+        "parentId": {
+          "oneOf": [{ "$ref": "#/$defs/semanticId" }, { "type": "null" }]
+        },
+        "order": { "type": "integer", "minimum": 0 },
+        "prefab": { "type": "string" },
+        "components": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "type", "enabled", "data"],
+            "properties": {
+              "id": { "$ref": "#/$defs/semanticId" },
+              "type": { "$ref": "#/$defs/semanticId" },
+              "enabled": { "type": "boolean" },
+              "data": { "type": "object" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

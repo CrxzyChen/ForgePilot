@@ -1,0 +1,201 @@
+{
+  "schemaVersion": "2.0.0",
+  "providers": [
+    {
+      "id": "local-placeholder",
+      "kind": "local-placeholder",
+      "enabled": true,
+      "paid": false,
+      "label": "Deterministic test fixture (not AI)",
+      "defaultModelByKind": {
+        "image": "deterministic-image",
+        "soundEffect": "deterministic-sound-effect",
+        "music": "deterministic-music",
+        "speechGeneration": "deterministic-speech"
+      },
+      "models": [
+        {
+          "id": "deterministic-image",
+          "label": "Local deterministic image (test)",
+          "kind": "image",
+          "adapter": "local-placeholder",
+          "maxVariants": 4,
+          "costPerCandidateCny": 0,
+          "defaults": {}
+        },
+        {
+          "id": "deterministic-sound-effect",
+          "label": "Local deterministic sound effect (test)",
+          "kind": "soundEffect",
+          "adapter": "local-placeholder",
+          "maxVariants": 4,
+          "costPerCandidateCny": 0,
+          "defaults": {}
+        },
+        {
+          "id": "deterministic-music",
+          "label": "Local deterministic music (test)",
+          "kind": "music",
+          "adapter": "local-placeholder",
+          "maxVariants": 4,
+          "costPerCandidateCny": 0,
+          "defaults": {}
+        },
+        {
+          "id": "deterministic-speech",
+          "label": "Local deterministic speech (test)",
+          "kind": "speechGeneration",
+          "adapter": "local-placeholder",
+          "maxVariants": 4,
+          "costPerCandidateCny": 0,
+          "defaults": {}
+        }
+      ]
+    },
+    {
+      "id": "openai",
+      "kind": "openai",
+      "paid": true,
+      "enabled": true,
+      "defaultModelByKind": {
+        "image": "gpt-image-2"
+      },
+      "models": [
+        {
+          "id": "gpt-image-2",
+          "label": "OpenAI GPT Image 2",
+          "kind": "image",
+          "adapter": "openai-image",
+          "maxVariants": 4,
+          "defaults": {
+            "size": "1024x1024",
+            "quality": "medium",
+            "format": "png",
+            "background": "transparent"
+          }
+        }
+      ]
+    },
+    {
+      "id": "aliyun-bailian",
+      "kind": "aliyun-bailian",
+      "paid": true,
+      "enabled": true,
+      "defaultModelByKind": {
+        "image": "wan2.6-t2i",
+        "speechGeneration": "qwen-audio-3.0-tts-flash"
+      },
+      "models": [
+        {
+          "id": "wan2.7-image-pro",
+          "label": "Wan 2.7 Image Pro",
+          "kind": "image",
+          "adapter": "aliyun-bailian-image",
+          "maxVariants": 4,
+          "defaults": {
+            "size": "2048*2048",
+            "watermark": false,
+            "promptExtend": true
+          }
+        },
+        {
+          "id": "wan2.7-image",
+          "label": "Wan 2.7 Image",
+          "kind": "image",
+          "adapter": "aliyun-bailian-image",
+          "maxVariants": 4,
+          "defaults": {
+            "size": "2048*2048",
+            "watermark": false,
+            "promptExtend": true
+          }
+        },
+        {
+          "id": "wan2.6-t2i",
+          "label": "Wan 2.6 T2I",
+          "kind": "image",
+          "adapter": "aliyun-bailian-image",
+          "maxVariants": 4,
+          "costPerCandidateCny": 0.14,
+          "defaults": {
+            "size": "1280*1280",
+            "watermark": false,
+            "promptExtend": true
+          }
+        },
+        {
+          "id": "wan2.5-t2i-preview",
+          "label": "Wan 2.5 T2I Preview",
+          "kind": "image",
+          "adapter": "aliyun-bailian-image",
+          "maxVariants": 4,
+          "defaults": {
+            "size": "1280*1280",
+            "watermark": false,
+            "promptExtend": true
+          }
+        },
+        {
+          "id": "qwen-audio-3.0-tts-plus",
+          "label": "Qwen Audio 3.0 TTS Plus",
+          "kind": "speechGeneration",
+          "adapter": "aliyun-bailian-tts",
+          "maxVariants": 1,
+          "defaults": {
+            "voice": "longanhuan_v3.6",
+            "format": "wav",
+            "sampleRate": 24000
+          }
+        },
+        {
+          "id": "qwen-audio-3.0-tts-flash",
+          "label": "Qwen Audio 3.0 TTS Flash",
+          "kind": "speechGeneration",
+          "adapter": "aliyun-bailian-tts",
+          "maxVariants": 1,
+          "defaults": {
+            "voice": "longanhuan_v3.6",
+            "format": "wav",
+            "sampleRate": 24000
+          }
+        }
+      ]
+    },
+    {
+      "id": "elevenlabs",
+      "kind": "elevenlabs",
+      "paid": true,
+      "enabled": true,
+      "defaultModelByKind": {
+        "soundEffect": "eleven_text_to_sound_v2",
+        "music": "music_v2"
+      },
+      "models": [
+        {
+          "id": "eleven_text_to_sound_v2",
+          "label": "ElevenLabs Text to Sound v2",
+          "kind": "soundEffect",
+          "adapter": "elevenlabs-sound-effect",
+          "maxVariants": 1,
+          "defaults": {
+            "durationSeconds": 1,
+            "loop": false,
+            "promptInfluence": 0.3,
+            "outputFormat": "mp3_44100_128"
+          }
+        },
+        {
+          "id": "music_v2",
+          "label": "Eleven Music v2",
+          "kind": "music",
+          "adapter": "elevenlabs-music",
+          "maxVariants": 1,
+          "defaults": {
+            "musicLengthMs": 30000,
+            "outputFormat": "mp3_48000_192"
+          }
+        }
+      ]
+    }
+  ]
+}

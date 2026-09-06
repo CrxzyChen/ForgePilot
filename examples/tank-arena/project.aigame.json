@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "local:tank-arena-example",
+  "name": "Tank Arena Example",
+  "engine": {
+    "version": "0.2.0-alpha.1",
+    "projectFormat": "1.0.0"
+  },
+  "entry": {
+    "scene": "scenes/main.game.json"
+  },
+  "templates": [
+    {
+      "id": "core:base",
+      "version": "1.0.0"
+    },
+    {
+      "id": "core:2d",
+      "version": "1.0.0"
+    },
+    {
+      "id": "core:empty",
+      "version": "2.0.0-alpha.1"
+    },
+    {
+      "id": "core:windows",
+      "version": "1.0.0"
+    }
+  ],
+  "targets": ["windows-x86_64"],
+  "defaultTarget": "windows-x86_64",
+  "capabilities": [
+    "2d",
+    "ai-changesets",
+    "deterministic-replay",
+    "orthographic-camera",
+    "project-skills",
+    "sprite-batch",
+    "ui",
+    "windows-build"
+  ],
+  "paths": {
+    "assets": "assets",
+    "scenes": "scenes",
+    "tests": "tests",
+    "replays": "replays"
+  }
+}

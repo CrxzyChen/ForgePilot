@@ -1,0 +1,7 @@
+{
+  "id": "core:3d",
+  "version": "2.0.0-alpha.1",
+  "capabilities": ["3d", "perspective-camera", "primitive-mesh"],
+  "agentsFragment": "AGENTS.fragment.md",
+  "project": { "dimension": "3d" }
+}

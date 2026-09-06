@@ -1,0 +1,7 @@
+{
+  "schemaVersion": "2.0.0-alpha.1",
+  "id": "{{PROJECT_NAMESPACE}}:scene/main",
+  "name": "Main",
+  "space": "{{PROJECT_SPACE}}",
+  "objects": []
+}

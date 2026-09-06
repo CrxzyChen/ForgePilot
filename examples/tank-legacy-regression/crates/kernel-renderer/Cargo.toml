@@ -1,0 +1,16 @@
+[package]
+name = "ai-game-kernel-renderer"
+description = "Read-only wgpu projection layer for the AI Game Kernel"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+ai-game-kernel-core = { path = "../kernel-core" }
+bytemuck = { version = "1.24.0", features = ["derive"] }
+wgpu = "30.0.1"
+winit = "0.30.13"
+
+[lints]
+workspace = true

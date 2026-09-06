@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "1.0.0",
+  "actions": [
+    {
+      "id": "left-up",
+      "bindings": ["KeyW"]
+    },
+    {
+      "id": "left-down",
+      "bindings": ["KeyS"]
+    },
+    {
+      "id": "right-up",
+      "bindings": ["ArrowUp"]
+    },
+    {
+      "id": "right-down",
+      "bindings": ["ArrowDown"]
+    }
+  ]
+}

@@ -1,0 +1,140 @@
+{
+  "kind": "ai-game-studio/round05-human-observation-result",
+  "schemaVersion": "1.0.0",
+  "observationId": "",
+  "decision": "RETEST_REQUIRED",
+  "candidate": {
+    "filename": "",
+    "sha256": ""
+  },
+  "inputProject": {
+    "filename": "Tank-Placeholder-Input.zip",
+    "sha256": ""
+  },
+  "environment": {
+    "windowsVersion": "",
+    "cleanProfileEvidence": "",
+    "displayResolution": "",
+    "displayScalePercent": 0,
+    "locale": ""
+  },
+  "participant": {
+    "identifier": "",
+    "experience": "",
+    "didNotImplementRound05": false,
+    "neverUsedBuild": false
+  },
+  "observer": {
+    "identifier": ""
+  },
+  "consent": {
+    "screenAndVoiceRecording": false
+  },
+  "timing": {
+    "startedAt": "",
+    "endedAt": "",
+    "activeMinutes": 0
+  },
+  "journeys": {
+    "A": {
+      "started": false,
+      "completedWithoutHelp": false,
+      "activeMinutes": 0,
+      "result": "NOT_RUN",
+      "recordingTimeRange": "",
+      "outputArtifactPaths": []
+    },
+    "B": {
+      "started": false,
+      "completedWithoutHelp": false,
+      "activeMinutes": 0,
+      "result": "NOT_RUN",
+      "recordingTimeRange": "",
+      "outputArtifactPaths": []
+    },
+    "C": {
+      "started": false,
+      "completedWithoutHelp": false,
+      "activeMinutes": 0,
+      "result": "NOT_RUN",
+      "recordingTimeRange": "",
+      "outputArtifactPaths": []
+    },
+    "D": {
+      "started": false,
+      "completedWithoutHelp": false,
+      "activeMinutes": 0,
+      "result": "NOT_RUN",
+      "recordingTimeRange": "",
+      "outputArtifactPaths": []
+    },
+    "E": {
+      "started": false,
+      "completedWithoutHelp": false,
+      "activeMinutes": 0,
+      "result": "NOT_RUN",
+      "recordingTimeRange": "",
+      "outputArtifactPaths": []
+    }
+  },
+  "checks": {
+    "cleanWindowsProfile": false,
+    "noExternalTools": false,
+    "noCoaching": false,
+    "studioPlayerParity": false,
+    "noCredentialLeak": false,
+    "noPrivateProviderResponseLeak": false,
+    "allArtifactsCollected": false,
+    "noDuplicateSideEffects": false,
+    "budgetIntegrity": false,
+    "noOpenBlockersOrRetested": false,
+    "bothPackagesOffline": false
+  },
+  "counts": {
+    "coachingEvents": 0,
+    "forbiddenWorkaroundEvents": 0,
+    "duplicateSideEffects": 0
+  },
+  "cost": {
+    "currency": "",
+    "approvedBudget": 0,
+    "actual": 0,
+    "unknownCostCalls": 0,
+    "duplicateBilledCalls": 0
+  },
+  "ids": {
+    "goalIds": [],
+    "planStepIds": [],
+    "toolCallIds": [],
+    "jobIds": [],
+    "reviewDecisionIds": [],
+    "changeSetIds": [],
+    "runtimeSessionIds": [],
+    "observationIds": [],
+    "testRunIds": [],
+    "buildIds": [],
+    "packageIds": []
+  },
+  "openBlockerIds": ["R5-OBS-001"],
+  "evidenceRefs": {
+    "runRecordPaths": [],
+    "recordingPaths": [],
+    "inputProjectArchivePaths": [],
+    "completedProjectArchivePaths": [],
+    "developmentPackagePaths": [],
+    "releasePackagePaths": [],
+    "testResultPaths": [],
+    "replayPaths": [],
+    "runtimeObservationPaths": [],
+    "auditExportPaths": [],
+    "credentialScanPaths": [],
+    "packageScanPaths": [],
+    "costReportPaths": []
+  },
+  "signatures": {
+    "observer": "",
+    "participant": "",
+    "signedAt": ""
+  },
+  "notes": ""
+}

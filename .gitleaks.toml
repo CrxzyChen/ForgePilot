@@ -1,0 +1,9 @@
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Synthetic media-job credential used only by the leak-prevention test"
+condition = "AND"
+paths = ['''^scripts/check-p29-media-jobs\.ts$''']
+regexTarget = "secret"
+regexes = ['''^P29_SECRET_MUST_NEVER_LEAK$''']

@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "1.0.0",
+  "worldId": "{{PROJECT_NAMESPACE}}:main",
+  "width": 32,
+  "height": 18,
+  "tileSize": 32,
+  "layers": [
+    {
+      "id": "ground",
+      "tiles": []
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "kind": "ai-game-kernel/project",
+  "schemaVersion": "1.0.0",
+  "id": "{{PROJECT_NAMESPACE}}:game",
+  "name": "{{PROJECT_NAME}}",
+  "entryWorld": "{{PROJECT_NAMESPACE}}:main",
+  "worlds": [
+    {
+      "id": "{{PROJECT_NAMESPACE}}:main",
+      "name": "Main",
+      "bounds": { "width": 32, "height": 18 },
+      "entities": [
+        {
+          "id": "{{PROJECT_NAMESPACE}}:player",
+          "name": "Player",
+          "components": [
+            { "type": "core:transform", "position": { "x": 2, "y": 9 } },
+            { "type": "game:player-controlled" },
+            {
+              "type": "game:mergeable",
+              "faction": "{{PROJECT_NAMESPACE}}:player-faction",
+              "strength": 10
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "schemaVersion": "1.0.0",
+  "target": "windows-x86_64",
+  "profile": "release",
+  "version": "0.1.0",
+  "entry": "scenes/main.game.json",
+  "output": "out/windows-release",
+  "includeDiagnostics": false
+}

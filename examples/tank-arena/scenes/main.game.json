@@ -1,0 +1,1159 @@
+{
+  "schemaVersion": "2.0.0-alpha.1",
+  "id": "tank:scene/main",
+  "name": "Tank Arena",
+  "space": "2d",
+  "objects": [
+    {
+      "id": "tank:camera",
+      "name": "Game Camera",
+      "enabled": true,
+      "visible": true,
+      "locked": false,
+      "parentId": null,
+      "order": 0,
+      "components": [
+        {
+          "id": "tank:camera/transform",
+          "type": "core:transform2d",
+          "enabled": true,
+          "data": {
+            "position": { "x": 16, "y": 9 },
+            "rotation": 0,
+            "scale": { "x": 1, "y": 1 }
+          }
+        },
+        {
+          "id": "tank:camera/camera",
+          "type": "render:camera2d",
+          "enabled": true,
+          "data": {
+            "primary": true,
+            "zoom": 1,
+            "clearColor": "#07121d"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tank:field",
+      "name": "Arena",
+      "enabled": true,
+      "visible": true,
+      "locked": true,
+      "parentId": null,
+      "order": 1,
+      "components": [
+        {
+          "id": "tank:field/transform",
+          "type": "core:transform2d",
+          "enabled": true,
+          "data": {
+            "position": { "x": 16, "y": 9 },
+            "rotation": 0,
+            "scale": { "x": 1, "y": 1 }
+          }
+        },
+        {
+          "id": "tank:field/shape",
+          "type": "render:shape2d",
+          "enabled": true,
+          "data": {
+            "shape": "rectangle",
+            "size": { "x": 31.5, "y": 17.5 },
+            "color": "#102836",
+            "layer": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "tank:wall/solid-left",
+      "name": "Solid Wall Left",
+      "enabled": true,
+      "visible": true,
+      "locked": false,
+      "parentId": null,
+      "order": 5,
+      "prefab": "prefabs/solid-wall.prefab.json",
+      "components": [
+        {
+          "id": "tank:wall/solid-left/transform",
+          "type": "core:transform2d",
+          "enabled": true,
+          "data": {
+            "position": { "x": 8, "y": 9 },
+            "rotation": 0,
+            "scale": { "x": 1, "y": 1 }
+          }
+        },
+        {
+          "id": "tank:wall/solid-left/shape",
+          "type": "render:shape2d",
+          "enabled": true,
+          "data": {
+            "shape": "rectangle",
+            "size": { "x": 1, "y": 1 },
+            "color": "#586b7a",
+            "layer": 5
+          }
+        },
+        {
+          "id": "tank:wall/solid-left/collider",
+          "type": "physics:collider2d",
+          "enabled": true,
+          "data": {
+            "shape": "box",
+            "size": { "x": 1, "y": 1 },
+            "isTrigger": false
+          }
+        },
+        {
+          "id": "tank:wall/solid-left/wall",
+          "type": "tank:wall",
+          "enabled": true,
+          "data": { "destructible": false, "health": 0 }
+        }
+      ]
+    },
+    {
+      "id": "tank:wall/solid-right",
+      "name": "Solid Wall Right",
+      "enabled": true,
+      "visible": true,
+      "locked": false,
+      "parentId": null,
+      "order": 5,
+      "prefab": "prefabs/solid-wall.prefab.json",
+      "components": [
+        {
+          "id": "tank:wall/solid-right/transform",
+          "type": "core:transform2d",
+          "enabled": true,
+          "data": {
+            "position": { "x": 24, "y": 9 },
+            "rotation": 0,
+            "scale": { "x": 1, "y": 1 }
+          }
+        },
+        {
+          "id": "tank:wall/solid-right/shape",
+          "type": "render:shape2d",
+          "enabled": true,
+          "data": {
+            "shape": "rectangle",
+            "size": { "x": 1, "y": 1 },
+            "color": "#586b7a",
+            "layer": 5
+          }
+        },
+        {
+          "id": "tank:wall/solid-right/collider",
+          "type": "physics:collider2d",
+          "enabled": true,
+          "data": {
+            "shape": "box",
+            "size": { "x": 1, "y": 1 },
+            "isTrigger": false
+          }
+        },
+        {
+          "id": "tank:wall/solid-right/wall",
+          "type": "tank:wall",
+          "enabled": true,
+          "data": { "destructible": false, "health": 0 }
+        }
+      ]
+    },
+    {
+      "id": "tank:wall/destructible-left",
+      "name": "Destructible Wall Left",
+      "enabled": true,
+      "visible": true,
+      "locked": false,
+      "parentId": null,
+      "order": 6,
+      "prefab": "prefabs/destructible-wall.prefab.json",
+      "components": [
+        {
+          "id": "tank:wall/destructible-left/transform",
+          "type": "core:transform2d",
+          "enabled": true,
+          "data": {
+            "position": { "x": 14, "y": 9 },
+            "rotation": 0,
+            "scale": { "x": 1, "y": 1 }
+          }
+        },
+        {
+          "id": "tank:wall/destructible-left/shape",
+          "type": "render:shape2d",
+          "enabled": true,
+          "data": {
+            "shape": "rectangle",
+            "size": { "x": 1, "y": 1 },
+            "color": "#9a613c",
+            "layer": 6
+          }
+        },
+        {
+          "id": "tank:wall/destructible-left/collider",
+          "type": "physics:collider2d",
+          "enabled": true,
+          "data": {
+            "shape": "box",
+            "size": { "x": 1, "y": 1 },
+            "isTrigger": false
+          }
+        },
+        {
+          "id": "tank:wall/destructible-left/wall",
+          "type": "tank:wall",
+          "enabled": true,
+          "data": { "destructible": true, "health": 1 }
+        }
+      ]
+    },
+    {
+      "id": "tank:wall/destructible-right",
+      "name": "Destructible Wall Right",
+      "enabled": true,
+      "visible": true,
+      "locked": false,
+      "parentId": null,
+      "order": 6,
+      "prefab": "prefabs/destructible-wall.prefab.json",
+      "components": [
+        {
+          "id": "tank:wall/destructible-right/transform",
+          "type": "core:transform2d",
+          "enabled": true,
+          "data": {
+            "position": { "x": 18, "y": 9 },
+            "rotation": 0,
+            "scale": { "x": 1, "y": 1 }
+          }
+        },
+        {
+          "id": "tank:wall/destructible-right/shape",
+          "type": "render:shape2d",
+          "enabled": true,
+          "data": {
+            "shape": "rectangle",
+            "size": { "x": 1, "y": 1 },
+            "color": "#9a613c",
+            "layer": 6
+          }
+        },
+        {
+          "id": "tank:wall/destructible-right/collider",
+          "type": "physics:collider2d",
+          "enabled": true,
+          "data": {
+            "shape": "box",
+            "size": { "x": 1, "y": 1 },
+            "isTrigger": false
+          }
+        },
+        {
+          "id": "tank:wall/destructible-right/wall",
+          "type": "tank:wall",
+          "enabled": true,
+          "data": { "destructible": true, "health": 1 }
+        }
+      ]
+    },
+    {
+      "id": "tank:game",
+      "name": "Game Controller",
+      "enabled": true,
+      "visible": false,
+      "locked": true,
+      "parentId": null,
+      "order": 2,
+      "components": [
+        {
+          "id": "tank:game/state",
+          "type": "tank:game-state",
+          "enabled": true,
+          "data": {
+            "phase": "menu",
+            "score": 0,
+            "enemiesRemaining": 3,
+            "helpVisible": false,
+            "muted": false,
+            "masterVolume": 0.8
+          }
+        },
+        {
+          "id": "tank:game/latches",
+          "type": "tank:input-latches",
+          "enabled": true,
+          "data": {}
+        },
+        {
+          "id": "tank:game/script",
+          "type": "core:script",
+          "enabled": true,
+          "data": {
+            "path": "scripts/behaviors/game-controller.ts",
+            "enabled": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "tank:player",
+      "name": "Player Tank",
+      "enabled": true,
+      "visible": true,
+      "locked": false,
+      "parentId": null,
+      "order": 10,
+      "prefab": "prefabs/player-tank.prefab.json",
+      "components": [
+        {
+          "id": "tank:player/transform",
+          "type": "core:transform2d",
+          "enabled": true,
+          "data": {
+            "position": { "x": 16, "y": 14.5 },
+            "rotation": 0,
+            "scale": { "x": 1, "y": 1 }
+          }
+        },
+        {
+          "id": "tank:player/sprite",
+          "type": "render:sprite2d",
+          "enabled": true,
+          "data": {
+            "texture": "tank-arena-example:asset/tank-sprite-v1",
+            "size": { "x": 1.45, "y": 1.45 },
+            "pivot": { "x": 0.5, "y": 0.5 },
+            "tint": "#72ffe1",
+            "filter": "nearest",
+            "layer": 10
+          }
+        },
+        {
+          "id": "tank:player/collider",
+          "type": "physics:collider2d",
+          "enabled": true,
+          "data": {
+            "shape": "box",
+            "size": { "x": 1.1, "y": 1.1 },
+            "isTrigger": false
+          }
+        },
+        {
+          "id": "tank:player/rigidbody",
+          "type": "physics:rigidbody2d",
+          "enabled": true,
+          "data": {
+            "bodyType": "dynamic",
+            "velocity": { "x": 0, "y": 0 },
+            "linearDamping": 0
+          }
+        },
+        {
+          "id": "tank:player/state",
+          "type": "tank:unit",
+          "enabled": true,
+          "data": { "team": "player", "health": 3 }
+        },
+        {
+          "id": "tank:player/weapon",
+          "type": "tank:weapon",
+          "enabled": true,
+          "data": {
+            "nextFireTick": 0,
+            "direction": { "x": 0, "y": -1 }
+          }
+        },
+        {
+          "id": "tank:player/script",
+          "type": "core:script",
+          "enabled": true,
+          "data": {
+            "path": "scripts/behaviors/player-tank.ts",
+            "enabled": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "tank:enemy-1",
+      "name": "Enemy Alpha",
+      "enabled": true,
+      "visible": true,
+      "locked": false,
+      "parentId": null,
+      "order": 11,
+      "prefab": "prefabs/enemy-tank.prefab.json",
+      "components": [
+        {
+          "id": "tank:enemy-1/transform",
+          "type": "core:transform2d",
+          "enabled": true,
+          "data": {
+            "position": { "x": 11, "y": 3 },
+            "rotation": 0,
+            "scale": { "x": 1, "y": 1 }
+          }
+        },
+        {
+          "id": "tank:enemy-1/sprite",
+          "type": "render:sprite2d",
+          "enabled": true,
+          "data": {
+            "texture": "tank-arena-example:asset/tank-sprite-v1",
+            "size": { "x": 1.35, "y": 1.35 },
+            "pivot": { "x": 0.5, "y": 0.5 },
+            "tint": "#ff6474",
+            "filter": "nearest",
+            "layer": 11
+          }
+        },
+        {
+          "id": "tank:enemy-1/collider",
+          "type": "physics:collider2d",
+          "enabled": true,
+          "data": {
+            "shape": "box",
+            "size": { "x": 1.05, "y": 1.05 },
+            "isTrigger": false
+          }
+        },
+        {
+          "id": "tank:enemy-1/rigidbody",
+          "type": "physics:rigidbody2d",
+          "enabled": true,
+          "data": {
+            "bodyType": "kinematic",
+            "velocity": { "x": 0, "y": 0 },
+            "linearDamping": 0
+          }
+        },
+        {
+          "id": "tank:enemy-1/unit",
+          "type": "tank:unit",
+          "enabled": true,
+          "data": { "team": "enemy", "health": 1 }
+        },
+        {
+          "id": "tank:enemy-1/state",
+          "type": "tank:enemy-state",
+          "enabled": true,
+          "data": { "breached": false, "speed": 1.1 }
+        },
+        {
+          "id": "tank:enemy-1/script",
+          "type": "core:script",
+          "enabled": true,
+          "data": {
+            "path": "scripts/behaviors/enemy-tank.ts",
+            "enabled": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "tank:enemy-2",
+      "name": "Enemy Bravo",
+      "enabled": true,
+      "visible": true,
+      "locked": false,
+      "parentId": null,
+      "order": 12,
+      "prefab": "prefabs/enemy-tank.prefab.json",
+      "components": [
+        {
+          "id": "tank:enemy-2/transform",
+          "type": "core:transform2d",
+          "enabled": true,
+          "data": {
+            "position": { "x": 16, "y": 2.3 },
+            "rotation": 0,
+            "scale": { "x": 1, "y": 1 }
+          }
+        },
+        {
+          "id": "tank:enemy-2/sprite",
+          "type": "render:sprite2d",
+          "enabled": true,
+          "data": {
+            "texture": "tank-arena-example:asset/tank-sprite-v1",
+            "size": { "x": 1.35, "y": 1.35 },
+            "pivot": { "x": 0.5, "y": 0.5 },
+            "tint": "#ff6474",
+            "filter": "nearest",
+            "layer": 12
+          }
+        },
+        {
+          "id": "tank:enemy-2/collider",
+          "type": "physics:collider2d",
+          "enabled": true,
+          "data": {
+            "shape": "box",
+            "size": { "x": 1.05, "y": 1.05 },
+            "isTrigger": false
+          }
+        },
+        {
+          "id": "tank:enemy-2/rigidbody",
+          "type": "physics:rigidbody2d",
+          "enabled": true,
+          "data": {
+            "bodyType": "kinematic",
+            "velocity": { "x": 0, "y": 0 },
+            "linearDamping": 0
+          }
+        },
+        {
+          "id": "tank:enemy-2/unit",
+          "type": "tank:unit",
+          "enabled": true,
+          "data": { "team": "enemy", "health": 1 }
+        },
+        {
+          "id": "tank:enemy-2/state",
+          "type": "tank:enemy-state",
+          "enabled": true,
+          "data": { "breached": false, "speed": 1.2 }
+        },
+        {
+          "id": "tank:enemy-2/script",
+          "type": "core:script",
+          "enabled": true,
+          "data": {
+            "path": "scripts/behaviors/enemy-tank.ts",
+            "enabled": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "tank:enemy-3",
+      "name": "Enemy Charlie",
+      "enabled": true,
+      "visible": true,
+      "locked": false,
+      "parentId": null,
+      "order": 13,
+      "prefab": "prefabs/enemy-tank.prefab.json",
+      "components": [
+        {
+          "id": "tank:enemy-3/transform",
+          "type": "core:transform2d",
+          "enabled": true,
+          "data": {
+            "position": { "x": 21, "y": 3 },
+            "rotation": 0,
+            "scale": { "x": 1, "y": 1 }
+          }
+        },
+        {
+          "id": "tank:enemy-3/sprite",
+          "type": "render:sprite2d",
+          "enabled": true,
+          "data": {
+            "texture": "tank-arena-example:asset/tank-sprite-v1",
+            "size": { "x": 1.35, "y": 1.35 },
+            "pivot": { "x": 0.5, "y": 0.5 },
+            "tint": "#ff6474",
+            "filter": "nearest",
+            "layer": 13
+          }
+        },
+        {
+          "id": "tank:enemy-3/collider",
+          "type": "physics:collider2d",
+          "enabled": true,
+          "data": {
+            "shape": "box",
+            "size": { "x": 1.05, "y": 1.05 },
+            "isTrigger": false
+          }
+        },
+        {
+          "id": "tank:enemy-3/rigidbody",
+          "type": "physics:rigidbody2d",
+          "enabled": true,
+          "data": {
+            "bodyType": "kinematic",
+            "velocity": { "x": 0, "y": 0 },
+            "linearDamping": 0
+          }
+        },
+        {
+          "id": "tank:enemy-3/unit",
+          "type": "tank:unit",
+          "enabled": true,
+          "data": { "team": "enemy", "health": 1 }
+        },
+        {
+          "id": "tank:enemy-3/state",
+          "type": "tank:enemy-state",
+          "enabled": true,
+          "data": { "breached": false, "speed": 1.05 }
+        },
+        {
+          "id": "tank:enemy-3/script",
+          "type": "core:script",
+          "enabled": true,
+          "data": {
+            "path": "scripts/behaviors/enemy-tank.ts",
+            "enabled": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "tank:base",
+      "name": "Command Base",
+      "enabled": true,
+      "visible": true,
+      "locked": false,
+      "parentId": null,
+      "order": 14,
+      "components": [
+        {
+          "id": "tank:base/transform",
+          "type": "core:transform2d",
+          "enabled": true,
+          "data": {
+            "position": { "x": 16, "y": 17 },
+            "rotation": 0,
+            "scale": { "x": 1, "y": 1 }
+          }
+        },
+        {
+          "id": "tank:base/shape",
+          "type": "render:shape2d",
+          "enabled": true,
+          "data": {
+            "shape": "rectangle",
+            "size": { "x": 3.2, "y": 1 },
+            "color": "#ffc857",
+            "layer": 14
+          }
+        },
+        {
+          "id": "tank:base/collider",
+          "type": "physics:collider2d",
+          "enabled": true,
+          "data": {
+            "shape": "box",
+            "size": { "x": 31, "y": 1 },
+            "isTrigger": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "tank:ui/title",
+      "name": "Menu Title",
+      "enabled": true,
+      "visible": true,
+      "locked": false,
+      "parentId": null,
+      "order": 100,
+      "components": [
+        {
+          "id": "tank:ui/title/transform",
+          "type": "core:ui-transform",
+          "enabled": true,
+          "data": {
+            "anchor": { "x": 0.5, "y": 0.67 },
+            "size": { "x": 520, "y": 80 }
+          }
+        },
+        {
+          "id": "tank:ui/title/text",
+          "type": "ui:text",
+          "enabled": true,
+          "data": { "text": "TANK ARENA", "fontSize": 54, "color": "#f3fbff" }
+        }
+      ]
+    },
+    {
+      "id": "tank:ui/start",
+      "name": "Start Button",
+      "enabled": true,
+      "visible": true,
+      "locked": false,
+      "parentId": null,
+      "order": 101,
+      "components": [
+        {
+          "id": "tank:ui/start/transform",
+          "type": "core:ui-transform",
+          "enabled": true,
+          "data": {
+            "anchor": { "x": 0.5, "y": 0.48 },
+            "size": { "x": 220, "y": 56 }
+          }
+        },
+        {
+          "id": "tank:ui/start/button",
+          "type": "ui:button",
+          "enabled": true,
+          "data": {
+            "label": "START",
+            "action": "start-game",
+            "fontSize": 26,
+            "backgroundColor": "#145a6b",
+            "textColor": "#ffffff"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tank:ui/hud-score",
+      "name": "Score HUD",
+      "enabled": true,
+      "visible": false,
+      "locked": false,
+      "parentId": null,
+      "order": 102,
+      "components": [
+        {
+          "id": "tank:ui/hud-score/transform",
+          "type": "core:ui-transform",
+          "enabled": true,
+          "data": {
+            "anchor": { "x": 0.1, "y": 0.94 },
+            "size": { "x": 180, "y": 36 }
+          }
+        },
+        {
+          "id": "tank:ui/hud-score/text",
+          "type": "ui:text",
+          "enabled": true,
+          "data": { "text": "SCORE 0", "fontSize": 24, "color": "#ffffff" }
+        }
+      ]
+    },
+    {
+      "id": "tank:ui/hud-health",
+      "name": "Armor HUD",
+      "enabled": true,
+      "visible": false,
+      "locked": false,
+      "parentId": null,
+      "order": 103,
+      "components": [
+        {
+          "id": "tank:ui/hud-health/transform",
+          "type": "core:ui-transform",
+          "enabled": true,
+          "data": {
+            "anchor": { "x": 0.9, "y": 0.94 },
+            "size": { "x": 180, "y": 36 }
+          }
+        },
+        {
+          "id": "tank:ui/hud-health/text",
+          "type": "ui:text",
+          "enabled": true,
+          "data": { "text": "ARMOR 3", "fontSize": 24, "color": "#72ffe1" }
+        }
+      ]
+    },
+    {
+      "id": "tank:ui/hud-hint",
+      "name": "Control Hint",
+      "enabled": true,
+      "visible": false,
+      "locked": false,
+      "parentId": null,
+      "order": 104,
+      "components": [
+        {
+          "id": "tank:ui/hud-hint/transform",
+          "type": "core:ui-transform",
+          "enabled": true,
+          "data": {
+            "anchor": { "x": 0.5, "y": 0.06 },
+            "size": { "x": 560, "y": 30 }
+          }
+        },
+        {
+          "id": "tank:ui/hud-hint/text",
+          "type": "ui:text",
+          "enabled": true,
+          "data": {
+            "text": "WASD MOVE   SPACE FIRE   ESC PAUSE",
+            "fontSize": 17,
+            "color": "#9fc3d1"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tank:ui/pause-title",
+      "name": "Pause Title",
+      "enabled": true,
+      "visible": false,
+      "locked": false,
+      "parentId": null,
+      "order": 110,
+      "components": [
+        {
+          "id": "tank:ui/pause-title/transform",
+          "type": "core:ui-transform",
+          "enabled": true,
+          "data": {
+            "anchor": { "x": 0.5, "y": 0.62 },
+            "size": { "x": 420, "y": 60 }
+          }
+        },
+        {
+          "id": "tank:ui/pause-title/text",
+          "type": "ui:text",
+          "enabled": true,
+          "data": { "text": "PAUSED", "fontSize": 48, "color": "#ffffff" }
+        }
+      ]
+    },
+    {
+      "id": "tank:ui/resume",
+      "name": "Resume Button",
+      "enabled": true,
+      "visible": false,
+      "locked": false,
+      "parentId": null,
+      "order": 111,
+      "components": [
+        {
+          "id": "tank:ui/resume/transform",
+          "type": "core:ui-transform",
+          "enabled": true,
+          "data": {
+            "anchor": { "x": 0.5, "y": 0.47 },
+            "size": { "x": 220, "y": 56 }
+          }
+        },
+        {
+          "id": "tank:ui/resume/button",
+          "type": "ui:button",
+          "enabled": true,
+          "data": {
+            "label": "RESUME",
+            "action": "pause",
+            "fontSize": 24,
+            "backgroundColor": "#145a6b",
+            "textColor": "#ffffff"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tank:ui/win-title",
+      "name": "Win Title",
+      "enabled": true,
+      "visible": false,
+      "locked": false,
+      "parentId": null,
+      "order": 120,
+      "components": [
+        {
+          "id": "tank:ui/win-title/transform",
+          "type": "core:ui-transform",
+          "enabled": true,
+          "data": {
+            "anchor": { "x": 0.5, "y": 0.62 },
+            "size": { "x": 520, "y": 60 }
+          }
+        },
+        {
+          "id": "tank:ui/win-title/text",
+          "type": "ui:text",
+          "enabled": true,
+          "data": { "text": "YOU WIN", "fontSize": 52, "color": "#72ffe1" }
+        }
+      ]
+    },
+    {
+      "id": "tank:ui/restart-win",
+      "name": "Win Restart Button",
+      "enabled": true,
+      "visible": false,
+      "locked": false,
+      "parentId": null,
+      "order": 121,
+      "components": [
+        {
+          "id": "tank:ui/restart-win/transform",
+          "type": "core:ui-transform",
+          "enabled": true,
+          "data": {
+            "anchor": { "x": 0.5, "y": 0.47 },
+            "size": { "x": 220, "y": 56 }
+          }
+        },
+        {
+          "id": "tank:ui/restart-win/button",
+          "type": "ui:button",
+          "enabled": true,
+          "data": {
+            "label": "RESTART",
+            "action": "restart",
+            "fontSize": 24,
+            "backgroundColor": "#146d5c",
+            "textColor": "#ffffff"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tank:ui/lose-title",
+      "name": "Lose Title",
+      "enabled": true,
+      "visible": false,
+      "locked": false,
+      "parentId": null,
+      "order": 122,
+      "components": [
+        {
+          "id": "tank:ui/lose-title/transform",
+          "type": "core:ui-transform",
+          "enabled": true,
+          "data": {
+            "anchor": { "x": 0.5, "y": 0.62 },
+            "size": { "x": 520, "y": 60 }
+          }
+        },
+        {
+          "id": "tank:ui/lose-title/text",
+          "type": "ui:text",
+          "enabled": true,
+          "data": { "text": "GAME OVER", "fontSize": 52, "color": "#ff6474" }
+        }
+      ]
+    },
+    {
+      "id": "tank:ui/restart-lose",
+      "name": "Lose Restart Button",
+      "enabled": true,
+      "visible": false,
+      "locked": false,
+      "parentId": null,
+      "order": 123,
+      "components": [
+        {
+          "id": "tank:ui/restart-lose/transform",
+          "type": "core:ui-transform",
+          "enabled": true,
+          "data": {
+            "anchor": { "x": 0.5, "y": 0.47 },
+            "size": { "x": 220, "y": 56 }
+          }
+        },
+        {
+          "id": "tank:ui/restart-lose/button",
+          "type": "ui:button",
+          "enabled": true,
+          "data": {
+            "label": "RESTART",
+            "action": "restart",
+            "fontSize": 24,
+            "backgroundColor": "#7b283c",
+            "textColor": "#ffffff"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tank:ui/help-button",
+      "name": "Help Button",
+      "enabled": true,
+      "visible": true,
+      "locked": false,
+      "parentId": null,
+      "order": 124,
+      "components": [
+        {
+          "id": "tank:ui/help-button/transform",
+          "type": "core:ui-transform",
+          "enabled": true,
+          "data": {
+            "anchor": { "x": 0.5, "y": 0.38 },
+            "size": { "x": 220, "y": 46 }
+          }
+        },
+        {
+          "id": "tank:ui/help-button/button",
+          "type": "ui:button",
+          "enabled": true,
+          "data": {
+            "label": "CONTROLS",
+            "action": "toggle-help",
+            "fontSize": 20,
+            "backgroundColor": "#102836",
+            "textColor": "#72ffe1"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tank:ui/help",
+      "name": "Controls Help",
+      "enabled": true,
+      "visible": false,
+      "locked": false,
+      "parentId": null,
+      "order": 125,
+      "components": [
+        {
+          "id": "tank:ui/help/transform",
+          "type": "core:ui-transform",
+          "enabled": true,
+          "data": {
+            "anchor": { "x": 0.5, "y": 0.23 },
+            "size": { "x": 720, "y": 84 }
+          }
+        },
+        {
+          "id": "tank:ui/help/text",
+          "type": "ui:text",
+          "enabled": true,
+          "data": {
+            "text": "WASD / ARROWS MOVE   SPACE FIRE   ESC PAUSE   H HELP   M MUTE   [ ] VOLUME",
+            "fontSize": 16,
+            "color": "#d9f7ff",
+            "align": "center"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tank:ui/audio-status",
+      "name": "Audio Status",
+      "enabled": true,
+      "visible": true,
+      "locked": false,
+      "parentId": null,
+      "order": 126,
+      "components": [
+        {
+          "id": "tank:ui/audio-status/transform",
+          "type": "core:ui-transform",
+          "enabled": true,
+          "data": {
+            "anchor": { "x": 0.79, "y": 0.06 },
+            "size": { "x": 150, "y": 32 }
+          }
+        },
+        {
+          "id": "tank:ui/audio-status/text",
+          "type": "ui:text",
+          "enabled": true,
+          "data": {
+            "text": "AUDIO 80%",
+            "fontSize": 15,
+            "color": "#9fc3d1",
+            "align": "right"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tank:ui/mute",
+      "name": "Mute Button",
+      "enabled": true,
+      "visible": true,
+      "locked": false,
+      "parentId": null,
+      "order": 127,
+      "components": [
+        {
+          "id": "tank:ui/mute/transform",
+          "type": "core:ui-transform",
+          "enabled": true,
+          "data": {
+            "anchor": { "x": 0.88, "y": 0.06 },
+            "size": { "x": 82, "y": 34 }
+          }
+        },
+        {
+          "id": "tank:ui/mute/button",
+          "type": "ui:button",
+          "enabled": true,
+          "data": {
+            "label": "MUTE",
+            "action": "toggle-mute",
+            "fontSize": 14,
+            "backgroundColor": "#102836",
+            "textColor": "#72ffe1"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tank:ui/volume-down",
+      "name": "Volume Down Button",
+      "enabled": true,
+      "visible": true,
+      "locked": false,
+      "parentId": null,
+      "order": 128,
+      "components": [
+        {
+          "id": "tank:ui/volume-down/transform",
+          "type": "core:ui-transform",
+          "enabled": true,
+          "data": {
+            "anchor": { "x": 0.94, "y": 0.06 },
+            "size": { "x": 42, "y": 34 }
+          }
+        },
+        {
+          "id": "tank:ui/volume-down/button",
+          "type": "ui:button",
+          "enabled": true,
+          "data": {
+            "label": "-",
+            "action": "volume-down",
+            "fontSize": 18,
+            "backgroundColor": "#102836",
+            "textColor": "#f3fbff"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tank:ui/volume-up",
+      "name": "Volume Up Button",
+      "enabled": true,
+      "visible": true,
+      "locked": false,
+      "parentId": null,
+      "order": 129,
+      "components": [
+        {
+          "id": "tank:ui/volume-up/transform",
+          "type": "core:ui-transform",
+          "enabled": true,
+          "data": {
+            "anchor": { "x": 0.98, "y": 0.06 },
+            "size": { "x": 42, "y": 34 }
+          }
+        },
+        {
+          "id": "tank:ui/volume-up/button",
+          "type": "ui:button",
+          "enabled": true,
+          "data": {
+            "label": "+",
+            "action": "volume-up",
+            "fontSize": 18,
+            "backgroundColor": "#102836",
+            "textColor": "#f3fbff"
+          }
+        }
+      ]
+    }
+  ]
+}

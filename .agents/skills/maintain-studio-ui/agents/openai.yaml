@@ -1,0 +1,5 @@
+interface:
+  display_name: 'Studio UI Guardian'
+  short_description: 'Maintain the compact midnight Studio design language'
+  brand_color: '#49CDDD'
+  default_prompt: 'Use $maintain-studio-ui to implement this Studio interface change without drifting from the established design system.'

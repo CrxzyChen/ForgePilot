@@ -1,0 +1,297 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-game-kernel.dev/schema/runtime-observation/1-0-0",
+  "title": "Addressable Runtime Observation",
+  "description": "Inspectable frame, UI, resource, and audio evidence captured from a stable runtime checkpoint without exposing renderer, ECS, physics, pointer, DOM, or array-index handles.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "observationId",
+    "source",
+    "sessionId",
+    "generation",
+    "sceneId",
+    "tick",
+    "checkpointId",
+    "camera",
+    "frameArtifact",
+    "drawables",
+    "ui",
+    "audio",
+    "diagnostics",
+    "capturedAt"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "observationId": {
+      "type": "string",
+      "pattern": "^observation:[a-z0-9][a-z0-9_-]*$"
+    },
+    "source": { "enum": ["studio", "player"] },
+    "sessionId": {
+      "type": "string",
+      "pattern": "^session:[a-z0-9][a-z0-9_-]*$"
+    },
+    "generation": { "type": "integer", "minimum": 1 },
+    "sceneId": { "$ref": "#/$defs/SemanticId" },
+    "tick": { "type": "integer", "minimum": 0 },
+    "checkpointId": {
+      "type": "string",
+      "pattern": "^checkpoint:[a-z0-9][a-z0-9_-]*$"
+    },
+    "inputLogId": {
+      "type": "string",
+      "pattern": "^input-log:[a-z0-9][a-z0-9_-]*$"
+    },
+    "stateHash": { "$ref": "#/$defs/Hash" },
+    "camera": { "$ref": "#/$defs/Camera" },
+    "frameArtifact": { "$ref": "#/$defs/FrameArtifact" },
+    "drawables": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/DrawableObservation" }
+    },
+    "ui": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/UiObservation" }
+    },
+    "audio": { "$ref": "#/$defs/AudioObservation" },
+    "diagnostics": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/Diagnostic" }
+    },
+    "capturedAt": { "$ref": "#/$defs/Timestamp" }
+  },
+  "$defs": {
+    "Timestamp": { "type": "string", "format": "date-time" },
+    "Hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "SemanticId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_./-]*$"
+    },
+    "ProjectPath": {
+      "type": "string",
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\).+$"
+    },
+    "Vector2": {
+      "type": "array",
+      "prefixItems": [{ "type": "number" }, { "type": "number" }],
+      "items": false
+    },
+    "Rect": {
+      "type": "array",
+      "prefixItems": [
+        { "type": "number" },
+        { "type": "number" },
+        { "type": "number", "minimum": 0 },
+        { "type": "number", "minimum": 0 }
+      ],
+      "items": false
+    },
+    "Camera": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["cameraId", "space", "projection", "viewport"],
+      "properties": {
+        "cameraId": { "$ref": "#/$defs/SemanticId" },
+        "space": { "enum": ["2d", "3d", "ui"] },
+        "projection": { "enum": ["orthographic", "perspective", "screen"] },
+        "viewport": {
+          "type": "array",
+          "prefixItems": [
+            { "type": "integer", "minimum": 1 },
+            { "type": "integer", "minimum": 1 }
+          ],
+          "items": false
+        }
+      }
+    },
+    "FrameArtifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["artifactId", "path", "mime", "sha256", "width", "height"],
+      "properties": {
+        "artifactId": {
+          "type": "string",
+          "pattern": "^artifact:[a-z0-9][a-z0-9_-]*$"
+        },
+        "path": { "$ref": "#/$defs/ProjectPath" },
+        "mime": { "enum": ["image/png", "image/webp"] },
+        "sha256": { "$ref": "#/$defs/Hash" },
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "ResourceIdentity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["assetId", "sourceHash", "resolved", "fallback"],
+      "properties": {
+        "assetId": { "$ref": "#/$defs/SemanticId" },
+        "sourceHash": { "$ref": "#/$defs/Hash" },
+        "derivedHash": { "$ref": "#/$defs/Hash" },
+        "resolved": { "type": "boolean" },
+        "fallback": { "type": "boolean" },
+        "projectPath": { "$ref": "#/$defs/ProjectPath" }
+      }
+    },
+    "DrawableObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "drawableId",
+        "objectId",
+        "componentId",
+        "primitive",
+        "visible",
+        "layer",
+        "order",
+        "bounds",
+        "pivot",
+        "scale",
+        "fallback"
+      ],
+      "properties": {
+        "drawableId": { "$ref": "#/$defs/SemanticId" },
+        "objectId": { "$ref": "#/$defs/SemanticId" },
+        "componentId": { "$ref": "#/$defs/SemanticId" },
+        "primitive": {
+          "enum": [
+            "sprite2d",
+            "shape2d",
+            "text2d",
+            "mesh3d",
+            "ui-text",
+            "ui-image"
+          ]
+        },
+        "visible": { "type": "boolean" },
+        "layer": { "type": "number" },
+        "order": { "type": "integer" },
+        "bounds": { "$ref": "#/$defs/Rect" },
+        "pivot": { "$ref": "#/$defs/Vector2" },
+        "scale": { "$ref": "#/$defs/Vector2" },
+        "atlasRegion": { "$ref": "#/$defs/Rect" },
+        "tint": {
+          "type": "array",
+          "prefixItems": [
+            { "type": "number", "minimum": 0, "maximum": 1 },
+            { "type": "number", "minimum": 0, "maximum": 1 },
+            { "type": "number", "minimum": 0, "maximum": 1 },
+            { "type": "number", "minimum": 0, "maximum": 1 }
+          ],
+          "items": false
+        },
+        "resource": { "$ref": "#/$defs/ResourceIdentity" },
+        "fallback": { "type": "boolean" }
+      }
+    },
+    "UiObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "uiId",
+        "objectId",
+        "componentId",
+        "bounds",
+        "visible",
+        "clipped",
+        "overflow",
+        "interactive",
+        "reachable"
+      ],
+      "properties": {
+        "uiId": { "$ref": "#/$defs/SemanticId" },
+        "objectId": { "$ref": "#/$defs/SemanticId" },
+        "componentId": { "$ref": "#/$defs/SemanticId" },
+        "bounds": { "$ref": "#/$defs/Rect" },
+        "visible": { "type": "boolean" },
+        "clipped": { "type": "boolean" },
+        "overflow": { "type": "boolean" },
+        "interactive": { "type": "boolean" },
+        "reachable": { "type": "boolean" },
+        "inputAction": { "type": "string", "minLength": 1 }
+      }
+    },
+    "AudioObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["events", "buses", "missingClipIds", "failedPlaybackIds"],
+      "properties": {
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["eventId", "action", "busId", "tick"],
+            "properties": {
+              "eventId": { "$ref": "#/$defs/SemanticId" },
+              "action": {
+                "enum": [
+                  "play",
+                  "stop",
+                  "pause",
+                  "resume",
+                  "set-volume",
+                  "set-muted"
+                ]
+              },
+              "clip": { "$ref": "#/$defs/ResourceIdentity" },
+              "busId": { "$ref": "#/$defs/SemanticId" },
+              "volume": { "type": "number", "minimum": 0 },
+              "muted": { "type": "boolean" },
+              "tick": { "type": "integer", "minimum": 0 }
+            }
+          }
+        },
+        "buses": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["busId", "volume", "muted"],
+            "properties": {
+              "busId": { "$ref": "#/$defs/SemanticId" },
+              "volume": { "type": "number", "minimum": 0 },
+              "muted": { "type": "boolean" }
+            }
+          }
+        },
+        "missingClipIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/SemanticId" }
+        },
+        "failedPlaybackIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/SemanticId" }
+        }
+      }
+    },
+    "Diagnostic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "severity", "message", "tick"],
+      "properties": {
+        "code": { "type": "string", "minLength": 1 },
+        "severity": { "enum": ["error", "warning", "info"] },
+        "message": { "type": "string", "minLength": 1 },
+        "tick": { "type": "integer", "minimum": 0 },
+        "sceneId": { "$ref": "#/$defs/SemanticId" },
+        "objectId": { "$ref": "#/$defs/SemanticId" },
+        "componentId": { "$ref": "#/$defs/SemanticId" },
+        "assetId": { "$ref": "#/$defs/SemanticId" },
+        "systemId": { "$ref": "#/$defs/SemanticId" },
+        "moduleId": { "$ref": "#/$defs/SemanticId" },
+        "projectPath": { "$ref": "#/$defs/ProjectPath" },
+        "line": { "type": "integer", "minimum": 1 },
+        "column": { "type": "integer", "minimum": 1 },
+        "checkpointId": {
+          "type": "string",
+          "pattern": "^checkpoint:[a-z0-9][a-z0-9_-]*$"
+        }
+      }
+    }
+  }
+}

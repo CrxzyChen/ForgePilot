@@ -1,0 +1,56 @@
+{
+  "schemaVersion": "2.0.0-alpha.1",
+  "id": "tank-arena-example:prefab/destructible-wall",
+  "name": "Destructible Wall",
+  "objects": [
+    {
+      "id": "tank-prefab:destructible-wall",
+      "name": "Destructible Wall",
+      "enabled": true,
+      "visible": true,
+      "locked": false,
+      "parentId": null,
+      "order": 6,
+      "components": [
+        {
+          "id": "tank-prefab:destructible-wall/transform",
+          "type": "core:transform2d",
+          "enabled": true,
+          "data": {
+            "position": { "x": 0, "y": 0 },
+            "rotation": 0,
+            "scale": { "x": 1, "y": 1 }
+          }
+        },
+        {
+          "id": "tank-prefab:destructible-wall/shape",
+          "type": "render:shape2d",
+          "enabled": true,
+          "data": {
+            "shape": "rectangle",
+            "size": { "x": 1, "y": 1 },
+            "color": "#9a613c",
+            "layer": 6
+          }
+        },
+        {
+          "id": "tank-prefab:destructible-wall/collider",
+          "type": "physics:collider2d",
+          "enabled": true,
+          "data": {
+            "shape": "box",
+            "size": { "x": 1, "y": 1 },
+            "isTrigger": false
+          }
+        },
+        {
+          "id": "tank-prefab:destructible-wall/wall",
+          "type": "tank:wall",
+          "enabled": true,
+          "data": { "destructible": true, "health": 1 }
+        }
+      ]
+    }
+  ],
+  "rootObjectIds": ["tank-prefab:destructible-wall"]
+}

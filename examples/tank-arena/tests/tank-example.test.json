@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "1.0.0",
+  "kind": "runtime-scenario",
+  "ticks": 60,
+  "seed": 20260902,
+  "documentation": [
+    "Tank project code stays under Examples",
+    "fire emits typed Event"
+  ],
+  "assertions": [
+    {
+      "id": "assertion:menu-state",
+      "tick": 0,
+      "target": {
+        "objectId": "tank:game",
+        "componentId": "tank:game/state",
+        "field": "phase"
+      },
+      "operator": "equals",
+      "expected": "menu"
+    },
+    {
+      "id": "assertion:player-ready",
+      "tick": 0,
+      "target": { "objectId": "tank:player" },
+      "operator": "exists"
+    }
+  ]
+}

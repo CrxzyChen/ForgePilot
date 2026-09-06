@@ -1,0 +1,83 @@
+{
+  "schemaVersion": "2.0.0-alpha.1",
+  "id": "tank-arena-example:prefab/enemy-tank",
+  "name": "Enemy Tank",
+  "objects": [
+    {
+      "id": "tank-prefab:enemy",
+      "name": "Enemy Tank",
+      "enabled": true,
+      "visible": true,
+      "locked": false,
+      "parentId": null,
+      "order": 11,
+      "components": [
+        {
+          "id": "tank-prefab:enemy/transform",
+          "type": "core:transform2d",
+          "enabled": true,
+          "data": {
+            "position": { "x": 16, "y": 3 },
+            "rotation": 0,
+            "scale": { "x": 1, "y": 1 }
+          }
+        },
+        {
+          "id": "tank-prefab:enemy/sprite",
+          "type": "render:sprite2d",
+          "enabled": true,
+          "data": {
+            "texture": "tank-arena-example:asset/tank-sprite-v1",
+            "size": { "x": 1.35, "y": 1.35 },
+            "pivot": { "x": 0.5, "y": 0.5 },
+            "tint": "#ff6474",
+            "filter": "nearest",
+            "layer": 11
+          }
+        },
+        {
+          "id": "tank-prefab:enemy/collider",
+          "type": "physics:collider2d",
+          "enabled": true,
+          "data": {
+            "shape": "box",
+            "size": { "x": 1.05, "y": 1.05 },
+            "isTrigger": false
+          }
+        },
+        {
+          "id": "tank-prefab:enemy/rigidbody",
+          "type": "physics:rigidbody2d",
+          "enabled": true,
+          "data": {
+            "bodyType": "kinematic",
+            "velocity": { "x": 0, "y": 0 },
+            "linearDamping": 0
+          }
+        },
+        {
+          "id": "tank-prefab:enemy/unit",
+          "type": "tank:unit",
+          "enabled": true,
+          "data": { "team": "enemy", "health": 1 }
+        },
+        {
+          "id": "tank-prefab:enemy/state",
+          "type": "tank:enemy-state",
+          "enabled": true,
+          "data": { "breached": false, "speed": 1.1 }
+        },
+        {
+          "id": "tank-prefab:enemy/script",
+          "type": "core:script",
+          "enabled": true,
+          "data": {
+            "path": "scripts/behaviors/enemy-tank.ts",
+            "enabled": true
+          }
+        }
+      ]
+    }
+  ],
+  "rootObjectIds": ["tank-prefab:enemy"]
+}

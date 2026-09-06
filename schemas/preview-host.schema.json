@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-game-kernel.dev/schema/preview-host/3-0-0-preview-1",
+  "title": "AI Game Studio Native Preview Host Protocol",
+  "description": "Version negotiation, surface lifecycle, frame acknowledgement, and failure isolation between Studio and the native preview host.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocolVersion", "kind", "hostId", "sequence", "payload"],
+  "properties": {
+    "protocolVersion": { "const": "3.0.0-preview.1" },
+    "kind": {
+      "enum": [
+        "host.hello",
+        "host.ready",
+        "surface.attach",
+        "surface.resize",
+        "surface.detach",
+        "frame.ready",
+        "frame.ack",
+        "host.health",
+        "host.failure",
+        "host.shutdown"
+      ]
+    },
+    "hostId": {
+      "type": "string",
+      "pattern": "^preview-host:[a-z0-9][a-z0-9_-]*$"
+    },
+    "sequence": { "type": "integer", "minimum": 0 },
+    "correlationId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_./-]*$"
+    },
+    "payload": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "supportedProtocolVersions": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "selectedProtocolVersion": { "type": "string" },
+        "sessionId": {
+          "type": "string",
+          "pattern": "^session:[a-z0-9][a-z0-9_-]*$"
+        },
+        "surfaceId": {
+          "type": "string",
+          "pattern": "^surface:[a-z0-9][a-z0-9_-]*$"
+        },
+        "nativeWindowHandle": {
+          "description": "Opaque host-local attachment value; never persisted or exposed through MCP.",
+          "type": "string"
+        },
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 },
+        "scaleFactor": { "type": "number", "exclusiveMinimum": 0 },
+        "frameSequence": { "type": "integer", "minimum": 0 },
+        "status": {
+          "enum": ["starting", "ready", "degraded", "failed", "stopped"]
+        },
+        "code": { "type": "string" },
+        "message": { "type": "string" },
+        "recoverable": { "type": "boolean" }
+      }
+    }
+  }
+}

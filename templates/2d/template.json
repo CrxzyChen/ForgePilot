@@ -1,0 +1,7 @@
+{
+  "id": "core:2d",
+  "version": "1.0.0",
+  "capabilities": ["2d", "orthographic-camera", "sprite-batch"],
+  "agentsFragment": "AGENTS.fragment.md",
+  "project": { "dimension": "2d" }
+}

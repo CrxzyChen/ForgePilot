@@ -1,0 +1,9 @@
+{
+  "schemaVersion": "1.0.0",
+  "layers": ["player", "enemy", "projectile", "terrain"],
+  "rules": [
+    { "a": "player", "b": "terrain", "response": "block" },
+    { "a": "enemy", "b": "terrain", "response": "block" },
+    { "a": "projectile", "b": "terrain", "response": "event" }
+  ]
+}

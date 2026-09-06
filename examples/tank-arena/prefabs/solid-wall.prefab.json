@@ -1,0 +1,56 @@
+{
+  "schemaVersion": "2.0.0-alpha.1",
+  "id": "tank-arena-example:prefab/solid-wall",
+  "name": "Solid Wall",
+  "objects": [
+    {
+      "id": "tank-prefab:solid-wall",
+      "name": "Solid Wall",
+      "enabled": true,
+      "visible": true,
+      "locked": false,
+      "parentId": null,
+      "order": 5,
+      "components": [
+        {
+          "id": "tank-prefab:solid-wall/transform",
+          "type": "core:transform2d",
+          "enabled": true,
+          "data": {
+            "position": { "x": 0, "y": 0 },
+            "rotation": 0,
+            "scale": { "x": 1, "y": 1 }
+          }
+        },
+        {
+          "id": "tank-prefab:solid-wall/shape",
+          "type": "render:shape2d",
+          "enabled": true,
+          "data": {
+            "shape": "rectangle",
+            "size": { "x": 1, "y": 1 },
+            "color": "#586b7a",
+            "layer": 5
+          }
+        },
+        {
+          "id": "tank-prefab:solid-wall/collider",
+          "type": "physics:collider2d",
+          "enabled": true,
+          "data": {
+            "shape": "box",
+            "size": { "x": 1, "y": 1 },
+            "isTrigger": false
+          }
+        },
+        {
+          "id": "tank-prefab:solid-wall/wall",
+          "type": "tank:wall",
+          "enabled": true,
+          "data": { "destructible": false, "health": 0 }
+        }
+      ]
+    }
+  ],
+  "rootObjectIds": ["tank-prefab:solid-wall"]
+}

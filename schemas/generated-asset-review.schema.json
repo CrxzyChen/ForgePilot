@@ -1,0 +1,189 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-game-kernel.dev/schema/generated-asset-review/1-0-0",
+  "title": "Generated Asset Candidate and Review",
+  "description": "Inspectable generated candidates and explicit selection, rejection, or regeneration decisions. Candidate files remain outside authoritative project assets until an approved import ChangeSet applies.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "candidateId",
+    "jobId",
+    "capability",
+    "artifact",
+    "provenance",
+    "reviewState",
+    "createdAt"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "candidateId": { "$ref": "#/$defs/CandidateId" },
+    "jobId": {
+      "type": "string",
+      "pattern": "^asset-job:[a-z0-9][a-z0-9_-]*$"
+    },
+    "capability": {
+      "enum": ["image", "soundEffect", "music", "speechGeneration"]
+    },
+    "artifact": { "$ref": "#/$defs/Artifact" },
+    "provenance": { "$ref": "#/$defs/Provenance" },
+    "reviewState": {
+      "enum": ["awaitingReview", "selected", "rejected", "superseded"]
+    },
+    "recommendation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["recommended", "reasons", "evidenceIds"],
+      "properties": {
+        "recommended": { "type": "boolean" },
+        "reasons": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "evidenceIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/StableId" }
+        }
+      }
+    },
+    "decision": {
+      "oneOf": [{ "$ref": "#/$defs/ReviewDecision" }, { "type": "null" }]
+    },
+    "regeneration": {
+      "oneOf": [{ "$ref": "#/$defs/Regeneration" }, { "type": "null" }]
+    },
+    "createdAt": { "$ref": "#/$defs/Timestamp" }
+  },
+  "$defs": {
+    "Timestamp": { "type": "string", "format": "date-time" },
+    "Hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "StableId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_./-]*$"
+    },
+    "CandidateId": {
+      "type": "string",
+      "pattern": "^candidate:[a-z0-9][a-z0-9_-]*$"
+    },
+    "CandidatePath": {
+      "type": "string",
+      "pattern": "^\\.aigame/local/asset-candidates/(?!.*(?:^|/)\\.\\.(?:/|$))[^\\\\]+$"
+    },
+    "Artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["artifactId", "path", "sha256", "mime", "bytes", "media"],
+      "properties": {
+        "artifactId": {
+          "type": "string",
+          "pattern": "^artifact:[a-z0-9][a-z0-9_-]*$"
+        },
+        "path": { "$ref": "#/$defs/CandidatePath" },
+        "sha256": { "$ref": "#/$defs/Hash" },
+        "mime": { "type": "string", "pattern": "^(image|audio)/[a-z0-9.+-]+$" },
+        "bytes": { "type": "integer", "minimum": 1 },
+        "media": {
+          "oneOf": [
+            { "$ref": "#/$defs/ImageMetadata" },
+            { "$ref": "#/$defs/AudioMetadata" }
+          ]
+        }
+      }
+    },
+    "ImageMetadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "width", "height", "format", "hasAlpha"],
+      "properties": {
+        "kind": { "const": "image" },
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 },
+        "format": { "type": "string", "minLength": 1 },
+        "hasAlpha": { "type": "boolean" }
+      }
+    },
+    "AudioMetadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "durationMs", "codec", "sampleRateHz", "channels"],
+      "properties": {
+        "kind": { "const": "audio" },
+        "durationMs": { "type": "integer", "minimum": 1 },
+        "codec": { "type": "string", "minLength": 1 },
+        "sampleRateHz": { "type": "integer", "minimum": 1 },
+        "channels": { "type": "integer", "minimum": 1, "maximum": 32 }
+      }
+    },
+    "Provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "promptHash",
+        "providerId",
+        "modelId",
+        "parameterHash",
+        "sourceHashes",
+        "license",
+        "restrictions"
+      ],
+      "properties": {
+        "artDirectionSkillId": { "$ref": "#/$defs/StableId" },
+        "assetBriefId": { "$ref": "#/$defs/StableId" },
+        "promptHash": { "$ref": "#/$defs/Hash" },
+        "providerId": { "type": "string", "minLength": 1 },
+        "modelId": { "type": "string", "minLength": 1 },
+        "parameterHash": { "$ref": "#/$defs/Hash" },
+        "sourceHashes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/Hash" }
+        },
+        "license": { "type": "string", "minLength": 1 },
+        "restrictions": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "ReviewDecision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["decisionId", "decision", "source", "decidedAt", "reason"],
+      "properties": {
+        "decisionId": {
+          "type": "string",
+          "pattern": "^review-decision:[a-z0-9][a-z0-9_-]*$"
+        },
+        "decision": { "enum": ["selected", "rejected"] },
+        "source": { "enum": ["human", "configured-policy"] },
+        "policyHash": { "$ref": "#/$defs/Hash" },
+        "decidedAt": { "$ref": "#/$defs/Timestamp" },
+        "reason": { "type": "string", "minLength": 1 }
+      }
+    },
+    "Regeneration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "regenerationId",
+        "parentCandidateId",
+        "childJobId",
+        "instruction"
+      ],
+      "properties": {
+        "regenerationId": {
+          "type": "string",
+          "pattern": "^regeneration:[a-z0-9][a-z0-9_-]*$"
+        },
+        "parentCandidateId": { "$ref": "#/$defs/CandidateId" },
+        "childJobId": {
+          "type": "string",
+          "pattern": "^asset-job:[a-z0-9][a-z0-9_-]*$"
+        },
+        "instruction": { "type": "string", "minLength": 1, "maxLength": 4000 }
+      }
+    }
+  }
+}

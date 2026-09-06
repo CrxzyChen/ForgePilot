@@ -1,0 +1,245 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "asset-brief:tank-completion-v1",
+  "artDirectionSkill": ".agents/skills/tank-art-direction/SKILL.md",
+  "artDirectionVersion": "1.0.0",
+  "title": "Tank Arena — Neon Bastion completion set",
+  "shared": {
+    "view": "strict orthographic top-down, zero rotation faces canvas top",
+    "palette": [
+      "#07121d",
+      "#102836",
+      "#176779",
+      "#72ffe1",
+      "#ff6474",
+      "#fff0a8",
+      "#52d69b",
+      "#f3fbff"
+    ],
+    "medium": "crisp stylized 2D painted-metal game sprite",
+    "prohibited": [
+      "logos",
+      "trademarks",
+      "flags",
+      "real military insignia",
+      "isometric perspective",
+      "embedded text",
+      "watermarks",
+      "photoreal gore"
+    ]
+  },
+  "resources": [
+    {
+      "id": "asset-brief:player-tank-v1",
+      "kind": "image",
+      "assetId": "tank-arena-example:asset/player-tank-v1",
+      "outputName": "player-tank-v1.png",
+      "role": "player tank",
+      "prompt": "compact cyan defender tank, broad tracked hull, centered angular turret and short upward barrel, luminous cyan recognition strips",
+      "transparent": true,
+      "filter": "nearest",
+      "review": [
+        "unambiguous upward heading",
+        "distinct player silhouette",
+        "clean alpha",
+        "readable at 64 px"
+      ]
+    },
+    {
+      "id": "asset-brief:enemy-tank-v1",
+      "kind": "image",
+      "assetId": "tank-arena-example:asset/enemy-tank-v1",
+      "outputName": "enemy-tank-v1.png",
+      "role": "enemy tank",
+      "prompt": "compact coral raider tank, narrower aggressive hull, forked front armor, offset compact turret and short upward barrel",
+      "transparent": true,
+      "filter": "nearest",
+      "review": [
+        "distinct from player without color",
+        "clean alpha",
+        "readable at 60 px"
+      ]
+    },
+    {
+      "id": "asset-brief:player-shell-v1",
+      "kind": "image",
+      "assetId": "tank-arena-example:asset/player-shell-v1",
+      "outputName": "player-shell-v1.png",
+      "role": "player projectile",
+      "prompt": "small amber energy shell with bright core and short symmetric tail aligned vertically",
+      "transparent": true,
+      "filter": "linear",
+      "review": ["centered", "vertical direction", "visible at 12 px"]
+    },
+    {
+      "id": "asset-brief:solid-wall-v1",
+      "kind": "image",
+      "assetId": "tank-arena-example:asset/solid-wall-v1",
+      "outputName": "solid-wall-v1.png",
+      "role": "indestructible wall tile",
+      "prompt": "square midnight steel bunker tile, reinforced cross braces, cyan edge rivets, tile-safe edges",
+      "transparent": false,
+      "filter": "nearest",
+      "review": [
+        "square tile",
+        "solid silhouette",
+        "no directional lighting seam"
+      ]
+    },
+    {
+      "id": "asset-brief:destructible-wall-v1",
+      "kind": "image",
+      "assetId": "tank-arena-example:asset/destructible-wall-v1",
+      "outputName": "destructible-wall-v1.png",
+      "role": "destructible wall tile",
+      "prompt": "square worn slate armor tile, segmented plates with amber fracture lines, tile-safe edges",
+      "transparent": false,
+      "filter": "nearest",
+      "review": [
+        "visibly destructible",
+        "distinct from solid wall",
+        "square tile"
+      ]
+    },
+    {
+      "id": "asset-brief:ground-v1",
+      "kind": "image",
+      "assetId": "tank-arena-example:asset/ground-v1",
+      "outputName": "ground-v1.png",
+      "role": "arena ground",
+      "prompt": "seamless midnight navy industrial floor, sparse panel seams, subtle teal circuit traces and restrained wear",
+      "transparent": false,
+      "filter": "nearest",
+      "review": [
+        "seamless edges",
+        "low contrast under gameplay",
+        "no focal object"
+      ]
+    },
+    {
+      "id": "asset-brief:command-base-v1",
+      "kind": "image",
+      "assetId": "tank-arena-example:asset/command-base-v1",
+      "outputName": "command-base-v1.png",
+      "role": "player command base",
+      "prompt": "wide cyan-lit command bunker, shielded gate and central reactor marking, strict top-down silhouette",
+      "transparent": true,
+      "filter": "nearest",
+      "review": [
+        "defensive base silhouette",
+        "clean alpha",
+        "readable at 100 px"
+      ]
+    },
+    {
+      "id": "asset-brief:explosion-v1",
+      "kind": "image",
+      "assetId": "tank-arena-example:asset/explosion-v1",
+      "outputName": "explosion-v1.png",
+      "role": "impact and destruction feedback",
+      "prompt": "compact radial amber and coral energy explosion, sharp debris sparks and soft cyan shock ring",
+      "transparent": true,
+      "filter": "linear",
+      "review": ["clean alpha", "centered burst", "reads on navy and slate"]
+    },
+    {
+      "id": "asset-brief:ui-panel-v1",
+      "kind": "image",
+      "assetId": "tank-arena-example:asset/ui-panel-v1",
+      "outputName": "ui-panel-v1.png",
+      "role": "menu, help and result panel backing",
+      "prompt": "dark translucent technical interface plate, clipped corners, thin cyan keyline and sparse scan-line accents",
+      "transparent": true,
+      "filter": "linear",
+      "review": [
+        "no text",
+        "clean alpha",
+        "supports nine-slice-style stretching"
+      ]
+    },
+    {
+      "id": "asset-brief:fire-v2",
+      "kind": "soundEffect",
+      "assetId": "tank-arena-example:asset/fire-v2",
+      "outputName": "fire-v2.mp3",
+      "role": "player firing",
+      "prompt": "short compact sci-fi tank cannon pulse, firm metallic transient, tight low impact, no reverb tail"
+    },
+    {
+      "id": "asset-brief:hit-v2",
+      "kind": "soundEffect",
+      "assetId": "tank-arena-example:asset/hit-v2",
+      "outputName": "hit-v2.mp3",
+      "role": "armor hit",
+      "prompt": "short armored impact, metal strike with electronic crackle, distinct from explosion"
+    },
+    {
+      "id": "asset-brief:explosion-sfx-v1",
+      "kind": "soundEffect",
+      "assetId": "tank-arena-example:asset/explosion-sfx-v1",
+      "outputName": "explosion-sfx-v1.mp3",
+      "role": "tank destruction",
+      "prompt": "compact arcade tank destruction burst, layered low thump, metal debris and brief energy decay"
+    },
+    {
+      "id": "asset-brief:ui-confirm-v1",
+      "kind": "soundEffect",
+      "assetId": "tank-arena-example:asset/ui-confirm-v1",
+      "outputName": "ui-confirm-v1.mp3",
+      "role": "menu confirmation",
+      "prompt": "clean two-note cyan interface confirmation, 300 milliseconds, soft digital transient"
+    },
+    {
+      "id": "asset-brief:match-win-v1",
+      "kind": "soundEffect",
+      "assetId": "tank-arena-example:asset/match-win-v1",
+      "outputName": "match-win-v1.mp3",
+      "role": "victory result",
+      "prompt": "brief triumphant three-note retro-futurist victory sting with restrained synth brass"
+    },
+    {
+      "id": "asset-brief:match-lose-v1",
+      "kind": "soundEffect",
+      "assetId": "tank-arena-example:asset/match-lose-v1",
+      "outputName": "match-lose-v1.mp3",
+      "role": "defeat result",
+      "prompt": "brief descending two-note tactical defeat sting, subdued analog synth and low impact"
+    },
+    {
+      "id": "asset-brief:battle-loop-v1",
+      "kind": "music",
+      "assetId": "tank-arena-example:asset/battle-loop-v1",
+      "outputName": "battle-loop-v1.mp3",
+      "role": "battle music",
+      "prompt": "seamless restrained retro-futurist tactical loop, 105 BPM, pulsing bass, sparse arpeggio, no vocals, room for combat sounds"
+    }
+  ],
+  "coverage": {
+    "world": [
+      "player",
+      "enemy",
+      "projectile",
+      "solid-wall",
+      "destructible-wall",
+      "ground",
+      "command-base",
+      "impact/explosion"
+    ],
+    "ui": [
+      "menu-panel",
+      "help-panel",
+      "pause-panel",
+      "win-panel",
+      "lose-panel"
+    ],
+    "audio": [
+      "fire",
+      "hit",
+      "destruction",
+      "ui-confirm",
+      "match-win",
+      "match-lose",
+      "battle-loop"
+    ]
+  }
+}

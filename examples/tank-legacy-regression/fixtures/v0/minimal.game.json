@@ -1,0 +1,15 @@
+{
+  "kind": "ai-game-kernel/project",
+  "schemaVersion": "0.1.0",
+  "id": "demo:migration",
+  "title": "Migration fixture",
+  "entryScene": "demo:migration/map",
+  "scenes": [
+    {
+      "id": "demo:migration/map",
+      "title": "Old Map",
+      "size": { "width": 8, "height": 8 },
+      "objects": []
+    }
+  ]
+}

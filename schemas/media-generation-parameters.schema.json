@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-game-kernel.dev/schema/media-generation-parameters/1-0-0",
+  "title": "Delivered media adapter parameters",
+  "description": "Parameter compatibility contract for every production media adapter delivered by Round 05 P29. Provider model discovery may return additional model IDs, but each executes through one of these capability-specific adapter contracts.",
+  "oneOf": [
+    {
+      "title": "OpenAI image generation",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "size": { "enum": ["1024x1024", "1536x1024", "1024x1536", "auto"] },
+        "quality": { "enum": ["low", "medium", "high", "auto"] },
+        "format": { "enum": ["png", "jpeg", "webp"] },
+        "background": { "enum": ["transparent", "opaque", "auto"] }
+      }
+    },
+    {
+      "title": "Alibaba Bailian image generation",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "size": { "type": "string", "pattern": "^[0-9]{2,5}\\*[0-9]{2,5}$" },
+        "watermark": { "type": "boolean" },
+        "promptExtend": { "type": "boolean" }
+      }
+    },
+    {
+      "title": "Alibaba Bailian speech generation",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["voice"],
+      "properties": {
+        "voice": { "type": "string", "minLength": 1 },
+        "format": { "const": "wav" },
+        "sampleRate": { "type": "number", "minimum": 8000, "maximum": 48000 }
+      }
+    },
+    {
+      "title": "ElevenLabs sound-effect generation",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "durationSeconds": { "type": "number", "minimum": 0.5, "maximum": 22 },
+        "loop": { "type": "boolean" },
+        "promptInfluence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "outputFormat": {
+          "type": "string",
+          "pattern": "^mp3_[0-9]{4,6}_[0-9]{2,3}$"
+        }
+      }
+    },
+    {
+      "title": "ElevenLabs music generation",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "musicLengthMs": {
+          "type": "number",
+          "minimum": 3000,
+          "maximum": 600000
+        },
+        "outputFormat": {
+          "type": "string",
+          "pattern": "^mp3_[0-9]{4,6}_[0-9]{2,3}$"
+        }
+      }
+    }
+  ]
+}

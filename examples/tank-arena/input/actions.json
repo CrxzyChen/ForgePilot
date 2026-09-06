@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "1.0.0",
+  "actions": [
+    {
+      "id": "move-up",
+      "bindings": ["KeyW", "ArrowUp"]
+    },
+    {
+      "id": "move-down",
+      "bindings": ["KeyS", "ArrowDown"]
+    },
+    {
+      "id": "move-left",
+      "bindings": ["KeyA", "ArrowLeft"]
+    },
+    {
+      "id": "move-right",
+      "bindings": ["KeyD", "ArrowRight"]
+    },
+    {
+      "id": "fire",
+      "bindings": ["Space"]
+    },
+    {
+      "id": "start-game",
+      "bindings": ["Enter"]
+    },
+    {
+      "id": "pause",
+      "bindings": ["Escape"]
+    },
+    {
+      "id": "restart",
+      "bindings": ["KeyR"]
+    },
+    {
+      "id": "toggle-help",
+      "bindings": ["KeyH", "F1"]
+    },
+    {
+      "id": "toggle-mute",
+      "bindings": ["KeyM"]
+    },
+    {
+      "id": "volume-down",
+      "bindings": ["BracketLeft", "Minus"]
+    },
+    {
+      "id": "volume-up",
+      "bindings": ["BracketRight", "Equal"]
+    }
+  ]
+}

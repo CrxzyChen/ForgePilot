@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-game-kernel.dev/schema/component-registry/2-0-0-alpha-1",
+  "title": "AI Game project Component registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "components"],
+  "properties": {
+    "schemaVersion": { "const": "2.0.0-alpha.1" },
+    "components": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["type", "label", "fields"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_./-]*$"
+          },
+          "label": { "type": "string", "minLength": 1 },
+          "inspectorEditor": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_./-]*$"
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["name", "type", "default"],
+              "properties": {
+                "name": { "type": "string", "minLength": 1 },
+                "type": {
+                  "enum": [
+                    "number",
+                    "string",
+                    "boolean",
+                    "vec2",
+                    "vec3",
+                    "color",
+                    "resource"
+                  ]
+                },
+                "default": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

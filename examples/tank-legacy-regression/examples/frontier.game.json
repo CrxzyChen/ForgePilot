@@ -1,0 +1,120 @@
+{
+  "kind": "ai-game-kernel/project",
+  "schemaVersion": "1.0.0",
+  "id": "demo:frontier-campaign",
+  "name": "Frontier Campaign",
+  "entryWorld": "demo:frontier-campaign/map",
+  "worlds": [
+    {
+      "id": "demo:frontier-campaign/map",
+      "name": "Frontier Campaign Map",
+      "bounds": { "width": 16, "height": 5 },
+      "entities": [
+        {
+          "id": "demo:frontier-campaign/player",
+          "name": "Player Expedition",
+          "components": [
+            { "type": "core:transform", "position": { "x": 1, "y": 2 } },
+            { "type": "game:player-controlled" },
+            {
+              "type": "game:mergeable",
+              "faction": "demo:player",
+              "strength": 8
+            }
+          ]
+        },
+        {
+          "id": "demo:frontier-campaign/scouts",
+          "name": "Volunteer Scouts",
+          "components": [
+            { "type": "core:transform", "position": { "x": 2, "y": 2 } },
+            {
+              "type": "game:mergeable",
+              "faction": "demo:player",
+              "strength": 5
+            }
+          ]
+        },
+        {
+          "id": "demo:frontier-campaign/granary",
+          "name": "Frontier Granary",
+          "components": [
+            { "type": "core:transform", "position": { "x": 3, "y": 2 } },
+            { "type": "game:capture-site", "requiredStrength": 12 },
+            { "type": "game:strategic-site", "kind": "granary" },
+            {
+              "type": "game:producer",
+              "resource": "grain",
+              "amountPerCycle": 2,
+              "cycleTicks": 2
+            }
+          ]
+        },
+        {
+          "id": "demo:frontier-campaign/raiders",
+          "name": "Border Raiders",
+          "components": [
+            { "type": "core:transform", "position": { "x": 6, "y": 2 } },
+            {
+              "type": "game:mergeable",
+              "faction": "demo:raiders",
+              "strength": 4
+            },
+            { "type": "game:hostile-ai", "moveEveryTicks": 2 }
+          ]
+        },
+        {
+          "id": "demo:frontier-campaign/engineers",
+          "name": "Volunteer Engineers",
+          "components": [
+            { "type": "core:transform", "position": { "x": 5, "y": 2 } },
+            {
+              "type": "game:mergeable",
+              "faction": "demo:player",
+              "strength": 4
+            }
+          ]
+        },
+        {
+          "id": "demo:frontier-campaign/armory",
+          "name": "Old Armory",
+          "components": [
+            { "type": "core:transform", "position": { "x": 7, "y": 2 } },
+            { "type": "game:capture-site", "requiredStrength": 18 },
+            { "type": "game:strategic-site", "kind": "armory" },
+            {
+              "type": "game:producer",
+              "resource": "weapons",
+              "amountPerCycle": 2,
+              "cycleTicks": 2
+            }
+          ]
+        },
+        {
+          "id": "demo:frontier-campaign/factory",
+          "name": "Machine Factory",
+          "components": [
+            { "type": "core:transform", "position": { "x": 9, "y": 2 } },
+            { "type": "game:capture-site", "requiredStrength": 20 },
+            { "type": "game:strategic-site", "kind": "factory" },
+            {
+              "type": "game:producer",
+              "resource": "industry",
+              "amountPerCycle": 2,
+              "cycleTicks": 2
+            }
+          ]
+        },
+        {
+          "id": "demo:frontier-campaign/capital",
+          "name": "Frontier Capital",
+          "components": [
+            { "type": "core:transform", "position": { "x": 12, "y": 2 } },
+            { "type": "game:capture-site", "requiredStrength": 25 },
+            { "type": "game:victory-target" }
+          ]
+        }
+      ]
+    }
+  ]
+}

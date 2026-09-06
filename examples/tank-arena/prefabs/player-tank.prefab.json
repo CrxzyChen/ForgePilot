@@ -1,0 +1,86 @@
+{
+  "schemaVersion": "2.0.0-alpha.1",
+  "id": "tank-arena-example:prefab/player-tank",
+  "name": "Player Tank",
+  "objects": [
+    {
+      "id": "tank-prefab:player",
+      "name": "Player Tank",
+      "enabled": true,
+      "visible": true,
+      "locked": false,
+      "parentId": null,
+      "order": 10,
+      "components": [
+        {
+          "id": "tank-prefab:player/transform",
+          "type": "core:transform2d",
+          "enabled": true,
+          "data": {
+            "position": { "x": 16, "y": 14.5 },
+            "rotation": 0,
+            "scale": { "x": 1, "y": 1 }
+          }
+        },
+        {
+          "id": "tank-prefab:player/sprite",
+          "type": "render:sprite2d",
+          "enabled": true,
+          "data": {
+            "texture": "tank-arena-example:asset/tank-sprite-v1",
+            "size": { "x": 1.45, "y": 1.45 },
+            "pivot": { "x": 0.5, "y": 0.5 },
+            "tint": "#72ffe1",
+            "filter": "nearest",
+            "layer": 10
+          }
+        },
+        {
+          "id": "tank-prefab:player/collider",
+          "type": "physics:collider2d",
+          "enabled": true,
+          "data": {
+            "shape": "box",
+            "size": { "x": 1.1, "y": 1.1 },
+            "isTrigger": false
+          }
+        },
+        {
+          "id": "tank-prefab:player/rigidbody",
+          "type": "physics:rigidbody2d",
+          "enabled": true,
+          "data": {
+            "bodyType": "dynamic",
+            "velocity": { "x": 0, "y": 0 },
+            "linearDamping": 0
+          }
+        },
+        {
+          "id": "tank-prefab:player/unit",
+          "type": "tank:unit",
+          "enabled": true,
+          "data": { "team": "player", "health": 3 }
+        },
+        {
+          "id": "tank-prefab:player/weapon",
+          "type": "tank:weapon",
+          "enabled": true,
+          "data": {
+            "nextFireTick": 0,
+            "direction": { "x": 0, "y": -1 }
+          }
+        },
+        {
+          "id": "tank-prefab:player/script",
+          "type": "core:script",
+          "enabled": true,
+          "data": {
+            "path": "scripts/behaviors/player-tank.ts",
+            "enabled": true
+          }
+        }
+      ]
+    }
+  ],
+  "rootObjectIds": ["tank-prefab:player"]
+}

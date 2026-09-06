@@ -1,0 +1,16 @@
+[package]
+name = "ai-game-script-host"
+description = "Sandboxed deterministic project-script host for AI Game Studio"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+rquickjs = "0.12.2"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+[lints]
+workspace = true
+

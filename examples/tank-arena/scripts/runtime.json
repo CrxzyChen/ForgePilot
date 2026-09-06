@@ -1,0 +1,73 @@
+{
+  "schemaVersion": "2.0.0-alpha.1",
+  "sdkVersion": "0.2.0-alpha.1",
+  "modules": [
+    {
+      "id": "tank:behavior/player",
+      "kind": "behavior",
+      "source": "scripts/behaviors/player-tank.ts"
+    },
+    {
+      "id": "tank:behavior/player-shell",
+      "kind": "behavior",
+      "source": "scripts/behaviors/player-shell.ts"
+    },
+    {
+      "id": "tank:behavior/enemy",
+      "kind": "behavior",
+      "source": "scripts/behaviors/enemy-tank.ts"
+    },
+    {
+      "id": "tank:behavior/game-controller",
+      "kind": "behavior",
+      "source": "scripts/behaviors/game-controller.ts"
+    },
+    {
+      "id": "tank:behavior/explosion",
+      "kind": "behavior",
+      "source": "scripts/behaviors/explosion.ts"
+    }
+  ],
+  "systems": [],
+  "commands": [],
+  "events": [
+    {
+      "id": "tank:fired",
+      "payloadSchema": "scripts/events/fired.schema.json"
+    },
+    {
+      "id": "tank:enemy-destroyed",
+      "payloadSchema": "scripts/events/enemy-destroyed.schema.json"
+    },
+    {
+      "id": "tank:player-hit",
+      "payloadSchema": "scripts/events/hit.schema.json"
+    },
+    {
+      "id": "tank:base-hit",
+      "payloadSchema": "scripts/events/hit.schema.json"
+    },
+    {
+      "id": "tank:wall-hit",
+      "payloadSchema": "scripts/events/wall-hit.schema.json"
+    }
+  ],
+  "schedule": [
+    "engine:input",
+    "engine:pre-update",
+    "engine:fixed-update",
+    "engine:physics",
+    "engine:collision-events",
+    "engine:gameplay-events",
+    "engine:post-update",
+    "engine:snapshot",
+    "engine:presentation"
+  ],
+  "budgets": {
+    "memoryBytes": 134217728,
+    "stackBytes": 524288,
+    "instructionsPerTick": 100000,
+    "eventsPerTick": 64
+  },
+  "hotReload": "restart-authoritative"
+}

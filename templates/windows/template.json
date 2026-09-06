@@ -1,0 +1,7 @@
+{
+  "id": "core:windows",
+  "version": "1.0.0",
+  "capabilities": ["windows-build"],
+  "agentsFragment": "AGENTS.fragment.md",
+  "project": { "targets": ["windows-x86_64"] }
+}

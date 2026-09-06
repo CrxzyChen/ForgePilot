@@ -1,0 +1,9 @@
+{
+  "schemaVersion": "1.0.0",
+  "buses": [
+    { "id": "audio:bus/master", "volume": 1, "muted": false },
+    { "id": "audio:bus/music", "volume": 0.7, "muted": false },
+    { "id": "audio:bus/sfx", "volume": 1, "muted": false },
+    { "id": "audio:bus/ui", "volume": 0.9, "muted": false }
+  ]
+}

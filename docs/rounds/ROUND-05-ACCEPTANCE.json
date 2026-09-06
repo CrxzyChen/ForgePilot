@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "1.0.0",
+  "round": "R5",
+  "decision": "owner-accepted",
+  "closed": true,
+  "date": "2026-09-06",
+  "authority": "product-owner",
+  "confirmation": ["同意验收R5", "是"],
+  "clarifiedScope": "当前交付验收通过，可以结项；P33 独立验收延期，不视为通过。",
+  "independentAcceptance": {
+    "status": "deferred",
+    "result": "NOT_RUN",
+    "journeys": ["A", "B", "C", "D", "E"],
+    "blocksRoundClosure": false
+  },
+  "studioZipSha256": "0520a5c05bbfd7d5742eb54399d20792bbc1cff97685ab997c9f566834709b76",
+  "tankRevision": "27bc3a91418f683116213c9b979924566fce4398fca9d17c82571c7deaf45da1",
+  "tankReleaseZipSha256": "ffffa36175bc78774e56873d5d4db25cda8fdb963c908524e389f092f97ea174",
+  "evidence": "docs/testing/R5-ACTIVITY-AND-TANK-FACING.md"
+}

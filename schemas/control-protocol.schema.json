@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-game-kernel.local/control-protocol.schema.json",
+  "title": "AI Game Kernel Control Protocol",
+  "type": "object",
+  "oneOf": [{ "$ref": "#/$defs/Request" }, { "$ref": "#/$defs/Response" }],
+  "$defs": {
+    "RequestId": { "type": ["string", "number"] },
+    "Operation": {
+      "type": "object",
+      "required": ["op", "path"],
+      "properties": {
+        "op": { "enum": ["add", "replace", "remove"] },
+        "path": { "type": "string", "pattern": "^/" },
+        "value": true
+      },
+      "additionalProperties": false
+    },
+    "ChangePlan": {
+      "type": "object",
+      "required": ["projectPath", "summary", "operations"],
+      "properties": {
+        "projectPath": { "type": "string", "pattern": "\\.game\\.json$" },
+        "summary": { "type": "string", "minLength": 1 },
+        "operations": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Operation" },
+          "minItems": 1
+        },
+        "expectedEffects": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "Request": {
+      "type": "object",
+      "required": ["id", "method"],
+      "properties": {
+        "id": { "$ref": "#/$defs/RequestId" },
+        "method": {
+          "enum": [
+            "schema.describe",
+            "project.query",
+            "world.query",
+            "change.plan",
+            "change.validate",
+            "change.approve",
+            "change.apply",
+            "change.rollback",
+            "simulation.run",
+            "simulation.snapshot",
+            "simulation.compare",
+            "failure.explain",
+            "audit.list"
+          ]
+        },
+        "params": { "type": "object" }
+      },
+      "additionalProperties": false
+    },
+    "Response": {
+      "type": "object",
+      "required": ["id"],
+      "properties": {
+        "id": { "$ref": "#/$defs/RequestId" },
+        "result": true,
+        "error": {
+          "type": "object",
+          "required": ["code", "message"],
+          "properties": {
+            "code": { "type": "string" },
+            "message": { "type": "string" },
+            "data": true
+          },
+          "additionalProperties": false
+        }
+      },
+      "oneOf": [{ "required": ["result"] }, { "required": ["error"] }],
+      "additionalProperties": false
+    }
+  }
+}

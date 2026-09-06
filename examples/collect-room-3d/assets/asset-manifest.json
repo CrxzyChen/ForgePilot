@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "1.0.0",
+  "assets": [
+    {
+      "id": "collect-room-example:asset/crystal-v1",
+      "path": "assets/imported/crystal-v1.obj",
+      "kind": "mesh",
+      "mime": "model/obj",
+      "bytes": 348,
+      "sha256": "f6801b7faf88954cc38498ad8cfe3de946685dbda2e883fa157ef905316564f4",
+      "source": {
+        "type": "imported",
+        "reviewedBy": "codex",
+        "reviewedAt": "2026-09-03T12:00:00.000Z"
+      },
+      "status": "ready"
+    },
+    {
+      "id": "collect-room-example:asset/floor-grid-v1",
+      "path": "assets/imported/floor-grid-v1.svg",
+      "kind": "image",
+      "mime": "image/svg+xml",
+      "bytes": 229,
+      "sha256": "66c6ad42f8c9544cff1ff836ef157b6f7c3f4f2b8ef4dd178671d0c39a25b48b",
+      "source": {
+        "type": "imported",
+        "reviewedBy": "codex",
+        "reviewedAt": "2026-09-03T12:00:00.000Z"
+      },
+      "status": "ready"
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "schemaVersion": "1.0.0",
+  "assets": [
+    {
+      "id": "tank-arena-example:asset/tank-sprite-v1",
+      "path": "assets/imported/tank-sprite-v1.svg",
+      "kind": "image",
+      "mime": "image/svg+xml",
+      "bytes": 395,
+      "sha256": "6863b3eb1c1dcbdfd104c60367b4bccd23ed5bf67c83af6355ccccd2946e501a",
+      "source": {
+        "type": "generated",
+        "providerId": "local-placeholder",
+        "jobId": "assetjob:dbadcb6f-6c1e-46b9-a189-2d2a565a37d9",
+        "candidateId": "assetjob:dbadcb6f-6c1e-46b9-a189-2d2a565a37d9/candidate-1",
+        "promptSha256": "24d47ca24f50374982f3dcfdc6dc5c9fa635fc494035b03bfb51e7db2d6a372d",
+        "candidateSha256": "6863b3eb1c1dcbdfd104c60367b4bccd23ed5bf67c83af6355ccccd2946e501a",
+        "reviewedBy": "codex",
+        "reviewedAt": "2026-09-03T10:51:01.599Z"
+      },
+      "status": "ready"
+    },
+    {
+      "id": "tank-arena-example:asset/fire-v1",
+      "path": "assets/imported/fire-v1.wav",
+      "kind": "audio",
+      "mime": "audio/wav",
+      "bytes": 3244,
+      "sha256": "9948c0d2e5b9dcef0807af2c54658967873e5864c60c737a59ccedbc95ded42e",
+      "source": {
+        "type": "generated",
+        "providerId": "local-placeholder",
+        "jobId": "assetjob:4dc0d91a-2196-40c9-93a1-e7628145c6ae",
+        "candidateId": "assetjob:4dc0d91a-2196-40c9-93a1-e7628145c6ae/candidate-1",
+        "promptSha256": "e6546b4d3cd8733f1d6389253b6daba23a8f43a2a84da8c27b2ac522c4cd0a4d",
+        "candidateSha256": "9948c0d2e5b9dcef0807af2c54658967873e5864c60c737a59ccedbc95ded42e",
+        "reviewedBy": "codex",
+        "reviewedAt": "2026-09-03T10:51:01.800Z"
+      },
+      "status": "ready"
+    },
+    {
+      "id": "tank-arena-example:asset/hit-v1",
+      "path": "assets/imported/hit-v1.wav",
+      "kind": "audio",
+      "mime": "audio/wav",
+      "bytes": 3244,
+      "sha256": "b28c812805a7d5b7e2deddba2c3d0f5518d7a6c87e17f5c95ab8a3f362c4a993",
+      "source": {
+        "type": "generated",
+        "providerId": "local-placeholder",
+        "jobId": "assetjob:98dee71b-53c4-42e9-9616-7c7f71371fd2",
+        "candidateId": "assetjob:98dee71b-53c4-42e9-9616-7c7f71371fd2/candidate-1",
+        "promptSha256": "a179f9a73123a93774331726d24d01446d96ba51d67d31ef3cb908a21e2e2376",
+        "candidateSha256": "b28c812805a7d5b7e2deddba2c3d0f5518d7a6c87e17f5c95ab8a3f362c4a993",
+        "reviewedBy": "codex",
+        "reviewedAt": "2026-09-03T10:51:02.029Z"
+      },
+      "status": "ready"
+    },
+    {
+      "id": "tank-arena-example:asset/result-v1",
+      "path": "assets/imported/result-v1.wav",
+      "kind": "audio",
+      "mime": "audio/wav",
+      "bytes": 3244,
+      "sha256": "1ebc4aafe89cd29cb25ab8a5a13405d3dd5d2583d60a9812caa346ea4fa33604",
+      "source": {
+        "type": "generated",
+        "providerId": "local-placeholder",
+        "jobId": "assetjob:2bfceafe-9b47-4d6f-a680-35ebfca987a7",
+        "candidateId": "assetjob:2bfceafe-9b47-4d6f-a680-35ebfca987a7/candidate-1",
+        "promptSha256": "3e2757ede7544b4211a0790e47bea844753cb609db4ea511902948a4b6802970",
+        "candidateSha256": "1ebc4aafe89cd29cb25ab8a5a13405d3dd5d2583d60a9812caa346ea4fa33604",
+        "reviewedBy": "codex",
+        "reviewedAt": "2026-09-03T10:51:02.247Z"
+      },
+      "status": "ready"
+    }
+  ]
+}

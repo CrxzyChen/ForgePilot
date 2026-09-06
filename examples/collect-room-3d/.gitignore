@@ -1,0 +1,11 @@
+.aigame/cache/
+.aigame/local/
+.codex/tmp/
+assets/drafts/
+out/
+dist/
+*.log
+*.tmp
+.env
+.env.*
+!.env.example

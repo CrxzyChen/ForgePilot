@@ -1,0 +1,23 @@
+{
+  "kind": "ai-game-kernel/project",
+  "schemaVersion": "1.0.0",
+  "id": "demo:invalid",
+  "name": "Invalid fixture",
+  "entryWorld": "demo:invalid/map",
+  "worlds": [
+    {
+      "id": "demo:invalid/map",
+      "name": "Invalid Map",
+      "bounds": { "width": 10, "height": 10 },
+      "entities": [
+        {
+          "id": "demo:invalid/player",
+          "name": "Broken Player",
+          "components": [
+            { "type": "core:transform", "position": { "x": "left", "y": 2 } }
+          ]
+        }
+      ]
+    }
+  ]
+}

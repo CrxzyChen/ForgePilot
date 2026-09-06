@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-game-kernel.dev/schema/capability/2-0-0-alpha-1",
+  "title": "AI Game capability manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "id",
+    "version",
+    "engine",
+    "dependencies",
+    "registrations"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "2.0.0-alpha.1" },
+    "id": { "$ref": "#/$defs/semanticId" },
+    "version": { "$ref": "#/$defs/version" },
+    "engine": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["minimum", "maximumExclusive"],
+      "properties": {
+        "minimum": { "$ref": "#/$defs/version" },
+        "maximumExclusive": { "$ref": "#/$defs/version" }
+      }
+    },
+    "dependencies": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/versionedId" },
+      "uniqueItems": true
+    },
+    "registrations": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "components",
+        "editors",
+        "runtimeAdapters",
+        "renderAdapters",
+        "commands",
+        "mcp",
+        "skills",
+        "tests",
+        "migrations",
+        "build"
+      ],
+      "properties": {
+        "components": { "$ref": "#/$defs/paths" },
+        "editors": { "$ref": "#/$defs/paths" },
+        "runtimeAdapters": { "$ref": "#/$defs/paths" },
+        "renderAdapters": { "$ref": "#/$defs/paths" },
+        "commands": { "$ref": "#/$defs/paths" },
+        "mcp": { "$ref": "#/$defs/paths" },
+        "skills": { "$ref": "#/$defs/paths" },
+        "tests": { "$ref": "#/$defs/paths" },
+        "migrations": { "$ref": "#/$defs/paths" },
+        "build": { "$ref": "#/$defs/paths" }
+      }
+    }
+  },
+  "$defs": {
+    "semanticId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_./-]*$"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[0-9A-Za-z.-]+)?$"
+    },
+    "projectPath": {
+      "type": "string",
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\).+$"
+    },
+    "paths": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/projectPath" },
+      "uniqueItems": true
+    },
+    "versionedId": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version"],
+      "properties": {
+        "id": { "$ref": "#/$defs/semanticId" },
+        "version": { "$ref": "#/$defs/version" }
+      }
+    }
+  }
+}

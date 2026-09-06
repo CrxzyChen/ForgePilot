@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "1.0.0",
+  "seed": 20260902,
+  "ticks": 4,
+  "commands": [
+    {
+      "commandId": "{{PROJECT_NAMESPACE}}:command/move-east",
+      "tick": 1,
+      "type": "game:move-unit",
+      "entityId": "{{PROJECT_NAMESPACE}}:player",
+      "destination": { "x": 3, "y": 9 }
+    }
+  ]
+}

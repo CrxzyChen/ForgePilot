@@ -1,0 +1,13 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["itemId", "total"],
+  "properties": {
+    "itemId": {
+      "type": "string"
+    },
+    "total": {
+      "type": "number"
+    }
+  }
+}

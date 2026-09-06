@@ -1,0 +1,84 @@
+{
+  "schemaVersion": "1.0.0",
+  "seed": 20260902,
+  "ticks": 15,
+  "commands": [
+    {
+      "commandId": "demo:frontier-command/01-scouts",
+      "tick": 0,
+      "type": "game:move-unit",
+      "entityId": "demo:frontier-campaign/player",
+      "destination": { "x": 2, "y": 2 }
+    },
+    {
+      "commandId": "demo:frontier-command/02-granary",
+      "tick": 1,
+      "type": "game:move-unit",
+      "entityId": "demo:frontier-campaign/player",
+      "destination": { "x": 3, "y": 2 }
+    },
+    {
+      "commandId": "demo:frontier-command/03-raiders",
+      "tick": 3,
+      "type": "game:move-unit",
+      "entityId": "demo:frontier-campaign/player",
+      "destination": { "x": 4, "y": 2 }
+    },
+    {
+      "commandId": "demo:frontier-command/04-engineers",
+      "tick": 4,
+      "type": "game:move-unit",
+      "entityId": "demo:frontier-campaign/player",
+      "destination": { "x": 5, "y": 2 }
+    },
+    {
+      "commandId": "demo:frontier-command/05-road",
+      "tick": 5,
+      "type": "game:move-unit",
+      "entityId": "demo:frontier-campaign/player",
+      "destination": { "x": 6, "y": 2 }
+    },
+    {
+      "commandId": "demo:frontier-command/06-armory",
+      "tick": 6,
+      "type": "game:move-unit",
+      "entityId": "demo:frontier-campaign/player",
+      "destination": { "x": 7, "y": 2 }
+    },
+    {
+      "commandId": "demo:frontier-command/07-factory-road",
+      "tick": 8,
+      "type": "game:move-unit",
+      "entityId": "demo:frontier-campaign/player",
+      "destination": { "x": 8, "y": 2 }
+    },
+    {
+      "commandId": "demo:frontier-command/08-factory",
+      "tick": 9,
+      "type": "game:move-unit",
+      "entityId": "demo:frontier-campaign/player",
+      "destination": { "x": 9, "y": 2 }
+    },
+    {
+      "commandId": "demo:frontier-command/09-capital-road",
+      "tick": 12,
+      "type": "game:move-unit",
+      "entityId": "demo:frontier-campaign/player",
+      "destination": { "x": 10, "y": 2 }
+    },
+    {
+      "commandId": "demo:frontier-command/10-capital-gate",
+      "tick": 13,
+      "type": "game:move-unit",
+      "entityId": "demo:frontier-campaign/player",
+      "destination": { "x": 11, "y": 2 }
+    },
+    {
+      "commandId": "demo:frontier-command/11-victory",
+      "tick": 14,
+      "type": "game:move-unit",
+      "entityId": "demo:frontier-campaign/player",
+      "destination": { "x": 12, "y": 2 }
+    }
+  ]
+}

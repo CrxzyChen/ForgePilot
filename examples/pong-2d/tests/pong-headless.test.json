@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "1.0.0",
+  "kind": "runtime-scenario",
+  "ticks": 120,
+  "seed": 20260902,
+  "documentation": [
+    "pong:ball Transform2D remains finite",
+    "same seed produces same state hash"
+  ],
+  "assertions": [
+    {
+      "id": "assertion:ball-x-lower-bound",
+      "tick": 0,
+      "target": {
+        "objectId": "pong:ball",
+        "componentId": "pong:ball/transform",
+        "field": "position.x"
+      },
+      "operator": "greaterThan",
+      "expected": 0
+    },
+    {
+      "id": "assertion:ball-x-upper-bound",
+      "tick": 0,
+      "target": {
+        "objectId": "pong:ball",
+        "componentId": "pong:ball/transform",
+        "field": "position.x"
+      },
+      "operator": "lessThan",
+      "expected": 32
+    }
+  ]
+}

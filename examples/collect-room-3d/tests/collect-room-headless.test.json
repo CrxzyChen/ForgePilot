@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "1.0.0",
+  "kind": "runtime-scenario",
+  "ticks": 60,
+  "seed": 20260902,
+  "documentation": [
+    "3D Scene compiles",
+    "collect:item-picked payload is valid"
+  ],
+  "assertions": [
+    {
+      "id": "assertion:player-exists",
+      "tick": 0,
+      "target": { "objectId": "collect:player" },
+      "operator": "exists"
+    },
+    {
+      "id": "assertion:item-active",
+      "tick": 0,
+      "target": {
+        "objectId": "collect:item-1",
+        "componentId": "collect:item-1/state",
+        "field": "active"
+      },
+      "operator": "equals",
+      "expected": true
+    }
+  ]
+}

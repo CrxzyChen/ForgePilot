@@ -1,0 +1,314 @@
+{
+  "schemaVersion": "2.0.0-alpha.1",
+  "id": "pong:scene/main",
+  "name": "Pong Arena",
+  "space": "2d",
+  "objects": [
+    {
+      "id": "pong:camera",
+      "name": "Camera",
+      "enabled": true,
+      "visible": true,
+      "locked": false,
+      "parentId": null,
+      "order": 0,
+      "components": [
+        {
+          "id": "pong:camera/transform",
+          "type": "core:transform2d",
+          "enabled": true,
+          "data": {
+            "position": {
+              "x": 16,
+              "y": 9
+            },
+            "rotation": 0,
+            "scale": {
+              "x": 1,
+              "y": 1
+            }
+          }
+        },
+        {
+          "id": "pong:camera/camera",
+          "type": "render:camera2d",
+          "enabled": true,
+          "data": {
+            "zoom": 1,
+            "primary": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "pong:field",
+      "name": "Field",
+      "enabled": true,
+      "visible": true,
+      "locked": false,
+      "parentId": null,
+      "order": 1,
+      "components": [
+        {
+          "id": "pong:field/transform",
+          "type": "core:transform2d",
+          "enabled": true,
+          "data": {
+            "position": {
+              "x": 16,
+              "y": 9
+            },
+            "rotation": 0,
+            "scale": {
+              "x": 1,
+              "y": 1
+            }
+          }
+        },
+        {
+          "id": "pong:field/shape",
+          "type": "render:shape2d",
+          "enabled": true,
+          "data": {
+            "shape": "rectangle",
+            "size": {
+              "x": 31.2,
+              "y": 17.2
+            },
+            "color": "#10243d"
+          }
+        }
+      ]
+    },
+    {
+      "id": "pong:center-line",
+      "name": "Center Line",
+      "enabled": true,
+      "visible": true,
+      "locked": false,
+      "parentId": null,
+      "order": 2,
+      "components": [
+        {
+          "id": "pong:center-line/transform",
+          "type": "core:transform2d",
+          "enabled": true,
+          "data": {
+            "position": {
+              "x": 16,
+              "y": 9
+            },
+            "rotation": 0,
+            "scale": {
+              "x": 1,
+              "y": 1
+            }
+          }
+        },
+        {
+          "id": "pong:center-line/shape",
+          "type": "render:shape2d",
+          "enabled": true,
+          "data": {
+            "shape": "rectangle",
+            "size": {
+              "x": 0.12,
+              "y": 16
+            },
+            "color": "#34506f"
+          }
+        }
+      ]
+    },
+    {
+      "id": "pong:left-paddle",
+      "name": "Left Paddle",
+      "enabled": true,
+      "visible": true,
+      "locked": false,
+      "parentId": null,
+      "order": 3,
+      "components": [
+        {
+          "id": "pong:left-paddle/transform",
+          "type": "core:transform2d",
+          "enabled": true,
+          "data": {
+            "position": {
+              "x": 2.2,
+              "y": 9
+            },
+            "rotation": 0,
+            "scale": {
+              "x": 1,
+              "y": 1
+            }
+          }
+        },
+        {
+          "id": "pong:left-paddle/shape",
+          "type": "render:shape2d",
+          "enabled": true,
+          "data": {
+            "shape": "rectangle",
+            "size": {
+              "x": 0.6,
+              "y": 3.6
+            },
+            "color": "#59e3c1"
+          }
+        },
+        {
+          "id": "pong:left-paddle/collider",
+          "type": "physics:collider2d",
+          "enabled": true,
+          "data": {
+            "shape": "box",
+            "isTrigger": false
+          }
+        },
+        {
+          "id": "pong:left-paddle/paddle",
+          "type": "pong:paddle",
+          "enabled": true,
+          "data": {
+            "side": "left"
+          }
+        },
+        {
+          "id": "pong:left-paddle/script",
+          "type": "core:script",
+          "enabled": true,
+          "data": {
+            "path": "scripts/behaviors/paddle.ts",
+            "enabled": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "pong:right-paddle",
+      "name": "Right Paddle",
+      "enabled": true,
+      "visible": true,
+      "locked": false,
+      "parentId": null,
+      "order": 4,
+      "components": [
+        {
+          "id": "pong:right-paddle/transform",
+          "type": "core:transform2d",
+          "enabled": true,
+          "data": {
+            "position": {
+              "x": 29.8,
+              "y": 9
+            },
+            "rotation": 0,
+            "scale": {
+              "x": 1,
+              "y": 1
+            }
+          }
+        },
+        {
+          "id": "pong:right-paddle/shape",
+          "type": "render:shape2d",
+          "enabled": true,
+          "data": {
+            "shape": "rectangle",
+            "size": {
+              "x": 0.6,
+              "y": 3.6
+            },
+            "color": "#ffb65c"
+          }
+        },
+        {
+          "id": "pong:right-paddle/collider",
+          "type": "physics:collider2d",
+          "enabled": true,
+          "data": {
+            "shape": "box",
+            "isTrigger": false
+          }
+        },
+        {
+          "id": "pong:right-paddle/paddle",
+          "type": "pong:paddle",
+          "enabled": true,
+          "data": {
+            "side": "right"
+          }
+        },
+        {
+          "id": "pong:right-paddle/script",
+          "type": "core:script",
+          "enabled": true,
+          "data": {
+            "path": "scripts/behaviors/paddle.ts",
+            "enabled": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "pong:ball",
+      "name": "Ball",
+      "enabled": true,
+      "visible": true,
+      "locked": false,
+      "parentId": null,
+      "order": 5,
+      "components": [
+        {
+          "id": "pong:ball/transform",
+          "type": "core:transform2d",
+          "enabled": true,
+          "data": {
+            "position": {
+              "x": 16,
+              "y": 9
+            },
+            "rotation": 0,
+            "scale": {
+              "x": 1,
+              "y": 1
+            }
+          }
+        },
+        {
+          "id": "pong:ball/shape",
+          "type": "render:shape2d",
+          "enabled": true,
+          "data": {
+            "shape": "rectangle",
+            "size": {
+              "x": 0.58,
+              "y": 0.58
+            },
+            "color": "#f4f7ff"
+          }
+        },
+        {
+          "id": "pong:ball/collider",
+          "type": "physics:collider2d",
+          "enabled": true,
+          "data": {
+            "shape": "box",
+            "isTrigger": false
+          }
+        },
+        {
+          "id": "pong:ball/velocity",
+          "type": "pong:velocity",
+          "enabled": true,
+          "data": {
+            "x": 0.11,
+            "y": 0.075
+          }
+        }
+      ]
+    }
+  ]
+}

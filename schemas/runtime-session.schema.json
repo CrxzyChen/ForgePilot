@@ -1,0 +1,220 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-game-kernel.dev/schema/runtime-session/3-0-0-preview-1",
+  "title": "AI Game Runtime Session Protocol",
+  "description": "Authoritative lifecycle, input, physics, and state messages for one persistent runtime session.",
+  "oneOf": [
+    { "$ref": "#/$defs/SessionControlMessage" },
+    { "$ref": "#/$defs/SessionStateMessage" },
+    { "$ref": "#/$defs/InputActionMessage" },
+    { "$ref": "#/$defs/PhysicsEventMessage" }
+  ],
+  "$defs": {
+    "SemanticId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_./-]*$"
+    },
+    "SessionId": {
+      "type": "string",
+      "pattern": "^session:[a-z0-9][a-z0-9_-]*$"
+    },
+    "Vector": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 3,
+      "items": { "type": "number" }
+    },
+    "Envelope": {
+      "type": "object",
+      "required": [
+        "protocolVersion",
+        "kind",
+        "sessionId",
+        "generation",
+        "sequence",
+        "tick"
+      ],
+      "properties": {
+        "protocolVersion": { "const": "3.0.0-preview.1" },
+        "kind": { "type": "string" },
+        "sessionId": { "$ref": "#/$defs/SessionId" },
+        "generation": { "type": "integer", "minimum": 1 },
+        "sequence": { "type": "integer", "minimum": 0 },
+        "tick": { "type": "integer", "minimum": 0 },
+        "correlationId": { "$ref": "#/$defs/SemanticId" }
+      }
+    },
+    "SessionControlMessage": {
+      "allOf": [
+        { "$ref": "#/$defs/Envelope" },
+        {
+          "type": "object",
+          "required": ["payload"],
+          "properties": {
+            "kind": { "const": "session.control" },
+            "payload": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["action"],
+              "properties": {
+                "action": {
+                  "enum": [
+                    "start",
+                    "pause",
+                    "resume",
+                    "step",
+                    "stop",
+                    "restart",
+                    "reload"
+                  ]
+                },
+                "seed": { "type": "integer", "minimum": 0 },
+                "reloadPolicy": {
+                  "enum": [
+                    "migrate-authoritative",
+                    "restart-authoritative",
+                    "presentation-only"
+                  ]
+                },
+                "expectedState": { "$ref": "#/$defs/SessionState" }
+              }
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "SessionState": {
+      "enum": [
+        "stopped",
+        "starting",
+        "playing",
+        "paused",
+        "stepping",
+        "reloading",
+        "stopping",
+        "failed"
+      ]
+    },
+    "SessionStateMessage": {
+      "allOf": [
+        { "$ref": "#/$defs/Envelope" },
+        {
+          "type": "object",
+          "required": ["payload"],
+          "properties": {
+            "kind": { "const": "session.state" },
+            "payload": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["state", "projectHash", "activeSceneId"],
+              "properties": {
+                "state": { "$ref": "#/$defs/SessionState" },
+                "previousState": { "$ref": "#/$defs/SessionState" },
+                "projectHash": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                },
+                "activeSceneId": { "$ref": "#/$defs/SemanticId" },
+                "stateHash": {
+                  "type": ["string", "null"],
+                  "pattern": "^[a-f0-9]{64}$"
+                },
+                "reloadOutcome": {
+                  "enum": [
+                    "not-applicable",
+                    "migrated",
+                    "restarted",
+                    "rejected"
+                  ]
+                },
+                "reason": { "type": "string" }
+              }
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "InputActionMessage": {
+      "allOf": [
+        { "$ref": "#/$defs/Envelope" },
+        {
+          "type": "object",
+          "required": ["payload"],
+          "properties": {
+            "kind": { "const": "input.action" },
+            "payload": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["actionId", "phase", "targetTick", "value"],
+              "properties": {
+                "actionId": { "$ref": "#/$defs/SemanticId" },
+                "phase": { "enum": ["pressed", "released", "value"] },
+                "targetTick": { "type": "integer", "minimum": 0 },
+                "value": {
+                  "oneOf": [
+                    { "type": "boolean" },
+                    { "type": "number" },
+                    { "$ref": "#/$defs/Vector" }
+                  ]
+                },
+                "source": {
+                  "enum": [
+                    "keyboard",
+                    "pointer",
+                    "gamepad",
+                    "replay",
+                    "automation"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "PhysicsEventMessage": {
+      "allOf": [
+        { "$ref": "#/$defs/Envelope" },
+        {
+          "type": "object",
+          "required": ["payload"],
+          "properties": {
+            "kind": { "const": "physics.event" },
+            "payload": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "phase",
+                "space",
+                "objectA",
+                "colliderA",
+                "objectB",
+                "colliderB",
+                "sensor"
+              ],
+              "properties": {
+                "phase": { "enum": ["enter", "stay", "exit"] },
+                "space": { "enum": ["2d", "3d"] },
+                "objectA": { "$ref": "#/$defs/SemanticId" },
+                "colliderA": { "$ref": "#/$defs/SemanticId" },
+                "objectB": { "$ref": "#/$defs/SemanticId" },
+                "colliderB": { "$ref": "#/$defs/SemanticId" },
+                "sensor": { "type": "boolean" },
+                "normal": { "$ref": "#/$defs/Vector" },
+                "contacts": {
+                  "type": "array",
+                  "items": { "$ref": "#/$defs/Vector" }
+                },
+                "impulse": { "type": "number", "minimum": 0 }
+              }
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    }
+  }
+}

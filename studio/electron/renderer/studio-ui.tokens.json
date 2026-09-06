@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "studio-ui:midnight-workshop",
+  "name": "Midnight Workshop",
+  "scope": "studio-shell",
+  "colors": {
+    "--bg": "#090b10",
+    "--surface": "#0d1118",
+    "--surface-2": "#111721",
+    "--surface-3": "#151c27",
+    "--line": "rgba(255, 255, 255, 0.075)",
+    "--line-strong": "rgba(255, 255, 255, 0.13)",
+    "--text": "#c9d1d9",
+    "--muted": "#728091",
+    "--faint": "#465361",
+    "--accent": "#49cddd",
+    "--accent-soft": "rgba(73, 205, 221, 0.1)",
+    "--green": "#64d98b",
+    "--warning": "#e7b85d",
+    "--danger": "#f0737e"
+  },
+  "typography": {
+    "productFont": "Inter, 'Segoe UI', sans-serif",
+    "codeFont": "Consolas, monospace",
+    "compactControlMinPx": 9,
+    "compactControlMaxPx": 10,
+    "chromeMaxPx": 12,
+    "projectManagerHeadingMaxPx": 28
+  },
+  "geometry": {
+    "titlebarHeightPx": 38,
+    "activityBarWidthPx": 44,
+    "boundaryPx": 1,
+    "splitterHitTargetPx": 8,
+    "compactRadiusMinPx": 4,
+    "compactRadiusMaxPx": 6
+  },
+  "policy": {
+    "darkOnly": true,
+    "nativeControlAppearance": false,
+    "gameUiIsProjectSpecific": true
+  }
+}

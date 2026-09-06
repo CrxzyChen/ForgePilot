@@ -1,0 +1,6 @@
+{
+  "id": "core:empty",
+  "version": "2.0.0-alpha.1",
+  "capabilities": [],
+  "agentsFragment": "AGENTS.fragment.md"
+}

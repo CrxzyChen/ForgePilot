@@ -1,0 +1,252 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-game-kernel.dev/schema/completion-run/1-0-0",
+  "title": "AI Game Studio Completion Run",
+  "description": "Durable orchestration state for one high-level Copilot game-completion goal. External side effects remain authoritative in their own stores and are linked here by stable semantic IDs.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "runId",
+    "goalId",
+    "projectId",
+    "threadId",
+    "objective",
+    "status",
+    "createdAt",
+    "updatedAt",
+    "authority",
+    "budget",
+    "planSteps",
+    "links",
+    "checkpoint"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "runId": { "$ref": "#/$defs/CompletionRunId" },
+    "goalId": { "$ref": "#/$defs/GoalId" },
+    "projectId": { "$ref": "#/$defs/ProjectId" },
+    "threadId": { "type": "string", "minLength": 1, "maxLength": 256 },
+    "objective": { "type": "string", "minLength": 1, "maxLength": 20000 },
+    "status": { "$ref": "#/$defs/RunStatus" },
+    "createdAt": { "$ref": "#/$defs/Timestamp" },
+    "updatedAt": { "$ref": "#/$defs/Timestamp" },
+    "activePlanStepId": {
+      "oneOf": [{ "$ref": "#/$defs/PlanStepId" }, { "type": "null" }]
+    },
+    "authority": { "$ref": "#/$defs/AuthoritySnapshot" },
+    "budget": { "$ref": "#/$defs/BudgetSummary" },
+    "planSteps": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/PlanStep" }
+    },
+    "links": { "$ref": "#/$defs/ExternalLinks" },
+    "checkpoint": { "$ref": "#/$defs/Checkpoint" },
+    "terminalReason": {
+      "oneOf": [{ "$ref": "#/$defs/Diagnostic" }, { "type": "null" }]
+    },
+    "presentationRemoved": {
+      "type": "boolean",
+      "default": false,
+      "description": "Hides a terminal run from ordinary Studio presentation without deleting the durable run, audit, jobs, costs, or project effects."
+    }
+  },
+  "$defs": {
+    "Timestamp": { "type": "string", "format": "date-time" },
+    "CompletionRunId": {
+      "type": "string",
+      "pattern": "^completion-run:[a-z0-9][a-z0-9_-]*$"
+    },
+    "GoalId": {
+      "type": "string",
+      "pattern": "^goal:[a-z0-9][a-z0-9_-]*$"
+    },
+    "ProjectId": {
+      "type": "string",
+      "pattern": "^project:[a-z0-9][a-z0-9_./-]*$"
+    },
+    "PlanStepId": {
+      "type": "string",
+      "pattern": "^plan-step:[a-z0-9][a-z0-9_-]*$"
+    },
+    "StableId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_./-]*$"
+    },
+    "Hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "RunStatus": {
+      "enum": [
+        "planned",
+        "running",
+        "waiting",
+        "paused",
+        "stopping",
+        "stopped",
+        "succeeded",
+        "failed"
+      ]
+    },
+    "PlanStepStatus": {
+      "enum": [
+        "pending",
+        "running",
+        "waiting",
+        "succeeded",
+        "failed",
+        "cancelled",
+        "skipped"
+      ]
+    },
+    "WaitReason": {
+      "enum": [
+        "provider-approval",
+        "provider-execution",
+        "candidate-review",
+        "changeset-approval",
+        "runtime",
+        "test",
+        "build",
+        "clarification"
+      ]
+    },
+    "PlanStep": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title", "status", "attempt", "dependsOn"],
+      "properties": {
+        "id": { "$ref": "#/$defs/PlanStepId" },
+        "title": { "type": "string", "minLength": 1, "maxLength": 240 },
+        "status": { "$ref": "#/$defs/PlanStepStatus" },
+        "attempt": { "type": "integer", "minimum": 0 },
+        "dependsOn": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/PlanStepId" }
+        },
+        "waitReason": { "$ref": "#/$defs/WaitReason" },
+        "startedAt": { "$ref": "#/$defs/Timestamp" },
+        "finishedAt": { "$ref": "#/$defs/Timestamp" },
+        "evidenceIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/StableId" }
+        }
+      }
+    },
+    "AuthoritySnapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "capturedAt",
+        "providerApprovalMode",
+        "candidateSelectionMode",
+        "changeSetApprovalMode",
+        "budgetCurrency",
+        "budgetLimit",
+        "policyHash"
+      ],
+      "properties": {
+        "capturedAt": { "$ref": "#/$defs/Timestamp" },
+        "providerApprovalMode": {
+          "enum": ["per-call", "known-budget", "pre-authorized"]
+        },
+        "candidateSelectionMode": {
+          "enum": ["human-required", "configured-policy"]
+        },
+        "changeSetApprovalMode": { "const": "human-required" },
+        "budgetCurrency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+        "budgetLimit": { "type": "number", "minimum": 0 },
+        "policyHash": { "$ref": "#/$defs/Hash" }
+      }
+    },
+    "BudgetSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "currency",
+        "limit",
+        "estimated",
+        "actual",
+        "committed",
+        "unknownCostJobs",
+        "uniquePaidOperations",
+        "withinLimit"
+      ],
+      "properties": {
+        "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+        "limit": { "type": "number", "minimum": 0 },
+        "estimated": { "type": "number", "minimum": 0 },
+        "actual": { "type": "number", "minimum": 0 },
+        "committed": { "type": "number", "minimum": 0 },
+        "unknownCostJobs": { "type": "integer", "minimum": 0 },
+        "uniquePaidOperations": { "type": "integer", "minimum": 0 },
+        "withinLimit": { "type": "boolean" }
+      }
+    },
+    "ExternalLinks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "toolCalls",
+        "assetJobs",
+        "reviewDecisions",
+        "changeSets",
+        "runtimeSessions",
+        "observations",
+        "tests",
+        "builds",
+        "packages"
+      ],
+      "properties": {
+        "toolCalls": { "$ref": "#/$defs/StableIdList" },
+        "assetJobs": { "$ref": "#/$defs/StableIdList" },
+        "reviewDecisions": { "$ref": "#/$defs/StableIdList" },
+        "changeSets": { "$ref": "#/$defs/StableIdList" },
+        "runtimeSessions": { "$ref": "#/$defs/StableIdList" },
+        "observations": { "$ref": "#/$defs/StableIdList" },
+        "tests": { "$ref": "#/$defs/StableIdList" },
+        "builds": { "$ref": "#/$defs/StableIdList" },
+        "packages": { "$ref": "#/$defs/StableIdList" }
+      }
+    },
+    "StableIdList": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/StableId" }
+    },
+    "Checkpoint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sequence", "stateHash", "recordedAt"],
+      "properties": {
+        "sequence": { "type": "integer", "minimum": 0 },
+        "stateHash": { "$ref": "#/$defs/Hash" },
+        "recordedAt": { "$ref": "#/$defs/Timestamp" },
+        "lastReconciledExternalId": { "$ref": "#/$defs/StableId" }
+      }
+    },
+    "Diagnostic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "category", "message", "retryable"],
+      "properties": {
+        "code": { "type": "string", "minLength": 1 },
+        "category": {
+          "enum": [
+            "authority",
+            "configuration",
+            "provider",
+            "project-conflict",
+            "runtime",
+            "test",
+            "build",
+            "internal"
+          ]
+        },
+        "message": { "type": "string", "minLength": 1 },
+        "retryable": { "type": "boolean" },
+        "relatedId": { "$ref": "#/$defs/StableId" }
+      }
+    }
+  }
+}

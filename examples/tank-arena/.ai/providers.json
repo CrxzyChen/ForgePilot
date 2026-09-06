@@ -1,0 +1,195 @@
+{
+  "schemaVersion": "2.0.0",
+  "providers": [
+    {
+      "id": "local-placeholder",
+      "kind": "local-placeholder",
+      "enabled": true,
+      "paid": false,
+      "label": "Deterministic test fixture (not AI)",
+      "defaultModelByKind": {
+        "image": "deterministic-image",
+        "soundEffect": "deterministic-sound-effect",
+        "music": "deterministic-music",
+        "speechGeneration": "deterministic-speech"
+      },
+      "models": [
+        {
+          "id": "deterministic-image",
+          "label": "本地确定性图片（测试）",
+          "kind": "image",
+          "adapter": "local-placeholder",
+          "maxVariants": 4,
+          "costPerCandidateCny": 0,
+          "defaults": {}
+        },
+        {
+          "id": "deterministic-sound-effect",
+          "label": "本地确定性音效（测试）",
+          "kind": "soundEffect",
+          "adapter": "local-placeholder",
+          "maxVariants": 4,
+          "costPerCandidateCny": 0,
+          "defaults": {}
+        },
+        {
+          "id": "deterministic-music",
+          "label": "本地确定性音乐（测试）",
+          "kind": "music",
+          "adapter": "local-placeholder",
+          "maxVariants": 4,
+          "costPerCandidateCny": 0,
+          "defaults": {}
+        },
+        {
+          "id": "deterministic-speech",
+          "label": "本地确定性语音（测试）",
+          "kind": "speechGeneration",
+          "adapter": "local-placeholder",
+          "maxVariants": 4,
+          "costPerCandidateCny": 0,
+          "defaults": {}
+        }
+      ]
+    },
+    {
+      "id": "openai",
+      "kind": "openai",
+      "paid": true,
+      "enabled": true,
+      "defaultModelByKind": {
+        "image": "gpt-image-2"
+      },
+      "models": [
+        {
+          "id": "gpt-image-2",
+          "label": "OpenAI GPT Image 2",
+          "kind": "image",
+          "adapter": "openai-image",
+          "maxVariants": 4,
+          "defaults": {
+            "size": "1024x1024",
+            "quality": "medium",
+            "format": "png",
+            "background": "transparent"
+          }
+        }
+      ]
+    },
+    {
+      "id": "aliyun-bailian",
+      "kind": "aliyun-bailian",
+      "paid": true,
+      "enabled": true,
+      "defaultModelByKind": {
+        "image": "wan2.6-t2i",
+        "speechGeneration": "qwen-audio-3.0-tts-flash"
+      },
+      "models": [
+        {
+          "id": "wan2.7-image-pro",
+          "kind": "image",
+          "adapter": "aliyun-bailian-image",
+          "maxVariants": 4,
+          "defaults": {
+            "size": "2048*2048",
+            "watermark": false,
+            "promptExtend": true
+          }
+        },
+        {
+          "id": "wan2.7-image",
+          "kind": "image",
+          "adapter": "aliyun-bailian-image",
+          "maxVariants": 4,
+          "defaults": {
+            "size": "2048*2048",
+            "watermark": false,
+            "promptExtend": true
+          }
+        },
+        {
+          "id": "wan2.6-t2i",
+          "kind": "image",
+          "adapter": "aliyun-bailian-image",
+          "maxVariants": 4,
+          "costPerCandidateCny": 0.14,
+          "defaults": {
+            "size": "1280*1280",
+            "watermark": false,
+            "promptExtend": true
+          }
+        },
+        {
+          "id": "wan2.5-t2i-preview",
+          "kind": "image",
+          "adapter": "aliyun-bailian-image",
+          "maxVariants": 4,
+          "defaults": {
+            "size": "1280*1280",
+            "watermark": false,
+            "promptExtend": true
+          }
+        },
+        {
+          "id": "qwen-audio-3.0-tts-plus",
+          "kind": "speechGeneration",
+          "adapter": "aliyun-bailian-tts",
+          "maxVariants": 1,
+          "defaults": {
+            "voice": "longanhuan_v3.6",
+            "format": "wav",
+            "sampleRate": 24000
+          }
+        },
+        {
+          "id": "qwen-audio-3.0-tts-flash",
+          "kind": "speechGeneration",
+          "adapter": "aliyun-bailian-tts",
+          "maxVariants": 1,
+          "defaults": {
+            "voice": "longanhuan_v3.6",
+            "format": "wav",
+            "sampleRate": 24000
+          }
+        }
+      ]
+    },
+    {
+      "id": "elevenlabs",
+      "kind": "elevenlabs",
+      "paid": true,
+      "enabled": true,
+      "defaultModelByKind": {
+        "soundEffect": "eleven_text_to_sound_v2",
+        "music": "music_v2"
+      },
+      "models": [
+        {
+          "id": "eleven_text_to_sound_v2",
+          "label": "ElevenLabs Text to Sound v2",
+          "kind": "soundEffect",
+          "adapter": "elevenlabs-sound-effect",
+          "maxVariants": 1,
+          "defaults": {
+            "durationSeconds": 1,
+            "loop": false,
+            "promptInfluence": 0.3,
+            "outputFormat": "mp3_44100_128"
+          }
+        },
+        {
+          "id": "music_v2",
+          "label": "Eleven Music v2",
+          "kind": "music",
+          "adapter": "elevenlabs-music",
+          "maxVariants": 1,
+          "defaults": {
+            "musicLengthMs": 30000,
+            "outputFormat": "mp3_48000_192"
+          }
+        }
+      ]
+    }
+  ]
+}

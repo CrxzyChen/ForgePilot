@@ -1,0 +1,35 @@
+[workspace]
+resolver = "2"
+members = [
+  "examples/tank-legacy-regression/crates/kernel-core",
+  "examples/tank-legacy-regression/crates/kernel-cli",
+  "examples/tank-legacy-regression/crates/kernel-renderer",
+  "examples/tank-legacy-regression/crates/kernel-runtime",
+  "crates/engine-mcp",
+  "crates/script-host",
+  "crates/player",
+]
+
+[workspace.package]
+version = "0.1.1"
+edition = "2024"
+license = "Apache-2.0"
+rust-version = "1.91"
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+missing_debug_implementations = "warn"
+
+[workspace.lints.clippy]
+all = { level = "warn", priority = -1 }
+pedantic = { level = "warn", priority = -1 }
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+strip = "symbols"
+
+# Keep application code debuggable while avoiding an unoptimized C interpreter
+# in long deterministic replay checks. Per-request execution limits are unchanged.
+[profile.dev.package.rquickjs-sys]
+opt-level = 2

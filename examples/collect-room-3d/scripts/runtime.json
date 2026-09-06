@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "2.0.0-alpha.1",
+  "sdkVersion": "0.2.0-alpha.1",
+  "modules": [
+    {
+      "id": "collect:behavior/player",
+      "kind": "behavior",
+      "source": "scripts/behaviors/player.ts"
+    }
+  ],
+  "systems": [],
+  "commands": [],
+  "events": [
+    {
+      "id": "collect:item-picked",
+      "payloadSchema": "scripts/events/item-picked.schema.json"
+    }
+  ],
+  "schedule": [
+    "engine:input",
+    "engine:pre-update",
+    "engine:fixed-update",
+    "engine:physics",
+    "engine:collision-events",
+    "engine:gameplay-events",
+    "engine:post-update",
+    "engine:snapshot",
+    "engine:presentation"
+  ],
+  "budgets": {
+    "memoryBytes": 16777216,
+    "stackBytes": 524288,
+    "instructionsPerTick": 100000,
+    "eventsPerTick": 64
+  },
+  "hotReload": "restart-authoritative"
+}

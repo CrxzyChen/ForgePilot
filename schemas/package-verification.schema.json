@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-game-kernel.local/schemas/package-verification.schema.json",
+  "title": "Content-addressed Windows package startup verification",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "verificationId",
+    "profile",
+    "zipSha256",
+    "projectRevision",
+    "packageName",
+    "projectId",
+    "reportSha256",
+    "verifiedFiles",
+    "trustedPlayerSha256",
+    "completedAt",
+    "ok",
+    "startup",
+    "nativeWindow",
+    "frame",
+    "evidencePath",
+    "limitation"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "verificationId": {
+      "type": "string",
+      "pattern": "^package-verification:[a-f0-9]{64}$"
+    },
+    "profile": { "enum": ["development", "release"] },
+    "zipSha256": { "$ref": "#/$defs/hash" },
+    "projectRevision": { "$ref": "#/$defs/hash" },
+    "reportSha256": { "$ref": "#/$defs/hash" },
+    "trustedPlayerSha256": { "$ref": "#/$defs/hash" },
+    "packageName": { "type": "string", "pattern": "^[A-Za-z0-9._-]+$" },
+    "projectId": { "type": "string", "minLength": 1 },
+    "verifiedFiles": { "type": "integer", "minimum": 1, "maximum": 10000 },
+    "completedAt": { "type": "string", "format": "date-time" },
+    "ok": { "const": true },
+    "startup": {
+      "type": "object",
+      "required": ["scriptStatus", "externalDependencies"],
+      "additionalProperties": false,
+      "properties": {
+        "scriptStatus": { "const": "completed" },
+        "externalDependencies": { "type": "array", "maxItems": 0 }
+      }
+    },
+    "nativeWindow": {
+      "type": "object",
+      "required": ["renderer", "framesPresented", "ticksExecuted"],
+      "additionalProperties": false,
+      "properties": {
+        "renderer": { "const": "wgpu-surface" },
+        "framesPresented": { "const": 5 },
+        "ticksExecuted": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "frame": {
+      "type": "object",
+      "required": ["path", "sha256", "mimeType"],
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "type": "string",
+          "pattern": "^\\.aigame/local/package-verifications/run-[a-f0-9-]+/native-window\\.png$"
+        },
+        "sha256": { "$ref": "#/$defs/hash" },
+        "mimeType": { "const": "image/png" }
+      }
+    },
+    "evidencePath": {
+      "type": "string",
+      "pattern": "^\\.aigame/local/package-verifications/run-[a-f0-9-]+$"
+    },
+    "limitation": { "type": "string", "minLength": 1 }
+  },
+  "$defs": { "hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" } }
+}

@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "2.0.0-alpha.1",
+  "components": [
+    {
+      "type": "collect:player-state",
+      "label": "Player State",
+      "fields": [
+        {
+          "name": "collected",
+          "type": "number",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "type": "collect:item",
+      "label": "Collectible",
+      "fields": [
+        {
+          "name": "active",
+          "type": "boolean",
+          "default": true
+        }
+      ]
+    }
+  ]
+}

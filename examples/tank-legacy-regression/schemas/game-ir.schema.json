@@ -1,0 +1,840 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-game-kernel.dev/schema/game-ir/1-0-0",
+  "title": "GameProject",
+  "description": "Authoritative, AI-editable source for an AI Game Kernel project.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "schemaVersion", "id", "name", "entryWorld", "worlds"],
+  "properties": {
+    "kind": { "const": "ai-game-kernel/project" },
+    "schemaVersion": { "const": "1.0.0" },
+    "id": { "$ref": "#/$defs/ResourceId" },
+    "name": { "$ref": "#/$defs/DisplayName" },
+    "entryWorld": { "$ref": "#/$defs/ResourceId" },
+    "worlds": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/World" }
+    }
+  },
+  "$defs": {
+    "ResourceId": {
+      "title": "ResourceId",
+      "description": "Stable namespace:path identifier. IDs are permanent once published.",
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 128,
+      "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_./-]*$"
+    },
+    "DisplayName": {
+      "title": "DisplayName",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "TilePosition": {
+      "title": "TilePosition",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x", "y"],
+      "properties": {
+        "x": { "type": "integer" },
+        "y": { "type": "integer" }
+      }
+    },
+    "WorldBounds": {
+      "title": "WorldBounds",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["width", "height"],
+      "properties": {
+        "width": { "type": "integer", "minimum": 1, "maximum": 4096 },
+        "height": { "type": "integer", "minimum": 1, "maximum": 4096 }
+      }
+    },
+    "TransformComponent": {
+      "title": "TransformComponent",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "position"],
+      "properties": {
+        "type": { "const": "core:transform" },
+        "position": { "$ref": "#/$defs/TilePosition" }
+      }
+    },
+    "PlayerControlledComponent": {
+      "title": "PlayerControlledComponent",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type"],
+      "properties": {
+        "type": { "const": "game:player-controlled" }
+      }
+    },
+    "MergeableComponent": {
+      "title": "MergeableComponent",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "faction", "strength"],
+      "properties": {
+        "type": { "const": "game:mergeable" },
+        "faction": { "$ref": "#/$defs/ResourceId" },
+        "strength": { "type": "integer", "minimum": 1, "maximum": 1000000 }
+      }
+    },
+    "ProducerComponent": {
+      "title": "ProducerComponent",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "resource", "amountPerCycle", "cycleTicks"],
+      "properties": {
+        "type": { "const": "game:producer" },
+        "resource": {
+          "type": "string",
+          "enum": ["grain", "weapons", "industry"]
+        },
+        "amountPerCycle": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000000
+        },
+        "cycleTicks": { "type": "integer", "minimum": 1, "maximum": 1000000 }
+      }
+    },
+    "CaptureSiteComponent": {
+      "title": "CaptureSiteComponent",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "requiredStrength"],
+      "properties": {
+        "type": { "const": "game:capture-site" },
+        "requiredStrength": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000000
+        }
+      }
+    },
+    "StrategicSiteComponent": {
+      "title": "StrategicSiteComponent",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "kind"],
+      "properties": {
+        "type": { "const": "game:strategic-site" },
+        "kind": { "type": "string", "enum": ["granary", "armory", "factory"] }
+      }
+    },
+    "HostileAiComponent": {
+      "title": "HostileAiComponent",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "moveEveryTicks"],
+      "properties": {
+        "type": { "const": "game:hostile-ai" },
+        "moveEveryTicks": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000000
+        }
+      }
+    },
+    "TankComponent": {
+      "title": "TankComponent",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "faction",
+        "role",
+        "health",
+        "maxHealth",
+        "damage",
+        "range",
+        "scoreValue"
+      ],
+      "properties": {
+        "type": { "const": "game:tank" },
+        "faction": { "$ref": "#/$defs/ResourceId" },
+        "role": { "type": "string", "enum": ["player", "enemy"] },
+        "health": { "type": "integer", "minimum": 1, "maximum": 1000 },
+        "maxHealth": { "type": "integer", "minimum": 1, "maximum": 1000 },
+        "damage": { "type": "integer", "minimum": 1, "maximum": 1000 },
+        "range": { "type": "integer", "minimum": 1, "maximum": 64 },
+        "scoreValue": { "type": "integer", "minimum": 0, "maximum": 1000000 }
+      }
+    },
+    "TerrainComponent": {
+      "title": "TerrainComponent",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "kind",
+        "blocksMovement",
+        "blocksShots",
+        "destructible",
+        "health"
+      ],
+      "properties": {
+        "type": { "const": "game:terrain" },
+        "kind": {
+          "type": "string",
+          "enum": ["brick", "steel", "water", "foliage"]
+        },
+        "blocksMovement": { "type": "boolean" },
+        "blocksShots": { "type": "boolean" },
+        "destructible": { "type": "boolean" },
+        "health": { "type": "integer", "minimum": 0, "maximum": 1000 }
+      }
+    },
+    "BaseComponent": {
+      "title": "BaseComponent",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "faction", "health", "maxHealth"],
+      "properties": {
+        "type": { "const": "game:base" },
+        "faction": { "$ref": "#/$defs/ResourceId" },
+        "health": { "type": "integer", "minimum": 1, "maximum": 1000 },
+        "maxHealth": { "type": "integer", "minimum": 1, "maximum": 1000 }
+      }
+    },
+    "EnemyBehaviorComponent": {
+      "title": "EnemyBehaviorComponent",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "kind", "moveEveryTicks", "fireEveryTicks"],
+      "properties": {
+        "type": { "const": "game:enemy-behavior" },
+        "kind": {
+          "type": "string",
+          "enum": ["chaser", "patrol", "guard"]
+        },
+        "moveEveryTicks": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000000
+        },
+        "fireEveryTicks": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000000
+        }
+      }
+    },
+    "WaveSpawnerComponent": {
+      "title": "WaveSpawnerComponent",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "wave",
+        "archetype",
+        "faction",
+        "spawnEveryTicks",
+        "total"
+      ],
+      "properties": {
+        "type": { "const": "game:wave-spawner" },
+        "wave": { "type": "integer", "minimum": 1, "maximum": 1000 },
+        "archetype": {
+          "type": "string",
+          "enum": ["scout", "striker", "heavy"]
+        },
+        "faction": { "$ref": "#/$defs/ResourceId" },
+        "spawnEveryTicks": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000000
+        },
+        "total": { "type": "integer", "minimum": 1, "maximum": 1000 }
+      }
+    },
+    "VictoryTargetComponent": {
+      "title": "VictoryTargetComponent",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type"],
+      "properties": {
+        "type": { "const": "game:victory-target" }
+      }
+    },
+    "Component": {
+      "title": "Component",
+      "oneOf": [
+        { "$ref": "#/$defs/TransformComponent" },
+        { "$ref": "#/$defs/PlayerControlledComponent" },
+        { "$ref": "#/$defs/MergeableComponent" },
+        { "$ref": "#/$defs/ProducerComponent" },
+        { "$ref": "#/$defs/CaptureSiteComponent" },
+        { "$ref": "#/$defs/StrategicSiteComponent" },
+        { "$ref": "#/$defs/HostileAiComponent" },
+        { "$ref": "#/$defs/TankComponent" },
+        { "$ref": "#/$defs/TerrainComponent" },
+        { "$ref": "#/$defs/BaseComponent" },
+        { "$ref": "#/$defs/EnemyBehaviorComponent" },
+        { "$ref": "#/$defs/WaveSpawnerComponent" },
+        { "$ref": "#/$defs/VictoryTargetComponent" }
+      ]
+    },
+    "Entity": {
+      "title": "Entity",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "components"],
+      "properties": {
+        "id": { "$ref": "#/$defs/ResourceId" },
+        "name": { "$ref": "#/$defs/DisplayName" },
+        "components": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/Component" }
+        }
+      }
+    },
+    "World": {
+      "title": "World",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "bounds", "entities"],
+      "properties": {
+        "id": { "$ref": "#/$defs/ResourceId" },
+        "name": { "$ref": "#/$defs/DisplayName" },
+        "bounds": { "$ref": "#/$defs/WorldBounds" },
+        "entities": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Entity" }
+        }
+      }
+    },
+    "MoveUnitCommand": {
+      "title": "MoveUnitCommand",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["commandId", "tick", "type", "entityId", "destination"],
+      "properties": {
+        "commandId": { "$ref": "#/$defs/ResourceId" },
+        "tick": { "type": "integer", "minimum": 0 },
+        "type": { "const": "game:move-unit" },
+        "entityId": { "$ref": "#/$defs/ResourceId" },
+        "destination": { "$ref": "#/$defs/TilePosition" }
+      }
+    },
+    "FireCommand": {
+      "title": "FireCommand",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["commandId", "tick", "type", "entityId", "direction"],
+      "properties": {
+        "commandId": { "$ref": "#/$defs/ResourceId" },
+        "tick": { "type": "integer", "minimum": 0 },
+        "type": { "const": "game:fire" },
+        "entityId": { "$ref": "#/$defs/ResourceId" },
+        "direction": {
+          "type": "string",
+          "enum": ["up", "down", "left", "right"]
+        }
+      }
+    },
+    "Command": {
+      "title": "Command",
+      "oneOf": [
+        { "$ref": "#/$defs/MoveUnitCommand" },
+        { "$ref": "#/$defs/FireCommand" }
+      ]
+    },
+    "InputLog": {
+      "title": "InputLog",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "seed", "ticks", "commands"],
+      "properties": {
+        "schemaVersion": { "const": "1.0.0" },
+        "seed": { "type": "integer", "minimum": 0 },
+        "ticks": { "type": "integer", "minimum": 0 },
+        "commands": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Command" }
+        }
+      }
+    },
+    "CommandAcceptedEvent": {
+      "title": "CommandAcceptedEvent",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "commandId"],
+      "properties": {
+        "type": { "const": "command-accepted" },
+        "commandId": { "$ref": "#/$defs/ResourceId" }
+      }
+    },
+    "UnitMovedEvent": {
+      "title": "UnitMovedEvent",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "from", "to"],
+      "properties": {
+        "type": { "const": "unit-moved" },
+        "from": { "$ref": "#/$defs/TilePosition" },
+        "to": { "$ref": "#/$defs/TilePosition" }
+      }
+    },
+    "ResourceProducedEvent": {
+      "title": "ResourceProducedEvent",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "resource", "amount"],
+      "properties": {
+        "type": { "const": "resource-produced" },
+        "resource": {
+          "type": "string",
+          "enum": ["grain", "weapons", "industry"]
+        },
+        "amount": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "UnitMergedEvent": {
+      "title": "UnitMergedEvent",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "absorbedEntityId", "strengthGained"],
+      "properties": {
+        "type": { "const": "unit-merged" },
+        "absorbedEntityId": { "$ref": "#/$defs/ResourceId" },
+        "strengthGained": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "UnitDefeatedEvent": {
+      "title": "UnitDefeatedEvent",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "defeatedEntityId", "strengthGained"],
+      "properties": {
+        "type": { "const": "unit-defeated" },
+        "defeatedEntityId": { "$ref": "#/$defs/ResourceId" },
+        "strengthGained": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "SiteCapturedEvent": {
+      "title": "SiteCapturedEvent",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "siteId", "owner"],
+      "properties": {
+        "type": { "const": "site-captured" },
+        "siteId": { "$ref": "#/$defs/ResourceId" },
+        "owner": { "$ref": "#/$defs/ResourceId" }
+      }
+    },
+    "UnitUpgradedEvent": {
+      "title": "UnitUpgradedEvent",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "siteId", "strengthGained"],
+      "properties": {
+        "type": { "const": "unit-upgraded" },
+        "siteId": { "$ref": "#/$defs/ResourceId" },
+        "strengthGained": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "VictoryAchievedEvent": {
+      "title": "VictoryAchievedEvent",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "faction", "targetId"],
+      "properties": {
+        "type": { "const": "victory-achieved" },
+        "faction": { "$ref": "#/$defs/ResourceId" },
+        "targetId": { "$ref": "#/$defs/ResourceId" }
+      }
+    },
+    "ShotFiredEvent": {
+      "title": "ShotFiredEvent",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "direction"],
+      "properties": {
+        "type": { "const": "shot-fired" },
+        "direction": {
+          "type": "string",
+          "enum": ["up", "down", "left", "right"]
+        }
+      }
+    },
+    "EntityDamagedEvent": {
+      "title": "EntityDamagedEvent",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "targetId", "amount", "remainingHealth"],
+      "properties": {
+        "type": { "const": "entity-damaged" },
+        "targetId": { "$ref": "#/$defs/ResourceId" },
+        "amount": { "type": "integer", "minimum": 0 },
+        "remainingHealth": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "EntityDestroyedEvent": {
+      "title": "EntityDestroyedEvent",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "targetId", "scoreAwarded"],
+      "properties": {
+        "type": { "const": "entity-destroyed" },
+        "targetId": { "$ref": "#/$defs/ResourceId" },
+        "scoreAwarded": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "EnemySpawnedEvent": {
+      "title": "EnemySpawnedEvent",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "spawnerId", "enemyId", "wave"],
+      "properties": {
+        "type": { "const": "enemy-spawned" },
+        "spawnerId": { "$ref": "#/$defs/ResourceId" },
+        "enemyId": { "$ref": "#/$defs/ResourceId" },
+        "wave": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "EventPayload": {
+      "title": "EventPayload",
+      "oneOf": [
+        { "$ref": "#/$defs/CommandAcceptedEvent" },
+        { "$ref": "#/$defs/UnitMovedEvent" },
+        { "$ref": "#/$defs/ResourceProducedEvent" },
+        { "$ref": "#/$defs/UnitMergedEvent" },
+        { "$ref": "#/$defs/UnitDefeatedEvent" },
+        { "$ref": "#/$defs/SiteCapturedEvent" },
+        { "$ref": "#/$defs/UnitUpgradedEvent" },
+        { "$ref": "#/$defs/VictoryAchievedEvent" },
+        { "$ref": "#/$defs/ShotFiredEvent" },
+        { "$ref": "#/$defs/EntityDamagedEvent" },
+        { "$ref": "#/$defs/EntityDestroyedEvent" },
+        { "$ref": "#/$defs/EnemySpawnedEvent" }
+      ]
+    },
+    "Event": {
+      "title": "Event",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sequence", "tick", "system", "entityId", "event"],
+      "properties": {
+        "sequence": { "type": "integer", "minimum": 0 },
+        "tick": { "type": "integer", "minimum": 0 },
+        "system": {
+          "type": "string",
+          "enum": [
+            "command",
+            "movement",
+            "production",
+            "strategy",
+            "combat",
+            "interaction",
+            "victory"
+          ]
+        },
+        "entityId": {
+          "oneOf": [{ "$ref": "#/$defs/ResourceId" }, { "type": "null" }]
+        },
+        "event": { "$ref": "#/$defs/EventPayload" }
+      }
+    },
+    "MergeableSnapshot": {
+      "title": "MergeableSnapshot",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["faction", "strength"],
+      "properties": {
+        "faction": { "$ref": "#/$defs/ResourceId" },
+        "strength": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "ProducerSnapshot": {
+      "title": "ProducerSnapshot",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "resource",
+        "amountPerCycle",
+        "cycleTicks",
+        "progressTicks",
+        "stored"
+      ],
+      "properties": {
+        "resource": {
+          "type": "string",
+          "enum": ["grain", "weapons", "industry"]
+        },
+        "amountPerCycle": { "type": "integer", "minimum": 1 },
+        "cycleTicks": { "type": "integer", "minimum": 1 },
+        "progressTicks": { "type": "integer", "minimum": 0 },
+        "stored": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "CaptureSiteSnapshot": {
+      "title": "CaptureSiteSnapshot",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["requiredStrength", "owner"],
+      "properties": {
+        "requiredStrength": { "type": "integer", "minimum": 1 },
+        "owner": {
+          "oneOf": [{ "$ref": "#/$defs/ResourceId" }, { "type": "null" }]
+        }
+      }
+    },
+    "StrategicSiteSnapshot": {
+      "title": "StrategicSiteSnapshot",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind"],
+      "properties": {
+        "kind": { "type": "string", "enum": ["granary", "armory", "factory"] }
+      }
+    },
+    "HostileAiSnapshot": {
+      "title": "HostileAiSnapshot",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["moveEveryTicks"],
+      "properties": {
+        "moveEveryTicks": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "TankSnapshot": {
+      "title": "TankSnapshot",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "faction",
+        "role",
+        "health",
+        "maxHealth",
+        "damage",
+        "range",
+        "scoreValue",
+        "facing"
+      ],
+      "properties": {
+        "faction": { "$ref": "#/$defs/ResourceId" },
+        "role": { "type": "string", "enum": ["player", "enemy"] },
+        "health": { "type": "integer", "minimum": 0 },
+        "maxHealth": { "type": "integer", "minimum": 1 },
+        "damage": { "type": "integer", "minimum": 1 },
+        "range": { "type": "integer", "minimum": 1 },
+        "scoreValue": { "type": "integer", "minimum": 0 },
+        "facing": {
+          "type": "string",
+          "enum": ["up", "down", "left", "right"]
+        }
+      }
+    },
+    "TerrainSnapshot": {
+      "title": "TerrainSnapshot",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "blocksMovement",
+        "blocksShots",
+        "destructible",
+        "health"
+      ],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": ["brick", "steel", "water", "foliage"]
+        },
+        "blocksMovement": { "type": "boolean" },
+        "blocksShots": { "type": "boolean" },
+        "destructible": { "type": "boolean" },
+        "health": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "BaseSnapshot": {
+      "title": "BaseSnapshot",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["faction", "health", "maxHealth"],
+      "properties": {
+        "faction": { "$ref": "#/$defs/ResourceId" },
+        "health": { "type": "integer", "minimum": 0 },
+        "maxHealth": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "EnemyBehaviorSnapshot": {
+      "title": "EnemyBehaviorSnapshot",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "moveEveryTicks", "fireEveryTicks"],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": ["chaser", "patrol", "guard"]
+        },
+        "moveEveryTicks": { "type": "integer", "minimum": 1 },
+        "fireEveryTicks": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "WaveSpawnerSnapshot": {
+      "title": "WaveSpawnerSnapshot",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "wave",
+        "archetype",
+        "faction",
+        "spawnEveryTicks",
+        "total",
+        "spawned"
+      ],
+      "properties": {
+        "wave": { "type": "integer", "minimum": 1 },
+        "archetype": {
+          "type": "string",
+          "enum": ["scout", "striker", "heavy"]
+        },
+        "faction": { "$ref": "#/$defs/ResourceId" },
+        "spawnEveryTicks": { "type": "integer", "minimum": 1 },
+        "total": { "type": "integer", "minimum": 1 },
+        "spawned": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "EntitySnapshot": {
+      "title": "EntitySnapshot",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "position",
+        "playerControlled",
+        "mergeable",
+        "producer",
+        "captureSite"
+      ],
+      "properties": {
+        "id": { "$ref": "#/$defs/ResourceId" },
+        "name": { "$ref": "#/$defs/DisplayName" },
+        "position": {
+          "oneOf": [{ "$ref": "#/$defs/TilePosition" }, { "type": "null" }]
+        },
+        "playerControlled": { "type": "boolean" },
+        "mergeable": {
+          "oneOf": [{ "$ref": "#/$defs/MergeableSnapshot" }, { "type": "null" }]
+        },
+        "producer": {
+          "oneOf": [{ "$ref": "#/$defs/ProducerSnapshot" }, { "type": "null" }]
+        },
+        "captureSite": {
+          "oneOf": [
+            { "$ref": "#/$defs/CaptureSiteSnapshot" },
+            { "type": "null" }
+          ]
+        },
+        "strategicSite": { "$ref": "#/$defs/StrategicSiteSnapshot" },
+        "hostileAi": { "$ref": "#/$defs/HostileAiSnapshot" },
+        "victoryTarget": { "type": "boolean" },
+        "tank": { "$ref": "#/$defs/TankSnapshot" },
+        "terrain": { "$ref": "#/$defs/TerrainSnapshot" },
+        "base": { "$ref": "#/$defs/BaseSnapshot" },
+        "enemyBehavior": { "$ref": "#/$defs/EnemyBehaviorSnapshot" },
+        "waveSpawner": { "$ref": "#/$defs/WaveSpawnerSnapshot" }
+      }
+    },
+    "WorldOutcome": {
+      "title": "WorldOutcome",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status"],
+          "properties": { "status": { "const": "in-progress" } }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "faction", "tick"],
+          "properties": {
+            "status": { "const": "won" },
+            "faction": { "$ref": "#/$defs/ResourceId" },
+            "tick": { "type": "integer", "minimum": 0 }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "tick"],
+          "properties": {
+            "status": { "const": "lost" },
+            "tick": { "type": "integer", "minimum": 0 }
+          }
+        }
+      ]
+    },
+    "Snapshot": {
+      "title": "Snapshot",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "projectId",
+        "worldId",
+        "tick",
+        "seed",
+        "rngState",
+        "componentTypes",
+        "entities",
+        "stateHash"
+      ],
+      "properties": {
+        "schemaVersion": { "const": "1.0.0" },
+        "projectId": { "$ref": "#/$defs/ResourceId" },
+        "worldId": { "$ref": "#/$defs/ResourceId" },
+        "tick": { "type": "integer", "minimum": 0 },
+        "seed": { "type": "integer", "minimum": 0 },
+        "rngState": { "type": "integer", "minimum": 0 },
+        "componentTypes": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/ResourceId" }
+        },
+        "entities": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/EntitySnapshot" }
+        },
+        "outcome": { "$ref": "#/$defs/WorldOutcome" },
+        "score": { "type": "integer", "minimum": 0 },
+        "stateHash": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      }
+    },
+    "ChangeOperation": {
+      "title": "ChangeOperation",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["op", "path"],
+      "properties": {
+        "op": { "type": "string", "enum": ["add", "replace", "remove"] },
+        "path": { "type": "string", "pattern": "^/" },
+        "value": {}
+      }
+    },
+    "ChangeSet": {
+      "title": "ChangeSet",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "baseRevision", "reason", "operations"],
+      "properties": {
+        "id": { "$ref": "#/$defs/ResourceId" },
+        "baseRevision": { "type": "string", "minLength": 1 },
+        "reason": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "operations": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/ChangeOperation" }
+        }
+      }
+    }
+  }
+}

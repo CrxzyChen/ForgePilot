@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "2.0.0-alpha.1",
+  "sdkVersion": "0.2.0-alpha.1",
+  "modules": [
+    {
+      "id": "pong:behavior/paddle",
+      "kind": "behavior",
+      "source": "scripts/behaviors/paddle.ts"
+    },
+    {
+      "id": "pong:system/ball-module",
+      "kind": "system",
+      "source": "scripts/systems/ball.ts"
+    }
+  ],
+  "systems": [
+    {
+      "id": "pong:system/ball",
+      "module": "pong:system/ball-module",
+      "export": "updateBall",
+      "phase": "engine:fixed-update",
+      "order": 10,
+      "query": ["core:transform2d", "pong:velocity"]
+    }
+  ],
+  "commands": [],
+  "events": [],
+  "schedule": [
+    "engine:input",
+    "engine:pre-update",
+    "engine:fixed-update",
+    "engine:physics",
+    "engine:collision-events",
+    "engine:gameplay-events",
+    "engine:post-update",
+    "engine:snapshot",
+    "engine:presentation"
+  ],
+  "budgets": {
+    "memoryBytes": 16777216,
+    "stackBytes": 524288,
+    "instructionsPerTick": 100000,
+    "eventsPerTick": 64
+  },
+  "hotReload": "restart-authoritative"
+}

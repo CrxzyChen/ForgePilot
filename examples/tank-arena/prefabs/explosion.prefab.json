@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "2.0.0-alpha.1",
+  "id": "tank-arena-example:prefab/explosion",
+  "name": "Explosion",
+  "objects": [
+    {
+      "id": "tank-prefab:explosion",
+      "name": "Explosion",
+      "enabled": true,
+      "visible": true,
+      "locked": false,
+      "parentId": null,
+      "order": 40,
+      "components": [
+        {
+          "id": "tank-prefab:explosion/transform",
+          "type": "core:transform2d",
+          "enabled": true,
+          "data": {
+            "position": { "x": 0, "y": 0 },
+            "rotation": 0,
+            "scale": { "x": 1, "y": 1 }
+          }
+        },
+        {
+          "id": "tank-prefab:explosion/shape",
+          "type": "render:shape2d",
+          "enabled": true,
+          "data": {
+            "shape": "circle",
+            "size": { "x": 1.4, "y": 1.4 },
+            "color": "#ffc857cc",
+            "layer": 40
+          }
+        },
+        {
+          "id": "tank-prefab:explosion/lifetime",
+          "type": "tank:lifetime",
+          "enabled": true,
+          "data": { "destroyAtTick": 0, "durationTicks": 8 }
+        },
+        {
+          "id": "tank-prefab:explosion/script",
+          "type": "core:script",
+          "enabled": true,
+          "data": {
+            "path": "scripts/behaviors/explosion.ts",
+            "enabled": true
+          }
+        }
+      ]
+    }
+  ],
+  "rootObjectIds": ["tank-prefab:explosion"]
+}

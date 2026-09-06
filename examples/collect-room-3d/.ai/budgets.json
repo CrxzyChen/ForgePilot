@@ -1,0 +1,7 @@
+{
+  "currency": "CNY",
+  "monthlyLimit": 0,
+  "perJobApprovalAbove": 0,
+  "dailyJobLimit": 0,
+  "allowUnknownPrice": false
+}

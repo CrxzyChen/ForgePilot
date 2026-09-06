@@ -1,0 +1,75 @@
+{
+  "schemaVersion": "2.0.0-alpha.1",
+  "id": "tank-arena-example:prefab/player-shell",
+  "name": "Player Shell",
+  "objects": [
+    {
+      "id": "tank-prefab:player-shell",
+      "name": "Player Shell",
+      "enabled": true,
+      "visible": true,
+      "locked": false,
+      "parentId": null,
+      "order": 30,
+      "components": [
+        {
+          "id": "tank-prefab:player-shell/transform",
+          "type": "core:transform2d",
+          "enabled": true,
+          "data": {
+            "position": { "x": 0, "y": 0 },
+            "rotation": 0,
+            "scale": { "x": 1, "y": 1 }
+          }
+        },
+        {
+          "id": "tank-prefab:player-shell/shape",
+          "type": "render:shape2d",
+          "enabled": true,
+          "data": {
+            "shape": "rectangle",
+            "size": { "x": 0.24, "y": 0.52 },
+            "color": "#fff0a8",
+            "layer": 30
+          }
+        },
+        {
+          "id": "tank-prefab:player-shell/collider",
+          "type": "physics:collider2d",
+          "enabled": true,
+          "data": {
+            "shape": "box",
+            "size": { "x": 0.24, "y": 0.52 },
+            "isTrigger": true
+          }
+        },
+        {
+          "id": "tank-prefab:player-shell/rigidbody",
+          "type": "physics:rigidbody2d",
+          "enabled": true,
+          "data": {
+            "bodyType": "dynamic",
+            "velocity": { "x": 0, "y": -12 },
+            "linearDamping": 0
+          }
+        },
+        {
+          "id": "tank-prefab:player-shell/projectile",
+          "type": "tank:projectile",
+          "enabled": true,
+          "data": { "owner": "tank:player", "spent": false }
+        },
+        {
+          "id": "tank-prefab:player-shell/script",
+          "type": "core:script",
+          "enabled": true,
+          "data": {
+            "path": "scripts/behaviors/player-shell.ts",
+            "enabled": true
+          }
+        }
+      ]
+    }
+  ],
+  "rootObjectIds": ["tank-prefab:player-shell"]
+}

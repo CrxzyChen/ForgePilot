@@ -1,0 +1,7 @@
+{
+  "schemaVersion": "1.0.0",
+  "name": "Initial project smoke",
+  "scene": "scenes/main.game.json",
+  "replay": "replays/smoke.input.json",
+  "expect": { "outcome": "valid" }
+}

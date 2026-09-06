@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "1.0.0",
+  "seed": 20260903,
+  "ticks": 2,
+  "commands": [
+    {
+      "commandId": "tankarena:command/fire-brick",
+      "tick": 0,
+      "type": "game:fire",
+      "entityId": "tankarena:player",
+      "direction": "right"
+    },
+    {
+      "commandId": "tankarena:command/fire-scout",
+      "tick": 1,
+      "type": "game:fire",
+      "entityId": "tankarena:player",
+      "direction": "right"
+    }
+  ]
+}

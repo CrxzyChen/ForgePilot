@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-game-kernel.local/schemas/runtime-input-log.schema.json",
+  "title": "Derived deterministic Runtime input log",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "inputLogId",
+    "projectRevision",
+    "sessionId",
+    "generation",
+    "tick",
+    "stateHash",
+    "request"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "inputLogId": { "type": "string", "pattern": "^input-log:[a-f0-9]{64}$" },
+    "projectRevision": { "$ref": "#/$defs/hash" },
+    "stateHash": { "$ref": "#/$defs/hash" },
+    "sessionId": { "type": "string", "pattern": "^session:" },
+    "generation": { "type": "integer", "minimum": 1 },
+    "tick": { "type": "integer", "minimum": 1 },
+    "request": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scene", "seed", "ticks", "inputs", "commands", "controls"],
+      "properties": {
+        "scene": { "type": "string", "minLength": 1 },
+        "seed": { "type": "integer", "minimum": 0 },
+        "ticks": { "type": "integer", "minimum": 1 },
+        "inputs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["tick", "action", "value"],
+            "properties": {
+              "tick": { "$ref": "#/$defs/tick" },
+              "action": { "type": "string", "minLength": 1 },
+              "value": { "type": "number" }
+            }
+          }
+        },
+        "commands": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["tick", "type", "payload"],
+            "properties": {
+              "tick": { "$ref": "#/$defs/tick" },
+              "type": { "type": "string", "minLength": 1 },
+              "payload": { "type": "object" }
+            }
+          }
+        },
+        "controls": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["tick", "action", "objectId"],
+            "properties": {
+              "tick": { "$ref": "#/$defs/tick" },
+              "action": { "enum": ["disable", "destroy"] },
+              "objectId": { "type": "string", "minLength": 1 }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "tick": { "type": "integer", "minimum": 0 }
+  }
+}

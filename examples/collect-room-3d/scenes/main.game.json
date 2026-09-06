@@ -1,0 +1,619 @@
+{
+  "schemaVersion": "2.0.0-alpha.1",
+  "id": "collect:scene/main",
+  "name": "Collect Room",
+  "space": "3d",
+  "objects": [
+    {
+      "id": "collect:camera",
+      "name": "Camera",
+      "enabled": true,
+      "visible": true,
+      "locked": false,
+      "parentId": null,
+      "order": 0,
+      "components": [
+        {
+          "id": "collect:camera/transform",
+          "type": "core:transform3d",
+          "enabled": true,
+          "data": {
+            "position": {
+              "x": 0,
+              "y": 7,
+              "z": 12
+            },
+            "rotation": {
+              "x": -30,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          }
+        },
+        {
+          "id": "collect:camera/camera",
+          "type": "render:camera3d",
+          "enabled": true,
+          "data": {
+            "fieldOfView": 58,
+            "primary": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "collect:light",
+      "name": "Sun",
+      "enabled": true,
+      "visible": true,
+      "locked": false,
+      "parentId": null,
+      "order": 1,
+      "components": [
+        {
+          "id": "collect:light/transform",
+          "type": "core:transform3d",
+          "enabled": true,
+          "data": {
+            "position": {
+              "x": 3,
+              "y": 8,
+              "z": 2
+            },
+            "rotation": {
+              "x": -45,
+              "y": -30,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          }
+        },
+        {
+          "id": "collect:light/light",
+          "type": "render:directional-light",
+          "enabled": true,
+          "data": {
+            "color": "#ffffff",
+            "intensity": 1.2
+          }
+        }
+      ]
+    },
+    {
+      "id": "collect:floor",
+      "name": "Floor",
+      "enabled": true,
+      "visible": true,
+      "locked": false,
+      "parentId": null,
+      "order": 2,
+      "components": [
+        {
+          "id": "collect:floor/transform",
+          "type": "core:transform3d",
+          "enabled": true,
+          "data": {
+            "position": {
+              "x": 0,
+              "y": -0.75,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 9,
+              "y": 0.5,
+              "z": 9
+            }
+          }
+        },
+        {
+          "id": "collect:floor/mesh",
+          "type": "render:mesh3d",
+          "enabled": true,
+          "data": {
+            "primitive": "cube",
+            "material": "",
+            "mesh": ""
+          }
+        },
+        {
+          "id": "collect:floor/material",
+          "type": "render:material",
+          "enabled": true,
+          "data": {
+            "color": "#263b52",
+            "roughness": 0.65,
+            "texture": "collect-room-example:asset/floor-grid-v1"
+          }
+        },
+        {
+          "id": "collect:floor/collider",
+          "type": "physics:collider3d",
+          "enabled": true,
+          "data": {
+            "shape": "box",
+            "isTrigger": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "collect:player",
+      "name": "Player",
+      "enabled": true,
+      "visible": true,
+      "locked": false,
+      "parentId": null,
+      "order": 3,
+      "components": [
+        {
+          "id": "collect:player/transform",
+          "type": "core:transform3d",
+          "enabled": true,
+          "data": {
+            "position": {
+              "x": -3,
+              "y": 0.5,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          }
+        },
+        {
+          "id": "collect:player/mesh",
+          "type": "render:mesh3d",
+          "enabled": true,
+          "data": {
+            "primitive": "cube",
+            "material": "",
+            "mesh": ""
+          }
+        },
+        {
+          "id": "collect:player/material",
+          "type": "render:material",
+          "enabled": true,
+          "data": {
+            "color": "#57e0bd",
+            "roughness": 0.65
+          }
+        },
+        {
+          "id": "collect:player/collider",
+          "type": "physics:collider3d",
+          "enabled": true,
+          "data": {
+            "shape": "box",
+            "isTrigger": false,
+            "size": { "x": 0.9, "y": 0.9, "z": 0.9 }
+          }
+        },
+        {
+          "id": "collect:player/rigidbody",
+          "type": "physics:rigidbody3d",
+          "enabled": true,
+          "data": {
+            "bodyType": "dynamic",
+            "velocity": { "x": 0, "y": 0, "z": 0 },
+            "gravityScale": 0,
+            "mass": 1,
+            "linearDamping": 0
+          }
+        },
+        {
+          "id": "collect:player/state",
+          "type": "collect:player-state",
+          "enabled": true,
+          "data": {
+            "collected": 0
+          }
+        },
+        {
+          "id": "collect:player/script",
+          "type": "core:script",
+          "enabled": true,
+          "data": {
+            "path": "scripts/behaviors/player.ts",
+            "enabled": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "collect:item-1",
+      "name": "Collectible 1",
+      "enabled": true,
+      "visible": true,
+      "locked": false,
+      "parentId": null,
+      "order": 4,
+      "components": [
+        {
+          "id": "collect:item-1/transform",
+          "type": "core:transform3d",
+          "enabled": true,
+          "data": {
+            "position": {
+              "x": -2,
+              "y": 0.5,
+              "z": -2
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 0.55,
+              "y": 0.55,
+              "z": 0.55
+            }
+          }
+        },
+        {
+          "id": "collect:item-1/mesh",
+          "type": "render:mesh3d",
+          "enabled": true,
+          "data": {
+            "primitive": "imported",
+            "material": "",
+            "mesh": "collect-room-example:asset/crystal-v1"
+          }
+        },
+        {
+          "id": "collect:item-1/material",
+          "type": "render:material",
+          "enabled": true,
+          "data": {
+            "color": "#ffcc66",
+            "roughness": 0.65
+          }
+        },
+        {
+          "id": "collect:item-1/collider",
+          "type": "physics:collider3d",
+          "enabled": true,
+          "data": {
+            "shape": "box",
+            "isTrigger": true,
+            "size": { "x": 1.4, "y": 1.4, "z": 1.4 }
+          }
+        },
+        {
+          "id": "collect:item-1/state",
+          "type": "collect:item",
+          "enabled": true,
+          "data": {
+            "active": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "collect:item-2",
+      "name": "Collectible 2",
+      "enabled": true,
+      "visible": true,
+      "locked": false,
+      "parentId": null,
+      "order": 5,
+      "components": [
+        {
+          "id": "collect:item-2/transform",
+          "type": "core:transform3d",
+          "enabled": true,
+          "data": {
+            "position": {
+              "x": 2,
+              "y": 0.5,
+              "z": 1
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 0.55,
+              "y": 0.55,
+              "z": 0.55
+            }
+          }
+        },
+        {
+          "id": "collect:item-2/mesh",
+          "type": "render:mesh3d",
+          "enabled": true,
+          "data": {
+            "primitive": "imported",
+            "material": "",
+            "mesh": "collect-room-example:asset/crystal-v1"
+          }
+        },
+        {
+          "id": "collect:item-2/material",
+          "type": "render:material",
+          "enabled": true,
+          "data": {
+            "color": "#ffcc66",
+            "roughness": 0.65
+          }
+        },
+        {
+          "id": "collect:item-2/collider",
+          "type": "physics:collider3d",
+          "enabled": true,
+          "data": {
+            "shape": "box",
+            "isTrigger": true,
+            "size": { "x": 1.4, "y": 1.4, "z": 1.4 }
+          }
+        },
+        {
+          "id": "collect:item-2/state",
+          "type": "collect:item",
+          "enabled": true,
+          "data": {
+            "active": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "collect:item-3",
+      "name": "Collectible 3",
+      "enabled": true,
+      "visible": true,
+      "locked": false,
+      "parentId": null,
+      "order": 6,
+      "components": [
+        {
+          "id": "collect:item-3/transform",
+          "type": "core:transform3d",
+          "enabled": true,
+          "data": {
+            "position": {
+              "x": 0,
+              "y": 0.5,
+              "z": 3
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 0.55,
+              "y": 0.55,
+              "z": 0.55
+            }
+          }
+        },
+        {
+          "id": "collect:item-3/mesh",
+          "type": "render:mesh3d",
+          "enabled": true,
+          "data": {
+            "primitive": "imported",
+            "material": "",
+            "mesh": "collect-room-example:asset/crystal-v1"
+          }
+        },
+        {
+          "id": "collect:item-3/material",
+          "type": "render:material",
+          "enabled": true,
+          "data": {
+            "color": "#ffcc66",
+            "roughness": 0.65
+          }
+        },
+        {
+          "id": "collect:item-3/collider",
+          "type": "physics:collider3d",
+          "enabled": true,
+          "data": {
+            "shape": "box",
+            "isTrigger": true,
+            "size": { "x": 1.4, "y": 1.4, "z": 1.4 }
+          }
+        },
+        {
+          "id": "collect:item-3/state",
+          "type": "collect:item",
+          "enabled": true,
+          "data": {
+            "active": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "collect:wall",
+      "name": "Occlusion Wall",
+      "enabled": true,
+      "visible": true,
+      "locked": false,
+      "parentId": null,
+      "order": 7,
+      "components": [
+        {
+          "id": "collect:wall/transform",
+          "type": "core:transform3d",
+          "enabled": true,
+          "data": {
+            "position": { "x": 0, "y": 1, "z": -1 },
+            "rotation": { "x": 0, "y": 0, "z": 0 },
+            "scale": { "x": 0.8, "y": 3, "z": 4 }
+          }
+        },
+        {
+          "id": "collect:wall/mesh",
+          "type": "render:mesh3d",
+          "enabled": true,
+          "data": { "primitive": "cube", "material": "" }
+        },
+        {
+          "id": "collect:wall/material",
+          "type": "render:material",
+          "enabled": true,
+          "data": { "color": "#5d718a", "roughness": 0.85 }
+        },
+        {
+          "id": "collect:wall/collider",
+          "type": "physics:collider3d",
+          "enabled": true,
+          "data": {
+            "shape": "box",
+            "isTrigger": false,
+            "size": { "x": 1, "y": 1, "z": 1 }
+          }
+        }
+      ]
+    },
+    {
+      "id": "collect:player-marker",
+      "name": "Player Marker",
+      "enabled": true,
+      "visible": true,
+      "locked": false,
+      "parentId": "collect:player",
+      "order": 8,
+      "components": [
+        {
+          "id": "collect:player-marker/transform",
+          "type": "core:transform3d",
+          "enabled": true,
+          "data": {
+            "position": { "x": 0, "y": 1.2, "z": 0 },
+            "rotation": { "x": 0, "y": 45, "z": 0 },
+            "scale": { "x": 0.25, "y": 0.25, "z": 0.25 }
+          }
+        },
+        {
+          "id": "collect:player-marker/mesh",
+          "type": "render:mesh3d",
+          "enabled": true,
+          "data": { "primitive": "cube", "material": "" }
+        },
+        {
+          "id": "collect:player-marker/material",
+          "type": "render:material",
+          "enabled": true,
+          "data": { "color": "#b8fff0", "roughness": 0.25 }
+        }
+      ]
+    },
+    {
+      "id": "collect:ui/score",
+      "name": "Collect Score",
+      "enabled": true,
+      "visible": true,
+      "locked": false,
+      "parentId": null,
+      "order": 100,
+      "components": [
+        {
+          "id": "collect:ui/score/transform",
+          "type": "core:ui-transform",
+          "enabled": true,
+          "data": {
+            "anchor": { "x": 0.12, "y": 0.94 },
+            "size": { "x": 260, "y": 42 }
+          }
+        },
+        {
+          "id": "collect:ui/score/text",
+          "type": "ui:text",
+          "enabled": true,
+          "data": {
+            "text": "CRYSTALS 0 / 3",
+            "fontSize": 24,
+            "color": "#ffffff"
+          }
+        }
+      ]
+    },
+    {
+      "id": "collect:ui/win",
+      "name": "Win Message",
+      "enabled": true,
+      "visible": false,
+      "locked": false,
+      "parentId": null,
+      "order": 110,
+      "components": [
+        {
+          "id": "collect:ui/win/transform",
+          "type": "core:ui-transform",
+          "enabled": true,
+          "data": {
+            "anchor": { "x": 0.5, "y": 0.62 },
+            "size": { "x": 520, "y": 64 }
+          }
+        },
+        {
+          "id": "collect:ui/win/text",
+          "type": "ui:text",
+          "enabled": true,
+          "data": { "text": "ROOM CLEARED", "fontSize": 48, "color": "#74ffe1" }
+        }
+      ]
+    },
+    {
+      "id": "collect:ui/restart",
+      "name": "Restart Button",
+      "enabled": true,
+      "visible": false,
+      "locked": false,
+      "parentId": null,
+      "order": 111,
+      "components": [
+        {
+          "id": "collect:ui/restart/transform",
+          "type": "core:ui-transform",
+          "enabled": true,
+          "data": {
+            "anchor": { "x": 0.5, "y": 0.47 },
+            "size": { "x": 220, "y": 56 }
+          }
+        },
+        {
+          "id": "collect:ui/restart/button",
+          "type": "ui:button",
+          "enabled": true,
+          "data": {
+            "label": "RESTART",
+            "action": "restart",
+            "fontSize": 24,
+            "backgroundColor": "#166b5a",
+            "textColor": "#ffffff"
+          }
+        }
+      ]
+    }
+  ]
+}

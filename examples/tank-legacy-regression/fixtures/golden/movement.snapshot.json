@@ -1,0 +1,42 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectId": "demo:frontier",
+  "worldId": "demo:frontier/map",
+  "tick": 35,
+  "seed": 20260902,
+  "rngState": 20260902,
+  "componentTypes": [
+    "core:transform",
+    "game:capture-site",
+    "game:mergeable",
+    "game:player-controlled",
+    "game:producer"
+  ],
+  "entities": [
+    {
+      "id": "demo:frontier/granary",
+      "name": "Granary",
+      "position": { "x": 12, "y": 6 },
+      "playerControlled": false,
+      "mergeable": null,
+      "producer": {
+        "resource": "grain",
+        "amountPerCycle": 2,
+        "cycleTicks": 30,
+        "progressTicks": 5,
+        "stored": 2
+      },
+      "captureSite": { "requiredStrength": 20, "owner": null }
+    },
+    {
+      "id": "demo:frontier/player",
+      "name": "Player Column",
+      "position": { "x": 4, "y": 9 },
+      "playerControlled": true,
+      "mergeable": { "faction": "demo:player", "strength": 10 },
+      "producer": null,
+      "captureSite": null
+    }
+  ],
+  "stateHash": "d6535f9636523c38c4701ec6c1ceb098ab811886b045d85aa106bcadb8e8d54a"
+}

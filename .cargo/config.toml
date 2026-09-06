@@ -1,0 +1,2 @@
+[target.wasm32-wasip1]
+runner = "node ../../scripts/wasi-runner.mjs"

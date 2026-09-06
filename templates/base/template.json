@@ -1,0 +1,7 @@
+{
+  "id": "core:base",
+  "version": "1.0.0",
+  "capabilities": ["ai-changesets", "deterministic-replay", "project-skills"],
+  "directories": [".aigame/cache", ".aigame/local", "capabilities"],
+  "agentsFragment": "AGENTS.fragment.md"
+}

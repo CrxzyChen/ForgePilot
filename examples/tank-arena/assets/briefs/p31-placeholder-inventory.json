@@ -1,0 +1,117 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectId": "tank-arena-example",
+  "capturedFor": "P31",
+  "items": [
+    {
+      "id": "placeholder:arena-ground",
+      "authority": "scenes/main.game.json",
+      "objectId": "tank:field",
+      "componentId": "tank:field/shape",
+      "current": "render:shape2d solid rectangle",
+      "targetAssetId": "tank-arena-example:asset/ground-v1",
+      "severity": "required"
+    },
+    {
+      "id": "placeholder:player-shared-sprite",
+      "authority": "scenes/main.game.json",
+      "objectId": "tank:player",
+      "componentId": "tank:player/sprite",
+      "current": "generic local-placeholder SVG shared with enemies and differentiated by tint",
+      "targetAssetId": "tank-arena-example:asset/player-tank-v1",
+      "severity": "required"
+    },
+    {
+      "id": "placeholder:enemy-shared-sprite",
+      "authority": "scenes/main.game.json",
+      "objectIds": ["tank:enemy-1", "tank:enemy-2", "tank:enemy-3"],
+      "componentIds": [
+        "tank:enemy-1/sprite",
+        "tank:enemy-2/sprite",
+        "tank:enemy-3/sprite"
+      ],
+      "current": "generic local-placeholder SVG shared with player and differentiated by tint",
+      "targetAssetId": "tank-arena-example:asset/enemy-tank-v1",
+      "severity": "required"
+    },
+    {
+      "id": "placeholder:projectile-shape",
+      "authority": "scripts/behaviors/player-tank.ts",
+      "current": "spawned render:shape2d rectangle",
+      "targetPrefab": "prefabs/player-shell.prefab.json",
+      "targetAssetId": "tank-arena-example:asset/player-shell-v1",
+      "severity": "required"
+    },
+    {
+      "id": "placeholder:base-shape",
+      "authority": "scenes/main.game.json",
+      "objectId": "tank:base",
+      "componentId": "tank:base/shape",
+      "current": "render:shape2d rectangle",
+      "targetAssetId": "tank-arena-example:asset/command-base-v1",
+      "severity": "required"
+    },
+    {
+      "id": "placeholder:walls-absent",
+      "authority": "scenes/main.game.json",
+      "current": "no solid/destructible wall presentation",
+      "targetPrefabs": [
+        "prefabs/solid-wall.prefab.json",
+        "prefabs/destructible-wall.prefab.json"
+      ],
+      "targetAssetIds": [
+        "tank-arena-example:asset/solid-wall-v1",
+        "tank-arena-example:asset/destructible-wall-v1"
+      ],
+      "severity": "required"
+    },
+    {
+      "id": "placeholder:impact-explosion-absent",
+      "authority": "scripts/behaviors/player-shell.ts",
+      "current": "destroyed objects disappear without a resource-backed impact/explosion",
+      "targetPrefab": "prefabs/explosion.prefab.json",
+      "targetAssetId": "tank-arena-example:asset/explosion-v1",
+      "severity": "required"
+    },
+    {
+      "id": "placeholder:ui-flat-shapes",
+      "authority": "scenes/main.game.json",
+      "objectIds": [
+        "tank:ui/start",
+        "tank:ui/resume",
+        "tank:ui/restart-win",
+        "tank:ui/restart-lose"
+      ],
+      "current": "flat button background colors without resource-backed panels",
+      "targetAssetId": "tank-arena-example:asset/ui-panel-v1",
+      "severity": "required"
+    },
+    {
+      "id": "placeholder:audio-sine-fixtures",
+      "authority": "assets/asset-manifest.json",
+      "assetIds": [
+        "tank-arena-example:asset/fire-v1",
+        "tank-arena-example:asset/hit-v1",
+        "tank-arena-example:asset/result-v1"
+      ],
+      "current": "local-placeholder generated WAV fixtures",
+      "targetAssetIds": [
+        "tank-arena-example:asset/fire-v2",
+        "tank-arena-example:asset/hit-v2",
+        "tank-arena-example:asset/explosion-sfx-v1",
+        "tank-arena-example:asset/ui-confirm-v1",
+        "tank-arena-example:asset/match-win-v1",
+        "tank-arena-example:asset/match-lose-v1",
+        "tank-arena-example:asset/battle-loop-v1"
+      ],
+      "severity": "required"
+    },
+    {
+      "id": "placeholder:help-mute-feedback-absent",
+      "authority": "scenes/main.game.json",
+      "current": "menu has no controls/help panel; volume and mute have no player-facing controls",
+      "target": "resource-backed help panel plus effective semantic volume/mute actions",
+      "severity": "required"
+    }
+  ]
+}

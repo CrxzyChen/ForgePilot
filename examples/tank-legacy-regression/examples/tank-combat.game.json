@@ -1,0 +1,77 @@
+{
+  "kind": "ai-game-kernel/project",
+  "schemaVersion": "1.0.0",
+  "id": "tankarena:combat-fixture",
+  "name": "Tank Combat Fixture",
+  "entryWorld": "tankarena:combat-fixture/arena",
+  "worlds": [
+    {
+      "id": "tankarena:combat-fixture/arena",
+      "name": "Combat Arena",
+      "bounds": { "width": 8, "height": 6 },
+      "entities": [
+        {
+          "id": "tankarena:player",
+          "name": "Player Tank",
+          "components": [
+            { "type": "core:transform", "position": { "x": 1, "y": 2 } },
+            { "type": "game:player-controlled" },
+            {
+              "type": "game:tank",
+              "faction": "tankarena:player-faction",
+              "role": "player",
+              "health": 3,
+              "maxHealth": 3,
+              "damage": 1,
+              "range": 6,
+              "scoreValue": 0
+            }
+          ]
+        },
+        {
+          "id": "tankarena:base",
+          "name": "Player Base",
+          "components": [
+            { "type": "core:transform", "position": { "x": 1, "y": 4 } },
+            {
+              "type": "game:base",
+              "faction": "tankarena:player-faction",
+              "health": 2,
+              "maxHealth": 2
+            }
+          ]
+        },
+        {
+          "id": "tankarena:brick",
+          "name": "Destructible Brick",
+          "components": [
+            { "type": "core:transform", "position": { "x": 3, "y": 2 } },
+            {
+              "type": "game:terrain",
+              "kind": "brick",
+              "blocksMovement": true,
+              "blocksShots": true,
+              "destructible": true,
+              "health": 1
+            }
+          ]
+        },
+        {
+          "id": "tankarena:spawner",
+          "name": "Scout Spawner",
+          "components": [
+            { "type": "core:transform", "position": { "x": 5, "y": 2 } },
+            {
+              "type": "game:wave-spawner",
+              "wave": 1,
+              "archetype": "scout",
+              "faction": "tankarena:enemy-faction",
+              "spawnEveryTicks": 1,
+              "total": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
