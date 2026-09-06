@@ -1,5 +1,11 @@
 import assert from 'node:assert/strict';
-import { mkdtempSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs';
+import {
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  unlinkSync,
+  writeFileSync,
+} from 'node:fs';
 import { join, resolve } from 'node:path';
 import {
   copyStudioLicenses,
@@ -9,6 +15,7 @@ import {
 
 const root = resolve(import.meta.dirname, '..');
 verifyLicenseSources(root);
+mkdirSync(join(root, 'artifacts'), { recursive: true });
 const appRoot = mkdtempSync(join(root, 'artifacts/license-package-'));
 copyStudioLicenses(root, appRoot);
 verifyStudioLicenses(root, appRoot);
